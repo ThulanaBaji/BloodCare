@@ -223,8 +223,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
 
     function navigateToFormStep(stepNumber){
-
-   
         if(!isValid(stepNumber))
             return;
 

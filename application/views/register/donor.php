@@ -212,7 +212,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
             formNavigationBtn.addEventListener("click", () => {
                 const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
-                navigateToFormStep(stepNumber, true);
+                navigateToFormStep(stepNumber);
             });
         });
 
@@ -220,15 +220,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if(!isValid(5))
                 e.preventDefault();
         })
-
-        navigateToFormStep(4, false);
     });
 
-    function navigateToFormStep(stepNumber, val){
+    function navigateToFormStep(stepNumber){
 
-        if(val){
+   
         if(!isValid(stepNumber))
-            return;}
+            return;
 
         document.querySelectorAll(".form-step").forEach((formStepElement) => {
             formStepElement.classList.add("d-none");

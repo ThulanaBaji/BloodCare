@@ -327,7 +327,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     return showAlert('Passwords do not match', 1000);
                 break;
         }
-
         return true;
     }
 

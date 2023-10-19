@@ -78,6 +78,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</ul> 
 		</nav>
 			
+		<?php 
+		if(isset($message)){
+			echo '<div class="alert alert-info">'.$message.'</div>';
+		}
+		if(isset($error)){
+			echo '<div class="alert alert-warning">'.$error.'</div>';
+		}
+		?>
+
 		<?php echo validation_errors('<div class="alert alert-warning">', '</div>'); ?>
 
 		<div class="cont">
@@ -88,8 +97,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<?php 
 					echo form_open('login');
 				?>
-
-				<form>
 					<input type="email" class="form-control mb-2" name="email" value="<?php echo set_value('email'); ?>" placeholder="Email">
 					<input type="password" class="form-control mb-5" name="password" value="<?php echo set_value('password'); ?>" placeholder="Password">
 					<div class="form-group offset-6 d-flex justify-content-end my-0">

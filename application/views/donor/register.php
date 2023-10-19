@@ -5,8 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="<?php echo base_url().'assets/css/bootstrap.css' ?>">
 		<link rel="stylesheet" href="<?php echo base_url().'assets/css/regDonor.css' ?>">
+		<link rel="stylesheet" href="<?php echo base_url().'assets/css/bootstrap.css' ?>">
 
 		<script src="<?php echo base_url().'assets/js/jquery-3.7.0.js' ?>"></script>
 		<script src="<?php echo base_url().'assets/js/jquery-ui.js' ?>"></script>
@@ -32,14 +32,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			.btn-primary:hover {
 				background-color: #e3344e;
 				border-color: #e23e57;
-			}
-
-			.body-container{
-				height: calc(100vh - 58px);
-				min-height: 624px;
-
-				position: relative;
-				top: 58px;
 			}
 
 			.cont{
@@ -96,14 +88,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </ul>
 
                 <!-- Step Wise Form Content -->
-                <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
+                <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" 
+                      action="<?php echo base_url().'register/registerDonor'?>" method="POST">
 
                     <div id="alerts"></div>
 
                     <section id="step-1" class="form-step">
                         <div class="mt-3">
                             <div class="form-group" style="width: 160px;">
-                            <label>Birth of date</label>
+                            <label>Date of birth</label>
                             <input type="date"
                                    class="form-control" name="bod" id="bod" aria-describedby="helpId" placeholder="">
                             </div>
@@ -201,6 +194,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </section>
                 </form>
             </div>
+
+            <a class="btn btn-warning mt-5" href="<?php echo base_url()?>">&laquo; Back to Home</a>
         </div>
     </body>
 
@@ -303,8 +298,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 const street = $('#street').val();
                 const house = $('#house').val();
 
+                if(province == null)
+                    return showAlert('Please select the province', 1000);
+                if(district == null)
+                    return showAlert('Please select the district', 1000);
                 if(province == "" || district == "" || city == "" || street == "" || house == "")
-                    showAlert('Please fill in all the details');
+                    return showAlert('Please fill in all the details', 1000);
+
                 break;
             
             case 4:

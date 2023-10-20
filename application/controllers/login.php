@@ -18,11 +18,13 @@ class Login extends CI_Controller {
 			redirect('/dashboard');
 
 		$message = $this->session->flashdata('message');
+		$error = $this->session->flashdata('error');
 		$data = '';
 
-		if($message != ''){
+		if($message != '')
 			$data = array('message' => $message);
-		}
+		if($error != '')
+			$data = array('error' => $error);
 
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required');

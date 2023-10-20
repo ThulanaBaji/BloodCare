@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="<?php echo base_url().'assets/js/bootstrap.js' ?>"></script>
 		
 
-		<title>Register | Donor</title>
+		<title>Register | Hospital</title>
 
 		<style>
 			.btn-light, .btn-light:hover, .btn-light:focus, .btn-light.focus{
@@ -60,28 +60,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
                     <li class="form-stepper-active text-center form-stepper-list" step="1">
                         <a class="mx-2">
-                            <span class="form-stepper-circle"><span>1</span></span>
-                            <div class="label">Age verification</div>
+                            <span class="form-stepper-circle text-muted"><span>1</span></span>
+                            <div class="label text-muted">Social Profiles</div>
                         </a>
                     </li>
 
                     <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
                         <a class="mx-2">
                             <span class="form-stepper-circle text-muted"><span>2</span></span>
-                            <div class="label text-muted">Social Profiles</div>
+                            <div class="label text-muted">Address Details</div>
                         </a>
                     </li>
 
                     <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
                         <a class="mx-2">
                             <span class="form-stepper-circle text-muted"><span>3</span></span>
-                            <div class="label text-muted">Address Details</div>
-                        </a>
-                    </li>
-
-                    <li class="form-stepper-unfinished text-center form-stepper-list" step="4">
-                        <a class="mx-2">
-                            <span class="form-stepper-circle text-muted"><span>4</span></span>
                             <div class="label text-muted">Credentials</div>
                         </a>
                     </li>
@@ -89,35 +82,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <!-- Step Wise Form Content -->
                 <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" 
-                      action="<?php echo base_url().'register/registerDonor'?>" method="POST">
+                      action="<?php echo base_url().'register/registerHospital'?>" method="POST">
 
                     <div id="alerts"></div>
 
                     <section id="step-1" class="form-step">
                         <div class="mt-3">
-                            <div class="form-group" style="width: 160px;">
-                            <label>Date of birth</label>
-                            <input type="date"
-                                   class="form-control" name="bod" id="bod" aria-describedby="helpId" placeholder="">
-                            </div>
-                        </div>
-                        <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
-                        </div>
-                    </section>
-
-                    <section id="step-2" class="form-step d-none">
-                        <div class="mt-3">
                             <div class="row">
                                 <div class="col-sm-5 form-group">
-                                <label>Firstname</label>
+                                <label>Registration number</label>
                                 <input type="text"
-                                       class="form-control" name="fname" id="fname" aria-describedby="helpId" placeholder="">
+                                       class="form-control" name="regnum" id="regnum" aria-describedby="helpId" placeholder="">
                                 </div>
                                 <div class="col-sm-5 form-group">
-                                <label>Lastname</label>
+                                <label>Hospital name</label>
                                 <input type="text"
-                                       class="form-control" name="lname" id="lname" aria-describedby="helpId" placeholder="">
+                                       class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="">
                                 </div>
                             </div>
                             <div class="row">
@@ -134,12 +114,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
                         <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
-                            <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                            <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
                         </div>
                     </section>
                     
-                    <section id="step-3" class="form-step d-none">
+                    <section id="step-2" class="form-step d-none">
                         <div class="mt-3">
                             <div class="row">
                                 <div class="col-md-5 form-group">
@@ -156,23 +135,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-5 form-group">
+                                <div class="col-sm-4 form-group">
                                 <label>City</label>
                                 <input class="form-control" type="text" maxlength="40" name="city" id="city">
                                 </div>
-                                <div class="col-md-5 form-group">
+                                <div class="col-sm-4 form-group">
                                 <label>Street</label>
                                 <input class="form-control" type="text" maxlength="30" name="street" id="street">
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                <label>Zipcode</label>
+                                <input class="form-control" type="text" maxlength="15" name="zipcode" id="zipcode">
                                 </div>
                             </div>
                         </div>
                         <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                            <button class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
+                            <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                            <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
                         </div>
                     </section>
 
-                    <section id="step-4" class="form-step d-none">
+                    <section id="step-3" class="form-step d-none">
                         <div class="mt-3">
                             <div class="row col-md-5 form-group">
                                 <label>Password</label>
@@ -184,7 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
                         <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
+                            <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
                             <button class="button submit-btn" type="submit" id="registerButton">Register</button>
                         </div>
                     </section>
@@ -208,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
 
         $('#registerButton').click(function(e){
-            if(!isValid(5))
+            if(!isValid(4))
                 e.preventDefault();
         })
     });
@@ -247,34 +230,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         switch(stepNumber){
             case 1:
-                /*Age verification*/
-                const val = $('#bod').val();
-
-                if(val == "")
-                    return showAlert('Enter your birth of date', 1000);
-
-                const age = getAge(val);
-
-                if(age < 18)
-                    return showAlert('We are sorry. You are not eligible to donate blood. Donors should be older than 17years.', 3500);
-                if(age > 54)
-                    return showAlert('We are sorry. You are not eligible to donate blood. Donors should be younger than 54years.', 3500);
-
-                break;
-
-            case 2:
-                const fname = $('#fname').val();
-                const lname = $('#lname').val();
+                const regnum = $('#regnum').val();
+                const name = $('#name').val();
                 const email = $('#email').val();
                 const contact = $('#contact').val();   
 
-                if(fname == "" || lname == "" || email == "" || contact == "" || contact == '+94')
+                if(regnum == "" || name == "" || email == "" || contact == "" || contact == '+94')
                     return showAlert('Please fill in all the details', 1000);
-
-                
-                const regexName = '^[a-zA-Z]+$';
-                if(!(fname.match(regexName)) || !(lname.match(regexName)))
-                    return showAlert('Please enter a valid name', 1000);
 
                 if(!($('#email')[0].checkValidity()))
                     return showAlert('Please enter a valid email', 1000);
@@ -287,22 +249,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 break;
             
-            case 3:
+            case 2:
                 const province = $('#province').val();
                 const district = $('#district').val();
                 const city = $('#city').val();
                 const street = $('#street').val();
+                const zipcode = $('#zipcode').val();
 
                 if(province == null)
                     return showAlert('Please select the province', 1000);
                 if(district == null)
                     return showAlert('Please select the district', 1000);
-                if(province == "" || district == "" || city == "" || street == "")
+                if(province == "" || district == "" || city == "" || street == "" || zipcode == "")
                     return showAlert('Please fill in all the details', 1000);
 
                 break;
             
-            case 4:
+            case 3:
                 const password = $('#password').val();
                 const cpassword = $('#cpassword').val();
 

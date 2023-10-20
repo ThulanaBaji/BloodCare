@@ -15,7 +15,6 @@ class user_model extends CI_Model{
         return false;
     }
     
-    //register dononr
     public function registerDonor($data){
         $time = date('Y-m-d');
         $query_str = 'INSERT INTO `donor`(`id`, `firstname`, `lastname`, `dob`, `email`, 
@@ -28,6 +27,20 @@ class user_model extends CI_Model{
         $this->db->query($query_str, array(NULL, $data['fname'], $data['lname'], $data['bod'], $data['email'],
                                            $data['street'], $data['city'], $data['district'], $data['province'], 
                                            $data['contact'], $data['password'], $time, 'registered'));
+    }
+
+    public function registerHospital($data){
+        $time = date('Y-m-d');
+        $query_str = 'INSERT INTO `hospital`(`id`, `regnumber`, `name`, `email`, `zipcode`,
+                                          `street_address`, `city`, `district`, `province`, 
+                                          `contact`, `password`, `create_time`, `status`) 
+                      VALUES (?, ?, ?, ?, ?, 
+                              ?, ?, ?, ?, 
+                              ?, ?, ?, ?)';
+
+        $this->db->query($query_str, array(NULL, $data['regnum'], $data['name'], $data['email'], $data['zipcode'],
+                                           $data['street'], $data['city'], $data['district'], $data['province'], 
+                                           $data['contact'], $data['password'], $time, 'pending'));
     }
 
     //authenticate the user to login

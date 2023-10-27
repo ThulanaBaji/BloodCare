@@ -18,6 +18,9 @@ class Dashboard extends CI_Controller {
             $data = array('id' => $sessionData['id'], 'name' => $sessionData['name']);
             $role = $sessionData['role'];
 
+            if($role == 'hospital')
+                $data['accepted'] = $sessionData['accepted'];
+
             $this->displayDashboard($role, $data);
         }
         else{

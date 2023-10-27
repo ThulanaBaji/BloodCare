@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <div class="cont">
             <h1 class="display-3">Welcome <?php echo $name?></h1>
-            <small>Hospital</small>
+            <small>Hospital [<?php echo $accepted?'accepted':'verified';?>]</small>
         </div>
     </body>
 </html>

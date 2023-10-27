@@ -12,6 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="<?php echo base_url().'assets/js/jquery-ui.js' ?>"></script>
 		<script src="<?php echo base_url().'assets/js/popper.min.js' ?>"></script>
 		<script src="<?php echo base_url().'assets/js/bootstrap.js' ?>"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 		
 
 		<title>Register | Donor</title>
@@ -183,6 +184,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input class="form-control" type="password" minlength="8" name="cpassword" id="cpassword">
                             </div>
                         </div>
+                        <div class="g-recaptcha" data-sitekey="6Lcn5dMoAAAAAOn66FoEr6D6Q1umYzThAR6MLdYY"></div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
                             <button class="button submit-btn" type="submit" id="registerButton">Register</button>

@@ -80,6 +80,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </li>
                 </ul>
 
+                <?php
+                    if(isset($error)){
+                        echo `<div class="alert alert-danger">$error</div>`;
+                    }
+                ?>
+
                 <!-- Step Wise Form Content -->
                 <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" 
                       action="<?php echo base_url().'register/registerHospital'?>" method="POST">

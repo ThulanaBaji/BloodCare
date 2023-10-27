@@ -46,7 +46,18 @@ class Register extends CI_Controller {
 	//registration form submission for a donor
 	public function registerDonor(){
 		if(!isset($_POST['email']))
-			redirect('register');
+			redirect('register/donor');
+
+		if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){ 
+		
+			$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.SECRET_KEY.'&response='.$_POST['g-recaptcha-response']); 
+			$responseData = json_decode($verifyResponse); 
+			if(!$responseData->success){
+				$this->session->set_flashdata('error', 'recaptcha failed');
+				redirect('register/hospital');
+			}
+		}
+
 		if($this->user_model->nonHospitalExists($_POST['email'])){
 			$this->session->set_flashdata('message', 'You have already registered, login to access your portal');
 			redirect('login');
@@ -60,7 +71,17 @@ class Register extends CI_Controller {
 
 	public function registerHospital(){
 		if(!isset($_POST['email']))
-			redirect('register');
+			redirect('register/hospital');
+
+		if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){ 
+			
+			$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.SECRET_KEY.'&response='.$_POST['g-recaptcha-response']); 
+			$responseData = json_decode($verifyResponse); 
+			if(!$responseData->success){
+				$this->session->set_flashdata('error', 'recaptcha failed');
+				redirect('register/hospital');
+			}
+		}
 			
 		$result = $this->user_model->getHospitalState($_POST['email']);
 

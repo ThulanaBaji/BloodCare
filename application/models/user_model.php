@@ -29,18 +29,18 @@ class user_model extends CI_Model{
                                            $data['contact'], $data['password'], $time, 'registered'));
     }
 
-    public function registerHospital($data){
+    public function registerHospital($data, $key){
         $time = date('Y-m-d');
         $query_str = 'INSERT INTO `hospital`(`id`, `regnumber`, `name`, `email`, `zipcode`,
                                           `street_address`, `city`, `district`, `province`, 
-                                          `contact`, `password`, `create_time`, `status`) 
+                                          `contact`, `password`, `create_time`, `verification`, `status`) 
                       VALUES (?, ?, ?, ?, ?, 
                               ?, ?, ?, ?, 
-                              ?, ?, ?, ?)';
+                              ?, ?, ?, ?, ?)';
 
         $this->db->query($query_str, array(NULL, $data['regnum'], $data['name'], $data['email'], $data['zipcode'],
                                            $data['street'], $data['city'], $data['district'], $data['province'], 
-                                           $data['contact'], $data['password'], $time, 'pending'));
+                                           $data['contact'], $data['password'], $time, $key, 'pending'));
     }
 
     //authenticate the user to login

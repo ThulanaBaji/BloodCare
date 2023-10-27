@@ -56,9 +56,22 @@ class Register extends CI_Controller {
 			redirect('login');
 		}
 		else{
-			$this->user_model->registerHospital($_POST);
+			$random_hash = md5(uniqid(rand().time(), true));
+			$this->user_model->registerHospital($_POST, $random_hash);
 			$this->session->set_flashdata('message', 'Your registration was successful, login to access your portal');
 			redirect('login');
 		}
+	}
+
+	private function sendMail($email, $key){
+		$this->load->library('email');
+
+        $this->email->from('bloodcarelk@gmail.com', 'bloodcare');
+        $this->email->to($email);
+        $this->email->subject('Verification');
+        $this->email->message('The email send using codeigniter library '.time());
+
+        if(!$this->email->send())
+            show_error($this->email->print_debugger());
 	}
 }

@@ -33,19 +33,52 @@ class Login extends CI_Controller {
 			if($this->form_validation->run() == TRUE){
 				$result = $this->user_model->authenticate($_POST);
 				
-				if(isset($result)){
-					$userinfo = array(
-						'id'=> $result->id,
-						'name' => $result->name,
-						'role' => $result->role,
-						'login'=> true
-					);
-					$this->session->set_userdata('user', $userinfo);
-					redirect('/dashboard');
-					return;
-				}
-				else{
-					$data = array('error' => 'Check your email or password again');
+				switch($result){
+					case 0:
+						$data = array('error' => 'Check your email or password again');
+						break;
+		
+					case -3:
+						$this->session->set_flashdata('message', 'Your verification link was expired. Click the button below to generate a new link');
+						$this->session->set_flashdata('button_text', 'Generate verification link');
+						$this->session->set_flashdata('button_url', 'register/verify/'.$_POST['email']);
+						redirect('register/verify');
+						break;
+		
+					case -2:
+						$this->session->set_flashdata('message', 'We have sent you a registration link to your inbox. Please verify your account with it to login');
+						redirect('register/verify');
+						break;
+		
+					case 1:
+						$userinfo = array(
+							'id'=> $result->id,
+							'name' => $result->name,
+							'role' => $result->role,
+							'login'=> true
+						);
+
+						if($result->role == 'hospital')
+							$userinfo['accepted'] = $result->accepted;
+
+						$this->session->set_userdata('user', $userinfo);
+						redirect('/dashboard');
+						return;
+					
+					case -1:
+						$userinfo = array(
+							'id'=> $result->id,
+							'name' => $result->name,
+							'role' => $result->role,
+							'login'=> true
+						);
+
+						if($result->role == 'hospital')
+							$userinfo['accepted'] = $result->accepted;
+
+						$this->session->set_userdata('user', $userinfo);
+						redirect('/dashboard');
+						return;
 				}
         	}
 		}

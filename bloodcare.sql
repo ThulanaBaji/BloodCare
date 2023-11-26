@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2023 at 11:13 PM
+-- Generation Time: Nov 26, 2023 at 10:59 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -39,7 +39,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `password`) VALUES
-(10, 'admin', 'admin1@gmail.com', 'adminA1!');
+(10, 'admin1', 'admin1@gmail.com', 'adminA!12');
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,6 @@ CREATE TABLE `donor` (
   `lastname` varchar(45) NOT NULL,
   `dob` date NOT NULL,
   `email` varchar(255) NOT NULL,
-  `zipcode` int(11) NOT NULL,
   `street_address` varchar(45) NOT NULL,
   `city` varchar(45) NOT NULL,
   `district` varchar(45) NOT NULL,
@@ -125,9 +124,8 @@ CREATE TABLE `donor` (
 -- Dumping data for table `donor`
 --
 
-INSERT INTO `donor` (`id`, `firstname`, `lastname`, `dob`, `email`, `zipcode`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `create_time`, `status`) VALUES
-(1000, 'Thulana', 'Vithanage', '2004-05-05', 'thul@gmail.com', 0, 'Morakanda Mawatha', 'Mahaunthuduwa', 'Colombo', 'Western province', '+94776788777', 'u9JfW78Q2cqa62Q!', '2023-10-19 18:30:00', 'registered'),
-(1001, 'Thulana', 'Vithanage', '2004-05-05', 'thulana@gmail.com', 0, 'Morakanda Mawatha', 'Mahaunthuduwa', 'Matara', 'Southern province', '+94776788779', 'mfNpgQ4C8vwsBjM1!', '2023-10-21 18:30:00', 'registered');
+INSERT INTO `donor` (`id`, `firstname`, `lastname`, `dob`, `email`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `create_time`, `status`) VALUES
+(1004, 'Thulana', 'Vithanage', '2004-05-05', 'thulanabaji@gmail.com', 'Maha veediya', 'Kadugannawa', 'Matara', 'Southern province', '+94712151654', 'GKySxXSNztAH5it1!', '2023-10-18 18:30:00', 'registered');
 
 -- --------------------------------------------------------
 
@@ -188,9 +186,9 @@ CREATE TABLE `hospital` (
   `province` varchar(45) NOT NULL,
   `contact` varchar(45) NOT NULL,
   `password` varchar(32) NOT NULL,
+  `verification` varchar(32) DEFAULT NULL,
+  `expire` int(11) DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT current_timestamp(),
-  `verification` varchar(32) NOT NULL,
-  `expire` int(10) NOT NULL,
   `status` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -198,8 +196,8 @@ CREATE TABLE `hospital` (
 -- Dumping data for table `hospital`
 --
 
-INSERT INTO `hospital` (`id`, `regnumber`, `name`, `email`, `zipcode`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `create_time`, `verification`, `expire`, `status`) VALUES
-(101, 'PQ-11', 'Asiri', 'thulanactf@gmail.com', 10320, 'Morakanda Mawatha', 'Mahaunthuduwa', 'Colombo', 'Western province', '+94776788777', 'jApAUP9vQx6vwnQ!', '2023-10-26 18:30:00', '213b6cce71084451635caf60744e4af9', 0, 'verified');
+INSERT INTO `hospital` (`id`, `regnumber`, `name`, `email`, `zipcode`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `verification`, `expire`, `create_time`, `status`) VALUES
+(102, 'PQ-11', 'Durdans', 'thulana2006@gmail.com', 10900, 'Dr. James Lane', 'Colombo 05', 'Colombo', 'Western province', '+94112425267', 'pjQswU4xwwaUE5M~!', '64983e950e6bdbfe8b6e9adbe6196e60', 0, '2023-11-25 18:30:00', 'verified');
 
 -- --------------------------------------------------------
 
@@ -305,19 +303,19 @@ ALTER TABLE `hospital_bloodrequest`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `donor`
 --
 ALTER TABLE `donor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1002;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
 
 --
 -- AUTO_INCREMENT for table `hospital`
 --
 ALTER TABLE `hospital`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- Constraints for dumped tables

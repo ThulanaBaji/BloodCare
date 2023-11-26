@@ -15,13 +15,137 @@ class Dashboard extends CI_Controller {
         if($this->sessionExist()){
             $sessionData = $this->session->userdata('user');
 
-            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name']);
+            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '1');
             $role = $sessionData['role'];
 
-            if($role == 'hospital')
+            if($role == 'donor'){
+                $data['view'] = 'donor/dashboard/dashboard';
+                $this->load->view('donor/dashboard', $data);
+            }
+            else if($role == 'hospital'){
+                $data['view'] = 'hospital/dashboard/dashboard';
                 $data['accepted'] = $sessionData['accepted'];
 
-            $this->displayDashboard($role, $data);
+                $this->load->view('hospital/dashboard', $data);
+            }
+            else if($role == 'admin'){
+                $data['view'] = 'admin/dashboard/dashboard';
+                $this->load->view('admin/dashboard', $data);
+            }
+        }
+        else{
+            $this->session->set_flashdata('error','Please login first to access the page');
+            redirect('login');
+        }
+    }
+
+    //donor
+    public function appointment(){
+        if($this->sessionExist()){
+            $sessionData = $this->session->userdata('user');
+
+            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '2');
+            $role = $sessionData['role'];
+
+            if($role != 'donor')
+                redirect('dashboard');
+
+            $data['view'] = 'donor/dashboard/appointment';
+            $this->load->view('donor/dashboard', $data);
+        }
+        else{
+            $this->session->set_flashdata('error','Please login first to access the page');
+            redirect('login');
+        }
+    }
+
+    //donor
+    public function camps(){
+        if($this->sessionExist()){
+            $sessionData = $this->session->userdata('user');
+
+            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '3');
+            $role = $sessionData['role'];
+
+            if($role != 'donor')
+                redirect('dashboard');
+
+            $data['view'] = 'donor/dashboard/camps';
+            $this->load->view('donor/dashboard', $data);
+        }
+        else{
+            $this->session->set_flashdata('error','Please login first to access the page');
+            redirect('login');
+        }
+    }
+
+    //donor, hospital, admin
+    public function notifications(){
+        if($this->sessionExist()){
+            $sessionData = $this->session->userdata('user');
+
+            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '4');
+            $role = $sessionData['role'];
+
+            if($role == 'donor'){
+                $data['view'] = 'donor/dashboard/notifications';
+                $this->load->view('donor/dashboard', $data);
+            }
+            else if($role == 'hospital'){
+                $data['view'] = 'hospital/dashboard/notifications';
+                $this->load->view('hospital/dashboard', $data);
+            }
+            else if($role == 'admin'){
+                $data['view'] = 'admin/dashboard/notifications';
+                $this->load->view('admin/dashboard', $data);
+            }
+        }
+        else{
+            $this->session->set_flashdata('error','Please login first to access the page');
+            redirect('login');
+        }
+    }
+
+    //donor
+    public function donations(){
+        if($this->sessionExist()){
+            $sessionData = $this->session->userdata('user');
+
+            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '5');
+            $role = $sessionData['role'];
+
+            if($role != 'donor')
+                redirect('dashboard');
+
+            $data['view'] = 'donor/dashboard/donations';
+            $this->load->view('donor/dashboard', $data);
+        }
+        else{
+            $this->session->set_flashdata('error','Please login first to access the page');
+            redirect('login');
+        }
+    }
+
+    //donor, hospital, admin
+    public function profile(){
+        if($this->sessionExist()){
+            $sessionData = $this->session->userdata('user');
+
+            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '6');
+            $role = $sessionData['role'];
+
+            if($role == 'donor'){
+                $data['view'] = 'donor/dashboard/profile';
+                $this->load->view('donor/dashboard', $data);
+            }
+            else if($role == 'hospital'){
+                $data['view'] = 'hospital/dashboard/profile';
+                $this->load->view('hospital/dashboard', $data);
+            }
+            else if($role == 'admin'){
+                $data['view'] = 'admin/dashboard/profile';
+                $this->load->view('admin/dashboard', $data);
+            }
         }
         else{
             $this->session->set_flashdata('error','Please login first to access the page');
@@ -38,19 +162,5 @@ class Dashboard extends CI_Controller {
         if($this->session->has_userdata('user'))
             return true;
         return false;
-    }
-
-    private function displayDashboard($role, $data){
-        switch($role){
-            case 'admin':
-                $this->load->view('admin/dashboard', $data);
-                break;
-            case 'donor':
-                $this->load->view('donor/dashboard', $data);
-                break;
-            case 'hospital':
-                $this->load->view('hospital/dashboard', $data);
-                break;
-        }
     }
 }

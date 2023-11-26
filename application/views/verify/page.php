@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-	<link rel="stylesheet" href="<?php echo base_url().'assets/css/bootstrap.css' ?>">
+	<link rel="stylesheet" href="<?php echo base_url().'assets/css/styles.css' ?>">
 
     <title>Verify Account</title>
 
@@ -51,8 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
     </style>
 </head>
-<body>
-    <div class="svg-container">
+<body class="bg-red-950">
+    <div class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[72%]">
         <svg viewBox="0 0 350 224.92170905809684" style="overflow: hidden;" class="css-1j8o68f">
             <defs id="SvgjsDefs1269">
             </defs>
@@ -69,17 +69,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </svg>
     </div>
 
-    <div class="container text-center">
+    <div class="absolute top-[20%] left-[50%] -translate-x-1/2 text-center">
         
 
-        <p class="message">
+        <p class=" text-xl font-semibold">
             <?php echo $message;?>
         </p>
         <?php if(isset($button_text)):?>
         <br><br>
-        <a class="btn btn-light" href="<?php echo base_url().$button_url;?>">
-            <?php echo  $button_text;?>
-        </a>
+        <a class="p-3.5 bg-white rounded hover:shadow-lg hover:rounded hover:filter hover:brightness-95" href="<?php echo base_url().$button_url?>">
+            <?php echo $button_text;?></a>
         <?php endif;?>
     </div>
 </body>

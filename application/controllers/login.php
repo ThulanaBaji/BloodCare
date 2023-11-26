@@ -33,7 +33,7 @@ class Login extends CI_Controller {
 			if($this->form_validation->run() == TRUE){
 				$result = $this->user_model->authenticate($_POST);
 				
-				switch($result){
+				switch($result->code){
 					case 0:
 						$data = array('error' => 'Check your email or password again');
 						break;

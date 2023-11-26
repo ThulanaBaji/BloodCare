@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="jquery-3.7.0.js"></script>
+
+    <title>Home</title>
+
+    <style>
+        .alert {
+            text-align: center;
+            max-width: 300px;
+            left: 50%;
+            transform: translate(-50%, -0%);
+        }
+    </style>
+</head>
+
+<body class="bg-red-950">
+    <div class="grid grid-flow-row grid-rows-[auto_1fr] h-screen relative">
+        <div class="w-screen p-10 sticky top-0 left-0 bg-red-950">
+            <nav class="flex justify-between items-center">
+                <a class="text-xl text-white font-semibold" href="/">BloodCare</a>
+
+                <ul class="flex justify-between gap-5 text-md">
+                    <li>
+                        <a id="btnLogin"
+                            class="p-3.5 bg-red-950 hover:shadow-lg hover:rounded hover:filter hover:brightness-95"
+                            href="/">Login</a>
+                    </li>
+                    <li>
+                        <a id="btnRegister"
+                            class="p-3.5 bg-white rounded hover:shadow-xl hover:filter hover:brightness-95"
+                            href="/">Become a member</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="md:container md:mx-auto">
+            <div class="text-center flex flex-col justify-center items-center m-auto">
+                <h1 class="text-3xl text-white font-semibold">To access your portal, just</h1>
+
+                <div class="w-full bg-white p-[50px] mt-[30px] rounded-2xl shadow-2xl">
+
+                    <input type="email" class="form-control mb-2" name="email" value="" placeholder="Email">
+                    <input type="password" class="form-control mb-5" name="password" value="" placeholder="Password">
+                    <div class="form-group d-flex justify-content-end my-0">
+                        <input type="submit" value="Login" class="btn btn-primary col-8">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        // show the alert
+        $(".alert").delay(2000).fadeOut(200, function () {
+            $(this).alert('close');
+        });
+    });
+</script>
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+</html>

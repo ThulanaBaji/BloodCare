@@ -1,7 +1,5 @@
 <?php
 
-#test
-
 class Dashboard extends CI_Controller {
     public function __construct(){
 		parent::__construct();
@@ -10,28 +8,42 @@ class Dashboard extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('session');
 		$this->load->database();
-		$this->load->model('user_model');
+		$this->load->model('hospital_model');
+		$this->load->model('donor_model');
 	}
 
     public function index(){
         if($this->sessionExist()){
             $sessionData = $this->session->userdata('user');
 
-            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '1');
+            $data = $sessionData;
+            $data['active'] = '1';
+
+            $id = $sessionData['id'];
             $role = $sessionData['role'];
 
             if($role == 'donor'){
+                $res = $this->donor_model->getInfo($id);
+                foreach ($res as $key => $value)
+                    $data[$key] = $value;
                 $data['view'] = 'donor/dashboard/dashboard';
+
                 $this->load->view('donor/dashboard', $data);
             }
             else if($role == 'hospital'){
+                $res = $this->hospital_model->getInfo($id);
+                foreach ($res as $key => $value)
+                    $data[$key] = $value;
                 $data['view'] = 'hospital/dashboard/dashboard';
-                $data['accepted'] = $sessionData['accepted'];
 
                 $this->load->view('hospital/dashboard', $data);
             }
             else if($role == 'admin'){
+                $res = $this->admin_model->getInfo($id);
+                foreach ($res as $key => $value)
+                    $data[$key] = $value;
                 $data['view'] = 'admin/dashboard/dashboard';
+
                 $this->load->view('admin/dashboard', $data);
             }
         }
@@ -46,13 +58,20 @@ class Dashboard extends CI_Controller {
         if($this->sessionExist()){
             $sessionData = $this->session->userdata('user');
 
-            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '2');
+            $data = $sessionData;
+            $data['active'] = '2';
+
+            $id = $sessionData['id'];
             $role = $sessionData['role'];
 
             if($role != 'donor')
                 redirect('dashboard');
 
+            $res = $this->donor_model->getInfo($id);
+            foreach ($res as $key => $value)
+                $data[$key] = $value;
             $data['view'] = 'donor/dashboard/appointment';
+
             $this->load->view('donor/dashboard', $data);
         }
         else{
@@ -66,13 +85,20 @@ class Dashboard extends CI_Controller {
         if($this->sessionExist()){
             $sessionData = $this->session->userdata('user');
 
-            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '3');
+            $data = $sessionData;
+            $data['active'] = '3';
+
+            $id = $sessionData['id'];
             $role = $sessionData['role'];
 
             if($role != 'donor')
                 redirect('dashboard');
 
+            $res = $this->donor_model->getInfo($id);
+            foreach ($res as $key => $value)
+                $data[$key] = $value;
             $data['view'] = 'donor/dashboard/camps';
+
             $this->load->view('donor/dashboard', $data);
         }
         else{
@@ -86,19 +112,34 @@ class Dashboard extends CI_Controller {
         if($this->sessionExist()){
             $sessionData = $this->session->userdata('user');
 
-            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '4');
+            $data = $sessionData;
+            $data['active'] = '4';
+
+            $id = $sessionData['id'];
             $role = $sessionData['role'];
 
             if($role == 'donor'){
+                $res = $this->donor_model->getInfo($id);
+                foreach ($res as $key => $value)
+                    $data[$key] = $value;
                 $data['view'] = 'donor/dashboard/notifications';
+
                 $this->load->view('donor/dashboard', $data);
             }
             else if($role == 'hospital'){
+                $res = $this->hospital_model->getInfo($id);
+                foreach ($res as $key => $value)
+                    $data[$key] = $value;
                 $data['view'] = 'hospital/dashboard/notifications';
+
                 $this->load->view('hospital/dashboard', $data);
             }
             else if($role == 'admin'){
+                $res = $this->admin_model->getInfo($id);
+                foreach ($res as $key => $value)
+                    $data[$key] = $value;
                 $data['view'] = 'admin/dashboard/notifications';
+
                 $this->load->view('admin/dashboard', $data);
             }
         }
@@ -113,13 +154,20 @@ class Dashboard extends CI_Controller {
         if($this->sessionExist()){
             $sessionData = $this->session->userdata('user');
 
-            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '5');
+            $data = $sessionData;
+            $data['active'] = '5';
+
+            $id = $sessionData['id'];
             $role = $sessionData['role'];
 
             if($role != 'donor')
                 redirect('dashboard');
 
+            $res = $this->donor_model->getInfo($id);
+            foreach ($res as $key => $value)
+                $data[$key] = $value;
             $data['view'] = 'donor/dashboard/donations';
+
             $this->load->view('donor/dashboard', $data);
         }
         else{
@@ -133,21 +181,91 @@ class Dashboard extends CI_Controller {
         if($this->sessionExist()){
             $sessionData = $this->session->userdata('user');
 
-            $data = array('id' => $sessionData['id'], 'name' => $sessionData['name'], 'active' => '6');
+            $data = $sessionData;
+            $data['active'] = '6';
+
+            $id = $sessionData['id'];
             $role = $sessionData['role'];
 
             if($role == 'donor'){
+                $res = $this->donor_model->getInfo($id);
+                foreach ($res as $key => $value)
+                    $data[$key] = $value;
                 $data['view'] = 'donor/dashboard/profile';
+
                 $this->load->view('donor/dashboard', $data);
             }
             else if($role == 'hospital'){
+                $res = $this->hospital_model->getInfo($id);
+                foreach ($res as $key => $value)
+                    $data[$key] = $value;
                 $data['view'] = 'hospital/dashboard/profile';
+                $data['active'] = '5';
+
                 $this->load->view('hospital/dashboard', $data);
             }
             else if($role == 'admin'){
+                $res = $this->admin_model->getInfo($id);
+                foreach ($res as $key => $value)
+                    $data[$key] = $value;
                 $data['view'] = 'admin/dashboard/profile';
+
                 $this->load->view('admin/dashboard', $data);
             }
+        }
+        else{
+            $this->session->set_flashdata('error','Please login first to access the page');
+            redirect('login');
+        }
+    }
+
+    //hospital
+    public function requests(){
+        if($this->sessionExist()){
+            $sessionData = $this->session->userdata('user');
+
+            $data = $sessionData;
+            $data['active'] = '2';
+
+            $id = $sessionData['id'];
+            $role = $sessionData['role'];
+
+            if($role != 'hospital')
+                redirect('dashboard');
+
+            $res = $this->hospital_model->getInfo($id);
+            foreach ($res as $key => $value)
+                $data[$key] = $value;
+            $data['view'] = 'hospital/dashboard/requests';
+
+            $this->load->view('hospital/dashboard', $data);
+        }
+        else{
+            $this->session->set_flashdata('error','Please login first to access the page');
+            redirect('login');
+        }
+    }
+
+    //organize
+    public function organize(){
+        if($this->sessionExist()){
+            $sessionData = $this->session->userdata('user');
+
+            $data = $sessionData;
+            $data['active'] = '3';
+
+            $id = $sessionData['id'];
+            $role = $sessionData['role'];
+
+            if($role != 'hospital')
+                redirect('dashboard');
+
+            $res = $this->hospital_model->getInfo($id);
+            foreach ($res as $key => $value)
+                $data[$key] = $value;
+            $data['view'] = 'hospital/dashboard/organize';
+
+            $this->load->view('hospital/dashboard', $data);
         }
         else{
             $this->session->set_flashdata('error','Please login first to access the page');

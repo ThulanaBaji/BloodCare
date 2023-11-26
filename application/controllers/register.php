@@ -64,7 +64,27 @@ class Register extends CI_Controller {
 			redirect('login');
 		} 
 		else{
-			$this->user_model->registerDonor($_POST);
+			$data = $_POST;
+
+			if(!empty($_FILES['profile']['name'])){
+
+				$filename = time().$_FILES['profile']['name'];
+	
+				$config['upload_path'] = 'uploads/donor/profileimages/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['file_name'] = $filename;
+	
+				$this->load->library('upload', $config);
+				
+				if(!$this->upload->do_upload('profile'))
+					$filename = 'default.png';
+	
+				$data['image'] = $filename; 
+			}else{
+				$data['image'] = 'default.png';
+			}
+
+			$this->user_model->registerDonor($data);
 			$this->session->set_flashdata('message', 'Your registration was successful, login to access your portal');
 			redirect('login');
 		}
@@ -91,7 +111,27 @@ class Register extends CI_Controller {
 				$random_hash = md5(uniqid(rand().time(), true));
 			
 				if($this->sendverification($_POST['email'], $random_hash)){
-					$this->user_model->registerHospital($_POST, $random_hash);
+					$data = $_POST;
+
+					if(!empty($_FILES['profile']['name'])){
+
+						$filename = time().$_FILES['profile']['name'];
+			
+						$config['upload_path'] = 'uploads/hospital/profileimages/';
+						$config['allowed_types'] = 'gif|jpg|png';
+						$config['file_name'] = $filename;
+			
+						$this->load->library('upload', $config);
+						
+						if(!$this->upload->do_upload('profile'))
+							$filename = 'default.png';
+			
+						$data['image'] = $filename; 
+					}else{
+						$data['image'] = 'default.png';
+					}
+
+					$this->user_model->registerHospital($data, $random_hash);
 
 					$this->session->set_flashdata('message', 'We\'ve sent you a verification link. Please check your inbox');
 					redirect('register/verify');

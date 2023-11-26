@@ -1,1 +1,1 @@
-camps
+organize [hospital]

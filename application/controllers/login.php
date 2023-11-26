@@ -53,13 +53,8 @@ class Login extends CI_Controller {
 					case 1:
 						$userinfo = array(
 							'id'=> $result->id,
-							'name' => $result->name,
-							'role' => $result->role,
-							'login'=> true
+							'role' => $result->role
 						);
-
-						if($result->role == 'hospital')
-							$userinfo['accepted'] = $result->accepted;
 
 						$this->session->set_userdata('user', $userinfo);
 						redirect('/dashboard');
@@ -68,14 +63,9 @@ class Login extends CI_Controller {
 					case -1:
 						$userinfo = array(
 							'id'=> $result->id,
-							'name' => $result->name,
-							'role' => $result->role,
-							'login'=> true
+							'role' => $result->role
 						);
-
-						if($result->role == 'hospital')
-							$userinfo['accepted'] = $result->accepted;
-
+						
 						$this->session->set_userdata('user', $userinfo);
 						redirect('/dashboard');
 						return;

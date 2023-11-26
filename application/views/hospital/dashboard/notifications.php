@@ -1,1 +1,1 @@
-notifications
+notifications [hospital]

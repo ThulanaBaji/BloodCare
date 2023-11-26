@@ -101,14 +101,14 @@ class user_model extends CI_Model{
      * issuing a new verification key
      */
     public function updateVerificationKey($email, $key){
-        $expire_time = time() + 2*24*60*60;
+        $expire_time = time() + 172800;
 
         $query_str = 'UPDATE `hospital` SET `expire` = ?, `verification` = ?  WHERE `email` = ?';
         $this->db->query($query_str, array($expire_time, $key, $email));
     }
 
     /* authenticate the user to login
-     *
+     *  switch($result->code)
      * -3: [role=hospital] not verified, verification link expired
      * -2: [role=hospital] not verified, verification link persists
      * -1: [role=hospital] not accepted
@@ -117,7 +117,7 @@ class user_model extends CI_Model{
     */
     public function authenticate($data){
         $query_str = "SELECT id, name, 'admin' as role FROM admin WHERE email = ? AND password = ?
-                      UNION SELECT id, firstname as name, 'donor' as role FROM donor WHERE email = ? AND password = ?
+                      UNION SELECT id, CONCAT(firstname , ' ', lastname) as name, 'donor' as role FROM donor WHERE email = ? AND password = ?
                       UNION SELECT id, name, 'hospital' as role FROM hospital WHERE email = ? AND password = ?";
         
         $result = $this->db->query($query_str, array($data['email'], $data['password'], $data['email'], $data['password'], $data['email'], $data['password']));
@@ -126,6 +126,7 @@ class user_model extends CI_Model{
         if($result->num_rows() != 0){
             if($query_row->role == 'hospital'){
                 $resultHos = $this->getHospitalState($data['email']); //not return 0
+                $query_row->code = $resultHos;
 
                 if($resultHos == 1){
                     $query_row->accepted = true;
@@ -135,12 +136,15 @@ class user_model extends CI_Model{
                     $query_row->accepted = false;
                     return $query_row;
                 }
-                return $resultHos;
+
+                return $query_row;
             }
 
+            $query_row->code = 1;
             return $query_row;
         }
 
-        return 0;
+        $query_row->code = 0;
+        return $query_row;
     }
 }

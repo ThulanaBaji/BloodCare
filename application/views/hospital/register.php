@@ -5,45 +5,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="<?php echo base_url().'assets/css/regDonor.css' ?>">
-		<link rel="stylesheet" href="<?php echo base_url().'assets/css/bootstrap.css' ?>">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="<?php echo base_url().'assets/css/styles.css' ?>">
 		<script src="<?php echo base_url().'assets/js/jquery-3.7.0.js' ?>"></script>
-		<script src="<?php echo base_url().'assets/js/jquery-ui.js' ?>"></script>
-		<script src="<?php echo base_url().'assets/js/popper.min.js' ?>"></script>
-		<script src="<?php echo base_url().'assets/js/bootstrap.js' ?>"></script>
-		
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-		<title>Register | Hospital</title>
+		<title>Register | Donor</title>
 
 		<style>
-			.btn-light, .btn-light:hover, .btn-light:focus, .btn-light.focus{
-				color: #e23e57;
-			}
-			.btn-light:not(:disabled):not(.disabled):active, .btn-light:not(:disabled):not(.disabled).active,
-			.show > .btn-light.dropdown-toggle {
-  				color: #e23e57;
-			}
-
-			.btn-primary {
-				border-color: #e23e57;
-			}
-
-			.btn-primary:hover {
-				background-color: #e3344e;
-				border-color: #e23e57;
-			}
-
-			.cont{
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				
-				text-align: center;
-        	}
-
 			.alert{
 				text-align: center;
 				max-width: 300px;
@@ -53,136 +23,201 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		</style>
 	</head>
-	<body>
-        <div class="container">
-            <div id="multi-step-form-container">
+	<body class="bg-red-950">
+        <div class="my-6 w-full text-center">
+            <a class="text-xl text-white font-semibold" href="<?php echo base_url()?>">BloodCare</a>
+        </div>
+        <div class="container mx-auto">
+            <div class="my-11 py-2 bg-white rounded-2xl shadow-2xl">
+            
+                <ul class="md:hidden mb-12" id="smstepper">
+                    <div class="pt-8 px-12 flex justify-between" step="1">
+                        <li class="flex flex-col items-center">
+                            <span class="block w-[40px] h-[40px] rounded-[50%] bg-red-950 text-white mr-0 leading-7 relative ">
+                                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">1</span>
+                            </span>
+                            <div class="text-red-950">Social Profiles</div>
+                        </li>
 
-                <!-- Form Steps / Progress Bar -->
-                <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
-                    <li class="form-stepper-active text-center form-stepper-list" step="1">
+                        <span class="h-[2px] bg-gray-400 flex-1 mt-5"></span>
+                    </div>
+                    <div class="pt-8 px-12 flex justify-between hidden" step="2">
+                        <span class="h-[2px] bg-teal-500 flex-1 mt-5"></span>
+
+                        <li class="flex flex-col items-center">
+                            <span class="block w-[40px] h-[40px] rounded-[50%] bg-red-950 text-white mr-0 leading-7 relative ">
+                                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">2</span>
+                            </span>
+                            <div class="text-red-950">Address Details</div>
+                        </li>
+
+                        <span class="h-[2px] bg-gray-500 flex-1 mt-5"></span>
+                    </div>
+                    <div class="pt-8 px-12 flex justify-between hidden" step="3">
+                        <span class="h-[2px] bg-teal-500 flex-1 mt-5"></span>
+
+                        <li class="flex flex-col items-center">
+                            <span class="block w-[40px] h-[40px] rounded-[50%] bg-red-950 text-white mr-0 leading-7 relative ">
+                                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">3</span>
+                            </span>
+                            <div class="text-red-950">Credentials</div>
+                        </li>
+                    </div>
+                </ul>
+
+                <ul class="hidden md:flex flex-row mx-8 justify-between my-8" 
+                    style="counter-reset:section;" id="mdstepper">
+                    <li class="text-center" step="1">
                         <a class="mx-2">
-                            <span class="form-stepper-circle text-muted"><span>1</span></span>
-                            <div class="label text-muted">Social Profiles</div>
+                            <span class="inline-block w-[40px] h-[40px] rounded-[50%] bg-red-950 text-white mr-0 leading-7 relative">
+                                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">1</span>
+                            </span>
+                            <div class="text-red-950">Social Profiles</div>
                         </a>
                     </li>
 
-                    <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                    <span class="h-[2px] bg-gray-400 flex-1 mt-5" step="1"></span>
+
+                    <li class="text-center" step="2">
                         <a class="mx-2">
-                            <span class="form-stepper-circle text-muted"><span>2</span></span>
-                            <div class="label text-muted">Address Details</div>
+                            <span class="inline-block w-[40px] h-[40px] rounded-[50%] bg-gray-400 text-white mr-0 leading-7 relative">
+                                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">2</span>
+                            </span>
+                            <div class="text-gray-500">Address Details</div>
                         </a>
                     </li>
 
-                    <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                    <span class="h-[2px] bg-gray-400 flex-1 mt-5" step="2"></span>
+
+                    <li class="text-center" step="3">
                         <a class="mx-2">
-                            <span class="form-stepper-circle text-muted"><span>3</span></span>
-                            <div class="label text-muted">Credentials</div>
+                            <span class="inline-block w-[40px] h-[40px] rounded-[50%] bg-gray-400 text-white mr-0 leading-7 relative">
+                                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">3</span>
+                            </span>
+                            <div class="text-gray-500">Credentials</div>
                         </a>
                     </li>
                 </ul>
-
-                <?php
+                
+                <div id="alerts" class="absolute top-[100px] md:top-[160px] left-1/2 -translate-x-1/2">
+                    <?php
                     if(isset($error)){
-                        echo `<div class="alert alert-danger">$error</div>`;
+                        echo '<div class="alert relative
+                        z-40 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-200">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                            </svg>
+                            <span class="sr-only">Error</span>
+                            '.$error.'</div>';
                     }
-                ?>
+                    ?>
+                </div>
 
-                <!-- Step Wise Form Content -->
-                <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" 
+                <form enctype="multipart/form-data" 
                       action="<?php echo base_url().'register/registerHospital'?>" method="POST">
 
-                    <div id="alerts"></div>
-
-                    <section id="step-1" class="form-step">
-                        <div class="mt-3">
-                            <div class="row">
-                                <div class="col-sm-5 form-group">
-                                <label>Registration number</label>
-                                <input type="text"
-                                       class="form-control" name="regnum" id="regnum" aria-describedby="helpId" placeholder="">
-                                </div>
-                                <div class="col-sm-5 form-group">
-                                <label>Hospital name</label>
-                                <input type="text"
-                                       class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="">
-                                </div>
+                    <section id="step-1" class="form-step max-w-4xl">
+                        <div class="grid grid-cols-1 md:grid-cols-2 mx-8">
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">Registration number</label>
+                                <input type="text" name="regnum" id="regnum"
+                                    class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="<?php echo set_value('regnum'); ?>">
                             </div>
-                            <div class="row">
-                                <div class="col-sm-5 form-group">
-                                <label>Email</label>
-                                <input type="email"
-                                       class="form-control" name="email" id="email" aria-describedby="helpId" placeholder="">
-                                </div>
-                                <div class="col-sm-5 form-group">
-                                <label>Contact number</label>
-                                <input type="tel"
-                                       class="form-control" name="contact" id="contact" aria-describedby="helpId" placeholder="">
-                                </div>
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">Hospital name</label>
+                                <input type="text" name="name" id="name"
+                                    class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="<?php echo set_value('name'); ?>">
+                            </div>
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">Email</label>
+                                <input type="email" name="email" id="email"
+                                    class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="<?php echo set_value('email'); ?>">
+                            </div>
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">Contact number</label>
+                                <input type="tel" name="contact" id="contact"
+                                    class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="<?php echo set_value('contact'); ?>">
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                        
+                        <button class="btn-navigate-form-step
+                                       rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9 mb-5" type="button" step_number="2">Next</button>
+                    </section>
+
+                    <section id="step-2" class="hidden form-step max-w-4xl">
+                        <div class="grid grid-cols-1 md:grid-cols-2 mx-8">
+                            <div class="mt-3 text-sm">
+                            <label class="text-md text-gray-600 p-2">Province</label>
+                                <select class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        name="province" id="province" onchange="mapDistricts()">
+                                    <option hidden disabled selected value> -- select the province -- </option>
+                                </select>
+                            </div>
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">District</label>
+                                <select disabled class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg disabled:text-gray-400 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        name="district" id="district"  onchange="enableCity()">
+                                    <option hidden disabled selected value> -- select the district -- </option>
+                                </select>
+                            </div>
+
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">City</label>
+                                <input type="text" maxlength="40" name="city" id="city"
+                                    class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="<?php echo set_value('city'); ?>">
+                            </div>
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">Street</label>
+                                <input type="text" maxlength="30" name="street" id="street"
+                                    class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="<?php echo set_value('street'); ?>">
+                            </div>
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">Zip code</label>
+                                <input type="text" maxlength="30" name="zipcode" id="zipcode"
+                                    class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="<?php echo set_value('zipcode'); ?>">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="btn-navigate-form-step
+                                       rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9 mb-5" type="button" step_number="1">Prev</button>
+                            <button class="btn-navigate-form-step
+                                       rounded bg-red-950 text-white py-2 px-3 ml-3 mt-9 mb-5" type="button" step_number="3">Next</button>
                         </div>
                     </section>
                     
-                    <section id="step-2" class="form-step d-none">
-                        <div class="mt-3">
-                            <div class="row">
-                                <div class="col-md-5 form-group">
-                                <label>Province</label>
-                                <select class="form-control" name="province" id="province" onchange="mapDistricts()">
-                                    <option hidden disabled selected value> -- select the province -- </option>
-                                </select>
-                                </div>
-                                <div class="col-md-5 form-group">
-                                <label>District</label>
-                                <select class="form-control" name="district" id="district" disabled onchange="enableCity()">
-                                    <option hidden disabled selected value> -- select the district -- </option>
-                                </select>
-                                </div>
+                    <section id="step-3" class="hidden form-step">
+                        <div class="grid grid-cols-1 mx-8">
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">Password</label>
+                                <input type="password" minlength="8" name="password" id="password"
+                                    class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="<?php echo set_value('password'); ?>">
                             </div>
-                            <div class="row">
-                                <div class="col-sm-4 form-group">
-                                <label>City</label>
-                                <input class="form-control" type="text" maxlength="40" name="city" id="city">
-                                </div>
-                                <div class="col-sm-4 form-group">
-                                <label>Street</label>
-                                <input class="form-control" type="text" maxlength="30" name="street" id="street">
-                                </div>
-                                <div class="col-sm-4 form-group">
-                                <label>Zipcode</label>
-                                <input class="form-control" type="text" maxlength="15" name="zipcode" id="zipcode">
-                                </div>
+                            <div class="mt-3 text-sm">
+                                <label class="text-md text-gray-600 p-2">Confirm password</label>
+                                <input type="password" minlength="8" name="cpassword" id="cpassword"
+                                    class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="<?php echo set_value('cpassword'); ?>">
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
-                            <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
-                        </div>
-                    </section>
 
-                    <section id="step-3" class="form-step d-none">
-                        <div class="mt-3">
-                            <div class="row col-md-5 form-group">
-                                <label>Password</label>
-                                <input class="form-control" type="password" minlength="8" name="password" id="password">
-                            </div>
-                            <div class="row col-md-5 form-group">
-                                <label>Confirm password</label>
-                                <input class="form-control" type="password" minlength="8" name="cpassword" id="cpassword">
-                            </div>
-                        </div>
                         <div class="g-recaptcha" data-sitekey="<?php echo SITE_KEY;?>"></div>
-                        <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                            <button class="button submit-btn" type="submit" id="registerButton">Register</button>
+                        <div class="mt-3 mb-5">
+                            <button class="btn-navigate-form-step
+                                       rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9" type="button" step_number="2">Prev</button>
+                            <button class="rounded bg-red-950 text-white py-2 px-3 ml-3 md:ml-8 mt-9 " type="submit" id="registerButton">Register</button>
                         </div>
                     </section>
                 </form>
             </div>
-
-            <a class="btn btn-warning mt-5" href="<?php echo base_url()?>">&laquo; Back to Home</a>
         </div>
     </body>
 
@@ -190,6 +225,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     $(document).ready(function(){
         populateInfo();
+
+        $(".alert").delay(3000).fadeOut(200, function() {
+				$(this).alert('close');
+			});
 
         document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
             formNavigationBtn.addEventListener("click", () => {
@@ -199,7 +238,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
 
         $('#registerButton').click(function(e){
-            if(!isValid(4))
+            if(!isValid(5))
                 e.preventDefault();
         })
     });
@@ -209,27 +248,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return;
 
         document.querySelectorAll(".form-step").forEach((formStepElement) => {
-            formStepElement.classList.add("d-none");
+            formStepElement.classList.add("hidden");
         });
 
-        document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {
-            formStepHeader.classList.add("form-stepper-unfinished");
-            formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed");
-        });
+        $('#smstepper').children('div').addClass('hidden');
+        $('#smstepper').children('div[step="' + stepNumber + '"]').removeClass('hidden');
 
-        document.querySelector("#step-" + stepNumber).classList.remove("d-none");
+        
+        $('#mdstepper li a').children('span').removeClass('bg-red-950');
+        $('#mdstepper li a > div').removeClass('text-red-950');
+        $('#mdstepper li a').children('span').addClass('bg-gray-400');
+        $('#mdstepper li a > div').addClass('text-gray-500');
 
-        const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');
-        formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");
-        formStepCircle.classList.add("form-stepper-active");
+        $('#mdstepper').children('span').addClass('bg-gray-400');
+        
+        $('#mdstepper li[step="' + stepNumber + '"] a').children('span').removeClass('bg-gray-400');
+        $('#mdstepper li[step="' + stepNumber + '"] a > div').removeClass('text-gray-500');
+        $('#mdstepper li[step="' + stepNumber + '"] a').children('span').addClass('bg-red-950');
+        $('#mdstepper li[step="' + stepNumber + '"] a > div').addClass('text-red-950');
+
+        $("#step-" + stepNumber).removeClass("hidden");
 
         for (let index = 0; index < stepNumber; index++) {
-            const formStepCircle = document.querySelector('li[step="' + index + '"]');
+            
+            $('#mdstepper li[step="' + index + '"] a').children('span').removeClass('bg-gray-400');
+            $('#mdstepper li[step="' + index + '"] a > div').removeClass('text-gray-500');
+            $('#mdstepper li[step="' + index + '"] a').children('span').addClass('bg-teal-500');
+            $('#mdstepper li[step="' + index + '"] a > div').addClass('text-teal-500');
 
-            if (formStepCircle) {
-                formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");
-                formStepCircle.classList.add("form-stepper-completed");
-            }
+            $('#mdstepper').children('span[step="' + index + '"]').addClass('bg-teal-500');
         }
     };
 
@@ -298,7 +345,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function showAlert(message, delay){
-        $('#alerts').html(`<div class='alert alert-danger'>` + message + `</div>`);
+        $('#alerts').html(`<div class="alert relative
+				z-40 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-200">
+					<svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+						<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+					</svg>
+					<span class="sr-only">Info</span>
+					<div>` + message + `</div>`);
         $(".alert").delay(delay).fadeOut(200, function() {
             $(this).alert('close');
         });

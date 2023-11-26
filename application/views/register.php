@@ -5,140 +5,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="<?php echo base_url().'assets/css/bootstrap.css' ?>">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <link rel="stylesheet" href="<?php echo base_url().'assets/css/styles.css';?>">
 		<script src="<?php echo base_url().'assets/js/jquery-3.7.0.js' ?>"></script>
-		<script src="<?php echo base_url().'assets/js/jquery-ui.js' ?>"></script>
-		<script src="<?php echo base_url().'assets/js/popper.min.js' ?>"></script>
-		<script src="<?php echo base_url().'assets/js/bootstrap.js' ?>"></script>
 
 		<title>Register</title>
-
-		<style>
-			.btn-light, .btn-light:hover, .btn-light:focus, .btn-light.focus{
-				color: #e23e57;
-			}
-			.btn-light:not(:disabled):not(.disabled):active, .btn-light:not(:disabled):not(.disabled).active,
-			.show > .btn-light.dropdown-toggle {
-  				color: #e23e57;
-			}
-
-			.btn-primary {
-				border-color: #e23e57;
-			}
-
-			.btn-primary:hover {
-				background-color: #e3344e;
-				border-color: #e23e57;
-			}
-
-			.navbar{
-				position: fixed;
-				top: 0px;
-				width: 100%;
-			}
-
-			.body-container{
-				height: calc(100vh - 58px);
-				min-height: 624px;
-
-				position: relative;
-				top: 58px;
-			}
-
-			.cont{
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				
-				text-align: center;
-        	}
-
-			.alert{
-				text-align: center;
-				max-width: 300px;
-				left: 50%;
-				transform: translate(-50%, -0%);
-			}
-
-			.button{
-				background-color: #ffffff75;
-				
-				min-width: 250px;
-				min-height: 201px;
-
-				margin: 10px;
-				padding: 10px;
-
-				border-radius: 20px;
-				box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
-			}
-
-			.button:hover{
-				color: black;
-				text-decoration: none;
-				background-color: #ffffff9f;
-				cursor: pointer;
-			}
-
-			.button-link{
-				color: black;
-				text-decoration: none;
-				margin: 0px;
-				padding: 0px;
-				width: 270px;
-				height: 221px;
-			}
-
-			.button-link:hover{
-				color: black;
-				text-decoration: none;
-			}
-
-		</style>
 	</head>
-	<body style="background-color: #e23e57;">
+	<body class="bg-red-950 ">
 
-		<nav class="navbar navbar-dark bg-primary">
-			<a class="navbar-brand" href="<?php echo base_url()?>">BloodCare</a>
+		<div class="grid grid-flow-row grid-rows-[auto_1fr] h-screen relative">
+            <div class="w-screen p-10 sticky top-0 left-0 bg-red-950">
+                <nav class="flex justify-center md:justify-between items-center">
+                    <a class="text-xl text-white font-semibold" href="<?php echo base_url()?>">BloodCare</a>
+                    
+                    <ul class="hidden justify-between gap-5 text-md md:flex">
+                        <li>
+                            <a id="btnRegister" class="p-3.5 bg-white rounded hover:shadow-xl hover:filter hover:brightness-95" href="<?php echo base_url().'login'?>">Login</a>
+                        </li>
+                    </ul> 
+                </nav>
+            </div>
 
-			<ul class="nav">
-				<li class="nav-item">
-					<a id="btnLogin" class="nav-link btn btn-primary" href="<?php echo base_url().'login'?>">Login</a>
-				</li>
-				<li class="nav-item ml-3">
-					<a id="btnRegister" class="nav-link btn btn-light disabled" href="<?php echo base_url().'register'?>">Become a member</a>
-				</li>
-			</ul> 
-		</nav>
-		
-		<div class="body-container">
+			<div class="w-full my-auto md:w-fit md:mx-auto  text-center md:-translate-y-[20%]">
 
-			<div class="cont">
-				<h1 class="mb-4" style="color: #fff;">Wants to become a member as, A</h1>
-
-				<div class="row d-flex justify-content-around align-items-center">
+				<h1 class="mt-6 mb-11 text-white text-3xl font-semibold">Wants to become a member as, A</h1>
 				
-					<a href="<?php echo base_url().'register/hospital'?>" class="button-link">
-						<div class="col-sm-4 button">
-							<h1 class="display-4">Hospital</h1>
-							<p class="lead">
-								Request blood, Support blood donation.
-							</p>
+				<div class="mx-11 flex flex-row flex-wrap gap-4 justify-around">
+					<a href="<?php echo base_url().'register/hospital'?>">
+						<div class="w-[250px] h-[180px] p-5 bg-white text-gray-600 rounded-2xl shadow hover:shadow-2xl">
+							<h1 class="text-4xl font-light">Hospital</h1>
+							<p class="text-lg font-light pt-3">Request blood, Support blood donation.</p>
 						</div>
 					</a>
-					
-					<a href="<?php echo base_url().'register/donor'?>" class="button-link">
-						<div class="col-sm-4 button">						
-							<h1 class="display-4">Donor</h1>
-							<p class="lead">
-								Donate blood.
-							</p>
+					<a href="<?php echo base_url().'register/donor'?>">
+						<div class="w-[250px] h-[180px] p-5 bg-white text-gray-600 rounded-2xl shadow hover:shadow-2xl">
+							<h1 class="text-4xl font-light">Donor</h1>
+							<p class="text-lg font-light pt-3">Donate blood.</p>
 						</div>
 					</a>
-					
 				</div>
+
+				<p class="mt-12 text-md">Already registered ?<a href="<?php echo base_url().'login'?>" class=" font-semibold hover:underline hover:cursor-pointer"> Login</a></p>
 			</div>
 		</div>
 	</body>

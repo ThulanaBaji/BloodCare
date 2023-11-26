@@ -23,6 +23,7 @@ class Register extends CI_Controller {
 	public function donor(){
 		if($this->session->has_userdata('user'))
 			redirect('/dashboard');
+		
 		$this->load->view('donor/register');
 	}
 

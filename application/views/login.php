@@ -11,18 +11,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="<?php echo base_url().'assets/js/jquery-3.7.0.js' ?>"></script>
 
 		<title>Home</title>
-
-		<style>
-
-			.alert{
-				text-align: center;
-				max-width: 300px;
-				left: 50%;
-				transform: translate(-50%, -0%);
-			}
-			
-
-		</style>
 	</head>
 	<body class="bg-red-950">
         <div class="grid grid-flow-row grid-rows-[auto_1fr] h-screen relative">

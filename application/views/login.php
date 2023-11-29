@@ -50,8 +50,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 				?>
 
-				
-
 				<?php echo validation_errors('<div class="alert relative
 				z-40 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-400">
 					<svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -84,16 +82,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div>
 						<div class="relative mb-6">
 							<div class="absolute inset-y-0 start-0 flex items-center ps-2.5 pointer-events-none">
-								<svg class="w-6 h-6 text-gray-100 dark:text-gray-400" width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg"> 
-									<path d="M21 13V8C21 6.89543 20.1046 6 19 6H5C3.89543 6 3 6.89543 3 8V14C3 15.1046 3.89543 16 5 16H12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/> 
-									<path d="M14.5 18.5L16.5 20.5L20.5 16.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/> 
-									<path d="M12 11.01L12.01 10.9989" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/> 
-									<path d="M16 11.01L16.01 10.9989" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/> 
-									<path d="M8 11.01L8.01 10.9989" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/> 
+								<svg class="w-6 h-6 text-gray-100 dark:text-gray-400" width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> 
+									<path d="M21 13V8C21 6.89543 20.1046 6 19 6H5C3.89543 6 3 6.89543 3 8V14C3 15.1046 3.89543 16 5 16H12" class="stroke-gray-400" stroke-linecap="round" stroke-linejoin="round"/> 
+									<path d="M14.5 18.5L16.5 20.5L20.5 16.5" stroke="currentColor" class="stroke-gray-400" stroke-linecap="round" stroke-linejoin="round"/> 
+									<path d="M12 11.01L12.01 10.9989" stroke="currentColor" class="stroke-gray-400" stroke-linecap="round" stroke-linejoin="round"/> 
+									<path d="M16 11.01L16.01 10.9989" stroke="currentColor" class="stroke-gray-400" stroke-linecap="round" stroke-linejoin="round"/> 
+									<path d="M8 11.01L8.01 10.9989" stroke="currentColor" class="stroke-gray-400" stroke-linecap="round" stroke-linejoin="round"/> 
 								</svg>
 							</div>
-								<input type="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="password"
-								value="<?php echo set_value('password'); ?>">
+							<input type="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="password"
+							value="<?php echo set_value('password'); ?>">
 						</div>
 						
 						<input type="submit" value="Login" 

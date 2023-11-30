@@ -56,9 +56,9 @@ class Appointments extends CI_Controller
 
     public function generateappointments(){
 
-        $result = $this->hospital_model->getAppointmentLastGenerated($this->id);
+        $result = $this->hospital_model->getConfig($this->id, 'appointment');
 
-        if($result == NULL){
+        if($result == "[]"){
             echo 'error: no configuration found. set your configuration first.';
             return;
         }
@@ -66,11 +66,104 @@ class Appointments extends CI_Controller
         $rawconfig = $this->hospital_model->getConfig($this->id, 'appointment');
         $config = json_decode($rawconfig);
 
+        echo 'success: ';
+
+        $duration = strtotime($config->duration);
+        $duration = (date('i', $duration) + date('H', $duration) * 60)*60*1000;
+        
+        $arr = $this->generateappointmentarray($config);
+        $count = count($arr);
+        
+        foreach ($arr as $time) {
+            if(!$this->addappointment($time, $duration))
+                $count--;
+        }
+
+        echo $count.' appointments added ';
+        
+        // $count = 0;
+
+        // foreach ($config->breaks as $breakperiod) {
+        //     $breakperiodstarttime = strtotime($breakperiod->start);
+        //     $breakperiodendtime = strtotime($breakperiod->end);
+        
+        //     $start = ((date('i', $breakperiodstarttime) + date('H', $breakperiodstarttime) * 60)*60) * 1000;
+        //     $end = ((date('i', $breakperiodendtime) + date('H', $breakperiodendtime) * 60)*60) * 1000;
+
+        //     $count += $this->addappointmentbreak($start, $end);
+        // }
+
+        // echo $count.' appointments either rejected or removed';
+
         //refer to Playground.php
+
     }
 
     private function addappointment($time, $duration){
-        $this->hospital_model->addAppointment($this->id, $time, $duration);
+        return $this->hospital_model->addAppointment($this->id, $time, $duration);
+    }
+
+    private function addappointmentbreak($from, $to){
+        return $this->hospital_model->addAppointmentBreak($this->id, $from, $to);
+    }
+
+    private function generateappointmentarray($config){
+        $unavailable_days = $config->days; //Mo, Tu, We 
+        $unavailable_dates = $config->dates; //08 DEC, 09 DEC
+        $start = $config->start;
+        $end = $config->end;
+        $duration = $config->duration; //30mins
+        $breaks = $config->breaks;
+
+        $startdate=strtotime("today");
+        $startdate=strtotime("+3 day", $startdate);
+        $enddate=strtotime("+2 month", $startdate);
+
+        $duration = strtotime($duration);
+        $duration = date('i', $duration) + date('H', $duration) * 60;
+
+        $array = array();
+
+        while ($startdate < $enddate) {
+            
+            if((!in_array(date('w', $startdate), $unavailable_days)) && (!in_array((date('U', $startdate) * 1000), $unavailable_dates))){
+
+                $starttime = strtotime($start);
+                $endtime = strtotime($end);
+                $endtime = strtotime("-".$duration." mins", $endtime);
+
+                
+                while ($starttime <= $endtime) {
+
+                    $endappointmenttime = strtotime("+".$duration." mins", $starttime);
+                    $timeavailable = true;
+
+                    foreach ($breaks as $breakperiod) {
+                        $breakperiodstarttime = strtotime($breakperiod->start);
+                        $breakperiodendtime = strtotime($breakperiod->end);
+
+                        if(($starttime >= $breakperiodstarttime && $starttime < $breakperiodendtime) ||
+                           ($endappointmenttime > $breakperiodstarttime && $endappointmenttime <= $breakperiodendtime)){
+                            $starttime = $breakperiodendtime;
+                            $starttime = strtotime("-".$duration." mins", $starttime);
+
+                            $timeavailable = false;
+                            break;
+                        }
+                    }
+
+                    if($timeavailable){
+                        array_push($array, (($startdate + ((date('i', $starttime) + date('H', $starttime) * 60)*60)) * 1000));
+                    }
+
+                    $starttime = strtotime("+".$duration." mins", $starttime);
+                }
+            }
+            
+            $startdate = strtotime("+1 day", $startdate);
+        }
+
+        return $array;
     }
 
     public function rejectappointments(){

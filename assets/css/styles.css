@@ -1335,6 +1335,30 @@ input:checked + .toggle-bg {
   top: 20%;
 }
 
+.top-10 {
+  top: 2.5rem;
+}
+
+.left-1 {
+  left: 0.25rem;
+}
+
+.-top-10 {
+  top: -2.5rem;
+}
+
+.-top-5 {
+  top: -1.25rem;
+}
+
+.-top-2 {
+  top: -0.5rem;
+}
+
+.-top-1 {
+  top: -0.25rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -2279,6 +2303,10 @@ input:checked + .toggle-bg {
 
 .p-\[50px\] {
   padding: 50px;
+}
+
+.p-11 {
+  padding: 2.75rem;
 }
 
 .px-12 {

@@ -1,0 +1,17 @@
+{
+    "days"      : [],
+    "dates"     : [],
+    "start"     : "",
+    "end"       : "",
+    "duration"  : "",
+    "breaks"    : [
+        {
+            "start": "",
+            "end"  : ""
+        },
+        {
+            "start": "",
+            "end"  : ""
+        }
+    ]
+}

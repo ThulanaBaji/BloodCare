@@ -10,46 +10,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<link rel="stylesheet" href="<?php echo base_url().'assets/css/styles.css' ?>">
 
     <title>Verify Account</title>
-
-    <style>
-        .btn-light, .btn-light:hover, .btn-light:focus, .btn-light.focus{
-            color: #e23e57;
-            padding: 10px 20px;
-            font: 600;
-            font-size: x-large;
-            box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
-        }
-        .btn-light:not(:disabled):not(.disabled):active, .btn-light:not(:disabled):not(.disabled).active,
-        .show > .btn-light.dropdown-toggle {
-            color: #e23e57;
-        }
-
-        body{
-            background-color: #e23e57;
-        }
-
-        .container{
-            position: absolute;
-            top: 20%;
-            left: 50%;
-
-            transform: translate(-50%, 0);
-        }
-
-        .svg-container{
-            position: fixed;
-
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 72%;
-        }
-
-        .message{
-            font-size:x-large;
-            font-weight: 600;
-        }
-    </style>
 </head>
 <body class="bg-red-950">
     <div class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[72%]">
@@ -70,8 +30,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 
     <div class="absolute top-[20%] left-[50%] -translate-x-1/2 text-center">
-        
-
         <p class=" text-xl font-semibold">
             <?php echo $message;?>
         </p>

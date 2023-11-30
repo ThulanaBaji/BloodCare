@@ -46,14 +46,14 @@ class user_model extends CI_Model{
     
     public function registerDonor($data){
         $time = date('Y-m-d');
-        $query_str = 'INSERT INTO `donor`(`id`, `firstname`, `lastname`, `dob`, `email`, 
+        $query_str = 'INSERT INTO `donor`(`id`, `firstname`, `lastname`, `profile`, `dob`, `email`, 
                                           `street_address`, `city`, `district`, `province`, 
                                           `contact`, `password`, `create_time`, `status`) 
-                      VALUES (?, ?, ?, ?, ?, 
+                      VALUES (?, ?, ?, ?, ?, ?, 
                               ?, ?, ?, ?, 
                               ?, ?, ?, ?)';
 
-        $this->db->query($query_str, array(NULL, $data['fname'], $data['lname'], $data['bod'], $data['email'],
+        $this->db->query($query_str, array(NULL, $data['fname'], $data['lname'], $data['image'], $data['bod'], $data['email'],
                                            $data['street'], $data['city'], $data['district'], $data['province'], 
                                            $data['contact'], $data['password'], $time, 'registered'));
     }
@@ -62,14 +62,14 @@ class user_model extends CI_Model{
         $date = date('Y-m-d');
         $expire_time = time() + 2*24*60*60;
 
-        $query_str = 'INSERT INTO `hospital`(`id`, `regnumber`, `name`, `email`, `zipcode`,
+        $query_str = 'INSERT INTO `hospital`(`id`, `regnumber`, `name`, `profile`, `email`, `zipcode`,
                                           `street_address`, `city`, `district`, `province`, 
                                           `contact`, `password`, `create_time`, `verification`, `expire`, `status`) 
-                      VALUES (?, ?, ?, ?, ?, 
+                      VALUES (?, ?, ?, ?, ?, ?, 
                               ?, ?, ?, ?, 
                               ?, ?, ?, ?, ?, ?)';
 
-        $this->db->query($query_str, array(NULL, $data['regnum'], $data['name'], $data['email'], $data['zipcode'],
+        $this->db->query($query_str, array(NULL, $data['regnum'], $data['name'], $data['image'], $data['email'], $data['zipcode'],
                                            $data['street'], $data['city'], $data['district'], $data['province'], 
                                            $data['contact'], $data['password'], $date, $key, $expire_time, 'pending'));
     }
@@ -116,9 +116,9 @@ class user_model extends CI_Model{
      *  1: user exist, returns array(...)
     */
     public function authenticate($data){
-        $query_str = "SELECT id, name, 'admin' as role FROM admin WHERE email = ? AND password = ?
-                      UNION SELECT id, CONCAT(firstname , ' ', lastname) as name, 'donor' as role FROM donor WHERE email = ? AND password = ?
-                      UNION SELECT id, name, 'hospital' as role FROM hospital WHERE email = ? AND password = ?";
+        $query_str = "SELECT id, 'admin' as role FROM admin WHERE email = ? AND password = ?
+                      UNION SELECT id, 'donor' as role FROM donor WHERE email = ? AND password = ?
+                      UNION SELECT id, 'hospital' as role FROM hospital WHERE email = ? AND password = ?";
         
         $result = $this->db->query($query_str, array($data['email'], $data['password'], $data['email'], $data['password'], $data['email'], $data['password']));
         $query_row = $result->row();
@@ -144,6 +144,7 @@ class user_model extends CI_Model{
             return $query_row;
         }
 
+        $query_row = new stdClass();
         $query_row->code = 0;
         return $query_row;
     }

@@ -8,6 +8,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link rel="stylesheet" href="<?php echo base_url().'assets/css/styles.css' ?>">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 		<script src="<?php echo base_url().'assets/js/jquery-3.7.0.js' ?>"></script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
@@ -118,6 +121,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <section id="step-1" class="form-step max-w-4xl">
                         <div class="grid grid-cols-1 md:grid-cols-2 mx-8">
+                            <div class="my-3 text-sm max-w-xs">
+                                <label class="text-md text-gray-600 p-2">Profile image</label>
+                                <div class="mt-6 relative flex flex-col">
+                                    <div class="text-center relative rounded-[50%] w-[150px] h-[150px] overflow-hidden flex justify-center items-center">
+           
+                                        <img id="profilepreview" class="object-cover object-center" src="<?php echo base_url().'/uploads/hospital/profileimages/default.png';?>">
+
+                                        <input class="hidden" type="file" name="profile" id="profileimage" accept="image/*" onchange="previewImage(this)" />
+                                        <label for="profileimage" class="absolute top-0 left-0 h-full w-full text-blue-500 bg-white/90 border-2 border-blue-500 rounded-full text-xs font-bold opacity-0 flex items-center justify-center transition-all cursor-pointer hover:opacity-100">
+                                            <div class="text-center">
+                                                <div class="mb-2">
+                                                    <i class="fa fa-camera fa-2x"></i>
+                                                </div>
+                                                <div class="uppercase text-xs">
+                                                    Upload <br /> Profile image
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hidden md:block w-20 h-20"></div>
                             <div class="mt-3 text-sm">
                                 <label class="text-md text-gray-600 p-2">Registration number</label>
                                 <input type="text" name="regnum" id="regnum"
@@ -209,7 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
 
-                        <div class="g-recaptcha" data-sitekey="<?php echo SITE_KEY;?>"></div>
+                        <div class="mx-8 my-4 g-recaptcha" data-sitekey="<?php echo SITE_KEY;?>"></div>
                         <div class="mt-3 mb-5">
                             <button class="btn-navigate-form-step
                                        rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9" type="button" step_number="2">Prev</button>
@@ -242,6 +267,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 e.preventDefault();
         })
     });
+
+    function previewImage(e){
+        var files = e.files || [];
+        if (!files.length || !window.FileReader) 
+            return;
+
+        if (/^image/.test(files[0].type)) {
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+
+            reader.onloadend = function () {
+                console.log(this.result);
+                $("#profilepreview").attr('src', this.result);
+            }
+        }
+    }
 
     function navigateToFormStep(stepNumber){
         if(!isValid(stepNumber))

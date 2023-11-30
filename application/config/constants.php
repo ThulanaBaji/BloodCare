@@ -87,3 +87,9 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 defined('SITE_KEY')            OR define('SITE_KEY', '6Lcn5dMoAAAAAOn66FoEr6D6Q1umYzThAR6MLdYY');
 defined('SECRET_KEY')          OR define('SECRET_KEY', '6Lcn5dMoAAAAAJQZFcOJpFOGB2dQyOUIogczphfR');
+
+defined('APPOINTMENT_VACANT')    OR define('APPOINTMENT_VACANT', 'vacant');
+defined('APPOINTMENT_RESERVED')  OR define('APPOINTMENT_RESERVED', 'reserved');
+defined('APPOINTMENT_REJECTED')  OR define('APPOINTMENT_REJECTED', 'rejected');
+defined('APPOINTMENT_CANCELLED') OR define('APPOINTMENT_CANCELLED', 'cancelled');
+defined('APPOINTMENT_DONATED')  OR define('APPOINTMENT_DONATED', 'donated');

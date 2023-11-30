@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 	public function index()
 	{
 		if($this->session->has_userdata('user'))
-			redirect('/dashboard');
+			redirect('/'.$this->session->userdata('user')['role'].'/dashboard');
 
 		$message = $this->session->flashdata('message');
 		$error = $this->session->flashdata('error');
@@ -53,31 +53,21 @@ class Login extends CI_Controller {
 					case 1:
 						$userinfo = array(
 							'id'=> $result->id,
-							'name' => $result->name,
-							'role' => $result->role,
-							'login'=> true
+							'role' => $result->role
 						);
 
-						if($result->role == 'hospital')
-							$userinfo['accepted'] = $result->accepted;
-
 						$this->session->set_userdata('user', $userinfo);
-						redirect('/dashboard');
+						redirect($result->role.'/dashboard');
 						return;
 					
 					case -1:
 						$userinfo = array(
 							'id'=> $result->id,
-							'name' => $result->name,
-							'role' => $result->role,
-							'login'=> true
+							'role' => $result->role
 						);
-
-						if($result->role == 'hospital')
-							$userinfo['accepted'] = $result->accepted;
-
+						
 						$this->session->set_userdata('user', $userinfo);
-						redirect('/dashboard');
+						redirect($result->role.'/dashboard');
 						return;
 				}
         	}

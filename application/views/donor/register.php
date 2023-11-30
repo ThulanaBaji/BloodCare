@@ -143,6 +143,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <section id="step-2" class="hidden form-step max-w-4xl">
                         <div class="grid grid-cols-1 md:grid-cols-2 mx-8">
+                            <div class="my-3 text-sm max-w-xs">
+                                <label class="text-md text-gray-600 p-2">Profile image</label>
+                                <div class="mt-6 relative flex flex-col">
+                                    <div class="text-center relative rounded-[50%] w-[150px] h-[150px] overflow-hidden flex justify-center items-center">
+           
+                                        <img id="profilepreview" class="object-cover object-center" src="<?php echo base_url().'/uploads/donor/profileimages/default.png';?>">
+
+                                        <input class="hidden" type="file" name="profile" id="profileimage" accept="image/*" onchange="previewImage(this)" />
+                                        <label for="profileimage" class="absolute top-0 left-0 h-full w-full text-blue-500 bg-white/90 border-2 border-blue-500 rounded-full text-xs font-bold opacity-0 flex items-center justify-center transition-all cursor-pointer hover:opacity-100">
+                                            <div class="text-center">
+                                                <div class="mb-2">
+                                                    <i class="fa fa-camera fa-2x"></i>
+                                                </div>
+                                                <div class="uppercase text-xs">
+                                                    Upload <br /> Profile image
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hidden md:block w-20 h-20"></div>
                             <div class="mt-3 text-sm">
                                 <label class="text-md text-gray-600 p-2">Firstname</label>
                                 <input type="text" name="fname" id="fname"
@@ -262,6 +284,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 e.preventDefault();
         })
     });
+
+    function previewImage(e){
+        var files = e.files || [];
+        if (!files.length || !window.FileReader) 
+            return;
+
+        if (/^image/.test(files[0].type)) {
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+
+            reader.onloadend = function () {
+                console.log(this.result);
+                $("#profilepreview").attr('src', this.result);
+            }
+        }
+    }
 
     function navigateToFormStep(stepNumber){
         if(!isValid(stepNumber))

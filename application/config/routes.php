@@ -50,14 +50,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-session_start();
-print_r($_SESSION);
-session_destroy();
+// session_start();
+//     var_dump($_SESSION);
+// session_abort();    
 
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['verify/(.+)'] = 'register/verify/$1';
-
-$route['dashboard/settings'] = 'hospital/Settings';

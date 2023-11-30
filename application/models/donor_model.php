@@ -6,7 +6,7 @@ class donor_model extends CI_Model {
 
     //name, profile, email, contact
     public function getInfo($id){
-        $query_str = 'SELECT CONCAT(`firstname` , " ", `lastname`) as name, `profile`, `email`, `contact` FROM `donor` WHERE `id` = ?';
+        $query_str = 'SELECT CONCAT(`firstname` , " ", `lastname`) as name, `profile`, `email` FROM `donor` WHERE `id` = ?';
 
         $result = $this->db->query($query_str, $id);
         return $result->row();

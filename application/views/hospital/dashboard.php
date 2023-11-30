@@ -53,12 +53,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="h-full px-2 py-2 overflow-y-auto border-t border-t-gray-200">
                 <ul class="space-y-2 font-medium">
                     <li>    
-                        <a href="<?php echo base_url().'dashboard/profile'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        <a href="<?php echo base_url().'hospital/profile'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         <div class="ms-3">My profile</div>
                         </a>
                     </li>
                     <li>    
-                        <a href="<?php echo base_url().'dashboard/logout'; ?>" class="flex items-center p-2 bg-red-100 text-gray-900 rounded-lg hover:bg-red-200">
+                        <a href="<?php echo base_url().'hospital/dashboard/logout'; ?>" class="flex items-center p-2 bg-red-100 text-gray-900 rounded-lg hover:bg-red-200">
                         <div class="ms-3">Logout</div>
                         </a>
                     </li>
@@ -79,7 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <ul class="space-y-2 font-medium">
                     <li>    
-                        <a href="<?php echo base_url().'dashboard'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                        <a href="<?php echo base_url().'hospital/dashboard'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                         
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.024 22C16.2771 22 17.3524 21.9342 18.2508 21.7345C19.1607 21.5323 19.9494 21.1798 20.5646 20.5646C21.1798 19.9494 21.5323 19.1607 21.7345 18.2508C21.9342 17.3524 22 16.2771 22 15.024V12C22 10.8954 21.1046 10 20 10H12C10.8954 10 10 10.8954 10 12V20C10 21.1046 10.8954 22 12 22H15.024Z" fill="currentColor"/>
@@ -90,7 +90,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>
                     </li>
                     <li>    
-                        <a href="<?php echo base_url().'dashboard/requests'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                        <a href="<?php echo base_url().'hospital/requests'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                         
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M21.3702 39.6334L21.3709 39.6341L24.0013 42L26.6294 39.654L26.6306 39.653L26.6836 39.6055L26.6846 39.6046C26.9072 39.4048 27.1281 39.2064 27.3474 39.0095C24.7134 37.1017 23 34.0009 23 30.5C23 24.701 27.701 20 33.5 20C36.8352 20 39.8071 21.555 41.7305 23.9794C43.2111 21.5454 44 19.164 44 16.6404C44 10.6778 39.2655 6 33.2308 6C29.8168 6 26.5322 7.57272 24.3905 10.0577L24 10.5107L23.6095 10.0577C21.4678 7.57272 18.1832 6 14.7692 6C8.7345 6 4 10.6778 4 16.6404C4 20.3045 5.6632 23.6688 8.69183 27.3273C11.7264 30.993 16.0777 34.8917 21.3702 39.6334Z" fill="currentColor"/>
@@ -102,7 +102,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url().'dashboard/organize'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+                        <a href="<?php echo base_url().'hospital/organize'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
                         
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 280 280">
@@ -120,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url().'dashboard/appointments'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+                        <a href="<?php echo base_url().'hospital/appointments'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
                         
                         <svg class="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M6 5a3 3 0 0 1 .183-1H5a1 1 0 0 0-.707.293l-4 4A1 1 0 0 0 0 9h6V5Zm0 9v-3H0v7a1.97 1.97 0 0 0 1.934 2h7.132A1.97 1.97 0 0 0 11 18H9.933A3.97 3.97 0 0 1 6 14Zm7-14a1 1 0 0 0-.707.293l-4 4A1 1 0 0 0 8 5h5V0Z"/>
@@ -130,7 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url().'dashboard/notifications'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+                        <a href="<?php echo base_url().'hospital/notifications'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
                         <svg class="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
                         </svg>
@@ -139,7 +139,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>
                     </li>
                     <li class="border-t border-gray-200 pt-2">
-                        <a href="<?php echo base_url().'dashboard/profile'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+                        <a href="<?php echo base_url().'hospital/profile'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
                             <path d="M18 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM6.5 3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.014 13.021l.157-.625A3.427 3.427 0 0 1 6.5 9.571a3.426 3.426 0 0 1 3.322 2.805l.159.622-6.967.023ZM16 12h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Z"/>
                         </svg>
@@ -147,7 +147,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url().'dashboard/logout'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg bg-red-100 hover:bg-red-200  group">
+                        <a href="<?php echo base_url().'hospital/dashboard/logout'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg bg-red-100 hover:bg-red-200  group">
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3"/>
                         </svg>

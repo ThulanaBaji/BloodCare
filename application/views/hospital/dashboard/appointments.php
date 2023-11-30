@@ -2,15 +2,18 @@
 
 <div class="p-6 divide-y flex flex-col h-full">
   <div id="padding-container">
-    <button onclick="toggleconfigure(this)" class="text-xs font-bold p-2 text-gray-500 uppercase mb-4 flex items-center hover:bg-gray-200 rounded">
-      <svg class="w-3.5 h-3.5 mr-1 -rotate-90 transition-all inline-block text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M18 7.5h-.423l-.452-1.09.3-.3a1.5 1.5 0 0 0 0-2.121L16.01 2.575a1.5 1.5 0 0 0-2.121 0l-.3.3-1.089-.452V2A1.5 1.5 0 0 0 11 .5H9A1.5 1.5 0 0 0 7.5 2v.423l-1.09.452-.3-.3a1.5 1.5 0 0 0-2.121 0L2.576 3.99a1.5 1.5 0 0 0 0 2.121l.3.3L2.423 7.5H2A1.5 1.5 0 0 0 .5 9v2A1.5 1.5 0 0 0 2 12.5h.423l.452 1.09-.3.3a1.5 1.5 0 0 0 0 2.121l1.415 1.413a1.5 1.5 0 0 0 2.121 0l.3-.3 1.09.452V18A1.5 1.5 0 0 0 9 19.5h2a1.5 1.5 0 0 0 1.5-1.5v-.423l1.09-.452.3.3a1.5 1.5 0 0 0 2.121 0l1.415-1.414a1.5 1.5 0 0 0 0-2.121l-.3-.3.452-1.09H18a1.5 1.5 0 0 0 1.5-1.5V9A1.5 1.5 0 0 0 18 7.5Zm-8 6a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/>
-      </svg>
-      configure
-        <svg class="w-3.5 h-3.5 ml-3 -rotate-90 transition-all text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
+      <div class="flex justify-between">
+        <button onclick="toggleconfigure(this)" class="text-xs font-bold p-2 text-gray-500 uppercase mb-4 flex items-center hover:bg-gray-200 rounded">
+        <svg class="w-3.5 h-3.5 mr-1 -rotate-90 transition-all inline-block text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M18 7.5h-.423l-.452-1.09.3-.3a1.5 1.5 0 0 0 0-2.121L16.01 2.575a1.5 1.5 0 0 0-2.121 0l-.3.3-1.089-.452V2A1.5 1.5 0 0 0 11 .5H9A1.5 1.5 0 0 0 7.5 2v.423l-1.09.452-.3-.3a1.5 1.5 0 0 0-2.121 0L2.576 3.99a1.5 1.5 0 0 0 0 2.121l.3.3L2.423 7.5H2A1.5 1.5 0 0 0 .5 9v2A1.5 1.5 0 0 0 2 12.5h.423l.452 1.09-.3.3a1.5 1.5 0 0 0 0 2.121l1.415 1.413a1.5 1.5 0 0 0 2.121 0l.3-.3 1.09.452V18A1.5 1.5 0 0 0 9 19.5h2a1.5 1.5 0 0 0 1.5-1.5v-.423l1.09-.452.3.3a1.5 1.5 0 0 0 2.121 0l1.415-1.414a1.5 1.5 0 0 0 0-2.121l-.3-.3.452-1.09H18a1.5 1.5 0 0 0 1.5-1.5V9A1.5 1.5 0 0 0 18 7.5Zm-8 6a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/>
         </svg>
-    </button>
+        configure
+          <svg class="w-3.5 h-3.5 ml-3 -rotate-90 transition-all text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
+          </svg>
+      </button>
+      <button onclick="" class="text-md font-semibold p-2 text-gray-500 mb-4 flex items-center hover:bg-gray-200 rounded">generate appointments</button>
+    </div>
     <div id="collapse-configure" class="h-0 overflow-hidden">
       <div class="border rounded-t-lg bg-white p-4">
         <p class="text-sm text-gray-900 mb-2 font-semibold">days service not available</p>
@@ -99,6 +102,7 @@
   </div>
   <div class="pt-6 flex flex-wrap justify-between">
     <div date-rangepicker class="flex items-center mr-5 mb-6" id="daterange-appointments">
+      <button onclick="loadTodayAppointments()" class="text-md font-semibold p-2 text-gray-500 mr-5 flex items-center hover:bg-gray-200 rounded">Today</button>
       <div class="relative">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -208,6 +212,24 @@
     }
   }
 
+  function loadTodayAppointments(){
+    var d = new Date();
+    var from = d.getTime();
+    d.setDate(d.getDate() + 1);
+    var to = d.getTime() - 1;
+
+    var xhttp = new XMLHttpRequest();
+        
+    xhttp.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200){
+        $('#appointments-container').html(xhttp.responseText);
+      }
+    }
+    
+    xhttp.open('GET', 'getappointmentswithin/' + from + '/' + to, true);
+    xhttp.send();
+  }
+
   function rejectAppointments(){
     const arr = JSON.parse($('#appointment-ids').html());
     var safearraystring = arr.join(',');
@@ -256,6 +278,9 @@
 
   function setConfigure(){
     var config = JSON.parse('<?php echo $config; ?>');
+    
+    if(config.length == 0) return;
+    
     const unavailabledates = $('#date-configure')[0].datepicker;
 
     config.days.forEach(function(i){      

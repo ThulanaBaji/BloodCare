@@ -272,6 +272,31 @@ class Dashboard extends CI_Controller {
         loadAppointments($appointments);
     }
 
+    public function generateappointments(){
+//FROM - TODAY
+//TO   - UNTIL 2 MONTHS
+        $sessionData = $this->session->userdata('user');
+        $id = $sessionData['id'];
+
+        $result = $this->hospital_model->getAppointmentLastGenerated($id);
+        if($result == NULL){
+            echo 'error: no configuration found. set your configuration first.';
+            return;
+        }
+
+        $rawconfig = $this->hospital_model->getConfig($id, 'appointment');
+        $config = json_decode($rawconfig);
+
+        //refer to Playground.php
+    }
+
+    private function addappointment($time, $duration){
+        $sessionData = $this->session->userdata('user');
+        $id = $sessionData['id'];
+
+        $this->hospital_model->addAppointment($id, $time, $duration);
+    }
+
     public function rejectappointments(){
         $sessionData = $this->session->userdata('user');
         $id = $sessionData['id'];

@@ -12,6 +12,10 @@ class hospital_model extends CI_Model {
         return $result->row();
     }
 
+    /**
+     * --------------------------------Appointments section
+     */
+
     public function getAppointments($id){
         $query_str = 'SELECT CONCAT(donor.firstname, " ", donor.lastname) as name, donor.profile, 
                              appointmentslot.id, appointmentslot.datetime as starttime, (appointmentslot.datetime + appointmentslot.duration) as endtime, 
@@ -42,12 +46,37 @@ class hospital_model extends CI_Model {
         return $result->result_array();
     }
 
+    public function addAppointment($id, $time, $duration){
+        $data = array(
+            'id' => NULL,
+            'hospital_id' => $id,
+            'datetime' => $time,
+            'duration' => $duration,
+            'status' => APPOINTMENT_VACANT
+        );
+    
+        $this->db->insert('appointmentslot', $data);
+    }
+
     public function rejectAppointment($id, $hospital_id, $message){
         $query_str = 'UPDATE `appointmentslot` SET `status` = ?, `message` = ? WHERE id = ? AND hospital_id = ?';
         $result = $this->db->query($query_str, array(APPOINTMENT_REJECTED, $message, $id, $hospital_id));
 
         return $result;
     }
+
+    public function getAppointmentLastGenerated($id){
+        $query_str = 'SELECT `appointments_lastgened` FROM `hospital_configure` WHERE `hospital_id` = ? AND `appointment` != NULL';
+        $result = $this->db->query($query_str, $id);
+
+        if($result->num_rows() > 0)
+            return $result->row()->$appointments_lastgened;
+        return NULL;
+    }
+
+    /**
+     * ------------------------end of section
+     */
 
     public function saveConfig($id, $configType, $config){
         $query_str = 'SELECT `id` FROM `hospital_configure` WHERE `hospital_id` = ?';
@@ -66,6 +95,8 @@ class hospital_model extends CI_Model {
         $query_str = 'SELECT `'.$configType.'` FROM `hospital_configure` WHERE `hospital_id` = ? AND `'.$configType.'` != ""';
         $result = $this->db->query($query_str, $id);
 
-        return $result->row()->$configType;
+        if($result->num_rows() > 0)
+            return $result->row()->$configType;
+        return '[]';
     }
 }

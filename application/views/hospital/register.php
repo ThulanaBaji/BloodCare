@@ -234,7 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
 
-                        <div class="g-recaptcha" data-sitekey="<?php echo SITE_KEY;?>"></div>
+                        <div class="mx-8 my-4 g-recaptcha" data-sitekey="<?php echo SITE_KEY;?>"></div>
                         <div class="mt-3 mb-5">
                             <button class="btn-navigate-form-step
                                        rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9" type="button" step_number="2">Prev</button>

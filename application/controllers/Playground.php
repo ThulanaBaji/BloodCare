@@ -2,6 +2,7 @@
 
 class Playground{
     public function index(){
+        echo strlen(md5(time())).'<br><br>';
 
         //dummy config
         $unavailable_days = array(1, 2, 3); //Mo, Tu, We 

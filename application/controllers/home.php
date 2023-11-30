@@ -8,7 +8,7 @@ class Home extends CI_Controller {
 		$this->load->library('session');
 		
 		if($this->session->has_userdata('user'))
-			$data = array('nav1_text' => 'Dashboard', 'nav1_link' => 'dashboard',
+			$data = array('nav1_text' => 'Dashboard', 'nav1_link' => $this->session->userdata('user')['role'].'/dashboard',
 						  'nav2_text' => 'Logout', 'nav2_link' => 'dashboard/logout');
 		else
 			$data = array('nav1_text' => 'Login', 'nav1_link' => 'login',

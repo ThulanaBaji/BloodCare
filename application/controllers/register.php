@@ -15,14 +15,14 @@ class Register extends CI_Controller {
 	public function index()
 	{
 		if($this->session->has_userdata('user'))
-			redirect('/dashboard');
+			redirect('/'.$this->session->userdata('user')['role'].'/dashboard');
 		$this->load->view('register');
 	}
 
 	//registration for a donor
 	public function donor(){
 		if($this->session->has_userdata('user'))
-			redirect('/dashboard');
+			redirect('/'.$this->session->userdata('user')['role'].'/dashboard');
 		
 		$this->load->view('donor/register');
 	}
@@ -30,7 +30,7 @@ class Register extends CI_Controller {
 	//registration for a hospital
 	public function hospital(){
 		if($this->session->has_userdata('user'))
-			redirect('/dashboard');
+			redirect('/'.$this->session->userdata('user')['role'].'/dashboard');
 
 		$message = $this->session->flashdata('message');
 		$error = $this->session->flashdata('error');

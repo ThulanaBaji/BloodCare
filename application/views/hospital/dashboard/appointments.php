@@ -145,7 +145,6 @@
 
 <script>
   $(document).ready(function() {
-    console.log( $('#daterange-appointments'));
 
     const unavailabledates = $('#date-configure')[0].datepicker;
     const startdatepicker = $('#daterange-appointments')[0].rangepicker.inputs[0].datepicker;
@@ -207,7 +206,7 @@
         }
       }
       
-      xhttp.open('GET', 'getappointmentswithin/' + from + '/' + to, true);
+      xhttp.open('GET', 'appointments/getappointmentswithin/' + from + '/' + to, true);
       xhttp.send();
     }
   }
@@ -226,7 +225,7 @@
       }
     }
     
-    xhttp.open('GET', 'getappointmentswithin/' + from + '/' + to, true);
+    xhttp.open('GET', 'appointments/getappointmentswithin/' + from + '/' + to, true);
     xhttp.send();
   }
 
@@ -250,7 +249,7 @@
         }
       }
       
-      xhttp.open('GET', 'rejectappointments?ids=' + safearraystring + '&message=' + message, true);
+      xhttp.open('GET', 'appointments/rejectappointments?ids=' + safearraystring + '&message=' + message, true);
       xhttp.send();
   }
 
@@ -271,7 +270,7 @@
         }
       }
       
-      xhttp.open('GET', 'rejectappointments?ids=' + id + '&message=' + message, true);
+      xhttp.open('GET', 'appointments/rejectappointments?ids=' + id + '&message=' + message, true);
       xhttp.send();
 
   }
@@ -371,7 +370,7 @@
       }
     }
     
-    xhttp.open('GET', 'savehospitalconfig?configtype=appointment&obj=' + JSON.stringify(obj), true);
+    xhttp.open('GET', 'appointments/savehospitalconfig?configtype=appointment&obj=' + JSON.stringify(obj), true);
     xhttp.send();
   }
 

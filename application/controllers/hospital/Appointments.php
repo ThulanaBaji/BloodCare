@@ -1,6 +1,6 @@
 <?php
 
-class Appointment extends CI_Controller 
+class Appointments extends CI_Controller 
 {
     private $id;
     private $role = 'hospital';
@@ -28,7 +28,7 @@ class Appointment extends CI_Controller
     public function index(){
         
         $data['active'] = '4';
-        $data['view'] = 'hospital/dashboard/appointment';
+        $data['view'] = 'hospital/dashboard/appointments';
 
         $res = $this->hospital_model->getInfo($this->id);
         foreach ($res as $key => $value)

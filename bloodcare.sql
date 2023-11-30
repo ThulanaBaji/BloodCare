@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2023 at 10:10 AM
+-- Generation Time: Nov 30, 2023 at 03:36 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -45,7 +45,8 @@ CREATE TABLE `appointmentslot` (
   `hospital_id` int(11) NOT NULL,
   `datetime` bigint(20) NOT NULL,
   `duration` bigint(20) NOT NULL,
-  `status` varchar(45) NOT NULL
+  `status` varchar(45) NOT NULL,
+  `message` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -114,6 +115,20 @@ CREATE TABLE `donor` (
   `status` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `donor`
+--
+
+INSERT INTO `donor` (`id`, `firstname`, `lastname`, `profile`, `dob`, `email`, `zipcode`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `create_time`, `status`) VALUES
+(1000, 'Cecilia', 'Colaizzo', '1701336896icons8-team-6LZuSzSwso0-unsplash.jpg', '2000-02-02', 'cecilia.colaizzo@gmail.com', 0, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94712178659', 'yRKNsi7btHMDwc4!', '2023-11-29 18:30:00', 'registered'),
+(1001, 'Tegan', 'Arceo', '1701350643redd-f-pzOUnvx9c1E-unsplash.jpg', '2004-04-04', 'tegan.arceo@gmail.com', 0, 'Norris Canal Road', 'Dual', 'Colombo', 'Western province', '+94778698766', 'skFGQCa238zeZjz!', '2023-11-29 18:30:00', 'registered'),
+(1002, 'Loren', 'Asar', '1701351072charlesdeluvio-kVg2DQTAK7c-unsplash.jpg', '2001-05-05', 'loren.asar@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94712345678', 'UuWQ9LszX57iEs3!', '2023-11-29 18:30:00', 'registered'),
+(1003, 'Roslyn', 'Chavous', '1701351157gift-habeshaw-ImFZSnfobKk-unsplash.jpg', '2000-06-06', 'roslyn.chavous@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94756712345', 'PZq2PZLbXsPB4bV!', '2023-11-29 18:30:00', 'registered'),
+(1004, 'Diane', 'Devreese', '1701351240toa-heftiba-O3ymvT7Wf9U-unsplash.jpg', '2001-04-02', 'diane.devreese@gmail.com', 0, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94768912345', 'qdJ2vs3wTdGrfa2!', '2023-11-29 18:30:00', 'registered'),
+(1005, 'Alpha', 'Palaia', '1701351346tyler-nix-X2YO8KFxgEM-unsplash.jpg', '2000-01-01', 'alpha.palaia@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94756812345', 'E4HBQFuUV4GJZ8w@', '2023-11-29 18:30:00', 'registered'),
+(1006, 'Mona', 'Delasancha', '1701351413aiony-haust-3TLl_97HNJo-unsplash.jpg', '2001-07-07', 'mona.delasancha@gmail.com', 0, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94765412345', 'G3WLWUQi74gqsP9!', '2023-11-29 18:30:00', 'registered'),
+(1007, 'Jani', 'Biddy', '1701351500kimson-doan-HD8KlyWRYYM-unsplash.jpg', '2000-01-01', 'jani.biddy@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94756712345', 'yYkg9agp3QNFvb9@', '2023-11-29 18:30:00', 'registered');
+
 -- --------------------------------------------------------
 
 --
@@ -174,8 +189,18 @@ CREATE TABLE `hospital` (
   `contact` varchar(45) NOT NULL,
   `password` varchar(32) NOT NULL,
   `create_time` timestamp NULL DEFAULT current_timestamp(),
+  `verification` varchar(32) NOT NULL,
+  `expire` int(10) NOT NULL,
   `status` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `hospital`
+--
+
+INSERT INTO `hospital` (`id`, `regnumber`, `name`, `profile`, `email`, `zipcode`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `create_time`, `verification`, `expire`, `status`) VALUES
+(100, 'LK0010N00005', 'Asiri Hospital', '1701353336asiri.png', 'thulanabaji@gmail.com', 10600, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94114665500', '2BGvSwx3iePdxcS!', '2023-11-29 18:30:00', '939f2202fed2688e08b76372db02b752', 0, 'verified'),
+(101, 'LK0338N00000', 'Durdans Hospital', '1701354726logo-small.jpg', 'thulanactf@gmail.com', 82400, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '0112140000', '7NqS5wD67JqCkES@', '2023-11-29 18:30:00', '9f2baa2c76a82e5e975a5497e7d38f1a', 0, 'verified');
 
 -- --------------------------------------------------------
 
@@ -192,6 +217,26 @@ CREATE TABLE `hospital_bloodrequest` (
   `qty` int(11) NOT NULL,
   `status` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hospital_configure`
+--
+
+CREATE TABLE `hospital_configure` (
+  `id` int(11) NOT NULL,
+  `hospital_id` int(11) NOT NULL,
+  `appointment` text DEFAULT NULL,
+  `appointments_lastgened` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `hospital_configure`
+--
+
+INSERT INTO `hospital_configure` (`id`, `hospital_id`, `appointment`, `appointments_lastgened`) VALUES
+(1, 100, '{\"days\":[1,2],\"dates\":[],\"start\":\"08:00\",\"end\":\"20:00\",\"duration\":\"00:30\",\"breaks\":[]}', NULL);
 
 --
 -- Indexes for dumped tables
@@ -275,6 +320,12 @@ ALTER TABLE `hospital_bloodrequest`
   ADD KEY `hospital_bloodrequest_hospital_id` (`hospital_id`);
 
 --
+-- Indexes for table `hospital_configure`
+--
+ALTER TABLE `hospital_configure`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -312,7 +363,7 @@ ALTER TABLE `bloodcamp_seats`
 -- AUTO_INCREMENT for table `donor`
 --
 ALTER TABLE `donor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1008;
 
 --
 -- AUTO_INCREMENT for table `donor_appointment`
@@ -336,13 +387,19 @@ ALTER TABLE `donor_donation`
 -- AUTO_INCREMENT for table `hospital`
 --
 ALTER TABLE `hospital`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `hospital_bloodrequest`
 --
 ALTER TABLE `hospital_bloodrequest`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `hospital_configure`
+--
+ALTER TABLE `hospital_configure`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

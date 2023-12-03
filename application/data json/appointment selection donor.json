@@ -1,0 +1,36 @@
+[
+    {
+        "profile"   : "",
+        "name"      : "",
+        "location"  : "",
+
+        "dates"     : [
+            {
+                "date"  : "December 2023",
+                "appointments" : [
+                    {
+                        "id" : "1",
+                        "start" : "10.00"
+                    },
+                    {
+                        "id" : "2",
+                        "start" : "12.00"
+                    }
+                ]
+            },
+            {
+                "date"  : "January 2023",
+                "appointments" : [
+                    {
+                        "id" : "3",
+                        "start" : "15.00"
+                    },
+                    {
+                        "id" : "4",
+                        "start" : "17.00"
+                    }
+                ]
+            }
+        ]
+    }
+]

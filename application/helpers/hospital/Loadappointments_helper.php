@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!function_exists('convertToBase64'))
+if (!function_exists('loadAppointments'))
 {
     function loadAppointments($appointments){
         $byDates = array();
@@ -55,7 +55,9 @@ BC;
         $idarray = $idarray."]";
         echo "<span class='hidden' id='appointment-ids'>".$idarray."</span>";
     }
-
+}
+if (!function_exists('loadAppointment'))
+{
     function loadAppointment($status, $time, $profile, $name, $id, $message){
         $url = base_url();
         if($status == APPOINTMENT_RESERVED){

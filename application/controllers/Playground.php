@@ -4,7 +4,7 @@ class Playground{
     public function index(){
         //dummy config
         echo strtotime("00:30").'<br>';
-        echo date('l d M Y H:i', 1703309400000 / 1000).'<br>';
+        echo date('l d M Y H:i', 1701630000000 / 1000).'<br>';
 
         $unavailable_days = array(1, 2, 3); //Mo, Tu, We 
         $unavailable_dates = array(1701973800000, 1702060200000); //08 DEC, 09 DEC

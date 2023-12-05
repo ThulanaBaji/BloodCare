@@ -33,6 +33,7 @@ class Appointment extends CI_Controller {
             $data[$key] = $value;
 
         $data['data'] = array('appointmentsJSON' => $this->generateAppointmentJSON());
+        $data['data']['ongoingcount'] = $this->donor_model->getOngoingAppointmentCount($this->id);
 
         $this->load->view('donor/dashboard', $data);
     }
@@ -51,6 +52,31 @@ class Appointment extends CI_Controller {
         $data['data'] = $subdata;
 
         $this->load->view('donor/dashboard', $data);
+    }
+
+    public function reserveappointment(){
+        $count = $this->donor_model->getOngoingAppointmentCount($this->id);
+
+        if(isset($_GET['id']) && $_GET['id'] != '' && $count < MAX_MAKEAPPOINTMENT) {
+            $id = $_GET['id'];
+            $this->donor_model->reserveAppointment($id, $this->id);
+        }
+
+        redirect('donor/appointment');
+    }
+
+    public function cancelappointment(){
+
+        if(isset($_GET['id']) && $_GET['id'] != '' && isset($_GET['message']) && $_GET['message'] != '') {
+            $id = $_GET['id'];
+            $msg = $_GET['message'];
+
+            $this->donor_model->cancelAppointment($id, $this->id, $msg);
+
+            $appointments = $this->donor_model->getOngoingAppointments($this->id);
+            $this->load->helper('donor/Loadongoingappointments');
+            loadOngoingAppointments($appointments);
+        }
     }
 
     private function generateAppointmentJSON(){
@@ -87,8 +113,6 @@ class Appointment extends CI_Controller {
                 $count = -1;
                 $curindex++;
             }
- 
-            $epochtime = $row['datetime'];
 
             $datetime = substr($row['datetime'], 0, -3);
             $date = date('d M Y', intval($datetime));
@@ -108,13 +132,16 @@ class Appointment extends CI_Controller {
                 array_push($dates, array());
                 $count++;
             }
+
+            $msg = $row['status'] == APPOINTMENT_VACANT ? $row['message'] : '';
             
             array_push($dates[$count], array(
                 "id" => $row['id'],
                 "datetime" => $row['datetime'],
                 "date" => $date,
                 "start" => $time,
-                "duration" => $duration
+                "duration" => $duration,
+                "message" => $msg
             ));
         }
 

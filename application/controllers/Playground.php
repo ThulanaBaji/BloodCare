@@ -2,9 +2,10 @@
 
 class Playground{
     public function index(){
-        echo strlen(md5(time())).'<br><br>';
-
         //dummy config
+        echo strtotime("00:30").'<br>';
+        echo date('l d M Y H:i', 1701630000000 / 1000).'<br>';
+
         $unavailable_days = array(1, 2, 3); //Mo, Tu, We 
         $unavailable_dates = array(1701973800000, 1702060200000); //08 DEC, 09 DEC
         $start = "10:00";
@@ -52,7 +53,7 @@ class Playground{
                     }
 
                     if($timeavailable){
-                        array_push($array, ($startdate + ((date('i', $starttime) + date('H', $starttime) * 60)*60)));
+                        array_push($array, (($startdate + ((date('i', $starttime) + date('H', $starttime) * 60)*60)) * 1000));
                     }
 
                     $starttime = strtotime("+".$duration." mins", $starttime);

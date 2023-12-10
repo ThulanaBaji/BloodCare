@@ -1,8 +1,26 @@
 <script src="<?php echo base_url().'assets/js/datepicker.js';?>"></script>
 
-<div class="p-6 divide-y flex flex-col h-full">
+<div class="p-6 divide-y flex flex-col h-full relative">
+  
+  
   <div id="padding-container">
-      <div class="flex justify-between">
+  
+  <div class="absolute -top-1 left-1/2 -translate-x-1/2 max-w-xs">
+    <div class="mt-3 alert alert-success flex items-center p-2 px-3 text-sm text-green-800 rounded bg-green-200" style="display:none;">
+      <svg class="flex-shrink-0 inline w-4 h-4 me-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+      </svg>
+      <div id="alert-top-success-text"></div>
+    </div>
+    <div class="mt-3 alert alert-error flex items-center p-2 px-3 text-sm text-red-900 rounded bg-red-300" style="display:none;">
+      <svg class="flex-shrink-0 inline w-4 h-4 me-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+      </svg>
+      <div id="alert-top-error-text"></div>
+		</div>
+  </div>
+
+    <div class="flex justify-between">
         <button onclick="toggleconfigure(this)" class="text-xs font-bold p-2 text-gray-500 uppercase mb-4 flex items-center hover:bg-gray-200 rounded">
         <svg class="w-3.5 h-3.5 mr-1 -rotate-90 transition-all inline-block text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
           <path d="M18 7.5h-.423l-.452-1.09.3-.3a1.5 1.5 0 0 0 0-2.121L16.01 2.575a1.5 1.5 0 0 0-2.121 0l-.3.3-1.089-.452V2A1.5 1.5 0 0 0 11 .5H9A1.5 1.5 0 0 0 7.5 2v.423l-1.09.452-.3-.3a1.5 1.5 0 0 0-2.121 0L2.576 3.99a1.5 1.5 0 0 0 0 2.121l.3.3L2.423 7.5H2A1.5 1.5 0 0 0 .5 9v2A1.5 1.5 0 0 0 2 12.5h.423l.452 1.09-.3.3a1.5 1.5 0 0 0 0 2.121l1.415 1.413a1.5 1.5 0 0 0 2.121 0l.3-.3 1.09.452V18A1.5 1.5 0 0 0 9 19.5h2a1.5 1.5 0 0 0 1.5-1.5v-.423l1.09-.452.3.3a1.5 1.5 0 0 0 2.121 0l1.415-1.414a1.5 1.5 0 0 0 0-2.121l-.3-.3.452-1.09H18a1.5 1.5 0 0 0 1.5-1.5V9A1.5 1.5 0 0 0 18 7.5Zm-8 6a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/>
@@ -12,7 +30,7 @@
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
           </svg>
       </button>
-      <button onclick="" class="text-md font-semibold p-2 text-gray-500 mb-4 flex items-center hover:bg-gray-200 rounded">generate appointments</button>
+      <button onclick="generateappointments()" class="text-md font-semibold p-2 text-gray-500 mb-4 flex items-center hover:bg-gray-200 rounded">generate appointments</button>
     </div>
     <div id="collapse-configure" class="h-0 overflow-hidden">
       <div class="border rounded-t-lg bg-white p-4">
@@ -227,6 +245,30 @@
     
     xhttp.open('GET', 'appointments/getappointmentswithin/' + from + '/' + to, true);
     xhttp.send();
+  }
+
+  function generateappointments(){
+    var xhttp = new XMLHttpRequest();
+        
+    xhttp.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200){
+        var text = xhttp.responseText;
+        var response = text.split(':');
+
+        if(response[0] === 'error'){
+          $('.alert-error').fadeIn(200).delay(3000).fadeOut(200);
+          $('#alert-top-error-text').text(response[1]);
+        }
+        else if(response[0] === 'success'){
+          $('.alert-success').fadeIn(200).delay(3000).fadeOut(200);
+          $('#alert-top-success-text').text(response[1]);
+          
+        }console.log(response  );
+      }
+    }
+    
+    xhttp.open('GET', 'appointments/generateappointments', true);
+    xhttp.send(); 
   }
 
   function rejectAppointments(){

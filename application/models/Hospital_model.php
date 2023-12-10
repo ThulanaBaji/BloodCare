@@ -47,15 +47,57 @@ class hospital_model extends CI_Model {
     }
 
     public function addAppointment($id, $time, $duration){
-        $data = array(
-            'id' => NULL,
-            'hospital_id' => $id,
-            'datetime' => $time,
-            'duration' => $duration,
-            'status' => APPOINTMENT_VACANT
-        );
-    
-        $this->db->insert('appointmentslot', $data);
+
+        $str = 'SELECT id FROM appointmentslot WHERE hospital_id = ? AND datetime = ? AND duration = ?';
+        $result = $this->db->query($str, array($id, $time, $duration));
+        if($result->num_rows() > 0)
+            return FALSE;
+
+        $str = 'SELECT id, status FROM appointmentslot WHERE hospital_id = ? AND status IN ? AND
+                ((datetime <= ? AND (datetime + duration) > ?) OR (datetime < ? AND (datetime + duration) >= ?))';        
+        $result = $this->db->query($str, array($id, array(APPOINTMENT_VACANT, APPOINTMENT_RESERVED), $time, $time, ($time + $duration), ($time + $duration)));
+
+        if($result->num_rows() > 0){
+            foreach($result->result_array() as $row){
+                if($row['status'] == APPOINTMENT_VACANT){
+                    $str = 'DELETE FROM appointmentslot WHERE id = ?';
+                    $this->db->query($str, $row['id']);
+                }else{
+                    $str = 'UPDATE appointmentslot SET status = ?, message = ? WHERE id = ?';
+                    $this->db->query($str, array(APPOINTMENT_REJECTED, 'service available appointments changed, please make another appointment.', $row['id']));
+                }
+            }
+        }
+
+        $str = 'INSERT INTO `appointmentslot`(`id`, `hospital_id`, `datetime`, `duration`, `status`) VALUES (?, ?, ?, ?, ?)';
+
+        $data = array( NULL, $id, $time, $duration, APPOINTMENT_VACANT);
+        $this->db->query($str, $data);
+        return TRUE;
+    }
+
+    public function addAppointmentBreak($id, $from, $to){
+        $count = 0;
+
+        $str = 'SELECT id, status FROM appointmentslot WHERE hospital_id = ? AND status IN ? AND
+                ((datetime%86400000 <= ? AND (datetime + duration)%86400000 > ?) OR (datetime%86400000 < ? AND (datetime + duration)%86400000 >= ?))';        
+        $result = $this->db->query($str, array($id, array(APPOINTMENT_VACANT, APPOINTMENT_RESERVED), $from, $from, $to, $to));
+
+        if($result->num_rows() > 0){
+            foreach($result->result_array() as $row){
+                if($row['status'] == APPOINTMENT_VACANT){
+                    $str = 'DELETE FROM appointmentslot WHERE id = ?';
+                    $this->db->query($str, $row['id']);
+                }else{
+                    $str = 'UPDATE appointmentslot SET status = ?, message = ? WHERE id = ?';
+                    $this->db->query($str, array(APPOINTMENT_REJECTED, 'Unfortunately, service is having a break at this hour. Please make another appointment.', $row['id']));
+                }
+
+                $count++;
+            }
+        }
+        
+        return $count;
     }
 
     public function rejectAppointment($id, $hospital_id, $message){
@@ -63,15 +105,6 @@ class hospital_model extends CI_Model {
         $result = $this->db->query($query_str, array(APPOINTMENT_REJECTED, $message, $id, $hospital_id));
 
         return $result;
-    }
-
-    public function getAppointmentLastGenerated($id){
-        $query_str = 'SELECT `appointments_lastgened` FROM `hospital_configure` WHERE `hospital_id` = ? AND `appointment` != NULL';
-        $result = $this->db->query($query_str, $id);
-
-        if($result->num_rows() > 0)
-            return $result->row()->$appointments_lastgened;
-        return NULL;
     }
 
     /**
@@ -86,8 +119,8 @@ class hospital_model extends CI_Model {
             $query_str = 'UPDATE `hospital_configure` SET `'.$configType.'`= ? WHERE `hospital_id` = ?';
             $result = $this->db->query($query_str, array($config, $id));
         }else{
-            $query_str = 'INSERT INTO `hospital_configure`(`id`, `hospital_id`, `'.$configType.'`) VALUES (NULL, ?, ?)';
-            $result = $this->db->query($query_str, array($id, $config));
+            $query_str = 'INSERT INTO `hospital_configure`(`id`, `hospital_id`, `'.$configType.'`) VALUES (?, ?, ?)';
+            $result = $this->db->query($query_str, array(NULL, $id, $config));
         }
     }
 

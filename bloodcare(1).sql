@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2023 at 03:36 PM
+-- Generation Time: Dec 03, 2023 at 06:12 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -48,6 +48,61 @@ CREATE TABLE `appointmentslot` (
   `status` varchar(45) NOT NULL,
   `message` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `appointmentslot`
+--
+
+INSERT INTO `appointmentslot` (`id`, `hospital_id`, `datetime`, `duration`, `status`, `message`) VALUES
+(1, 101, 1701570600000, 3600000, 'rejected', 'service available appointments changed, please make another appointment.'),
+(308, 101, 1701691200000, 1800000, 'reserved', NULL),
+(388, 101, 1702733400000, 3600000, 'rejected', 'Unfortunately, service unavailble at this time'),
+(455, 101, 1706952600000, 3600000, 'rejected', 'service available appointments changed, please make another appointment.'),
+(461, 101, 1702098600000, 2400000, 'vacant', NULL),
+(467, 101, 1702113000000, 2400000, 'vacant', NULL),
+(471, 101, 1702127400000, 2400000, 'vacant', NULL),
+(475, 101, 1702703400000, 2400000, 'vacant', NULL),
+(481, 101, 1702717800000, 2400000, 'vacant', NULL),
+(485, 101, 1702732200000, 2400000, 'vacant', NULL),
+(489, 101, 1703308200000, 2400000, 'vacant', NULL),
+(495, 101, 1703322600000, 2400000, 'vacant', NULL),
+(499, 101, 1703337000000, 2400000, 'vacant', NULL),
+(503, 101, 1703913000000, 2400000, 'vacant', NULL),
+(509, 101, 1703927400000, 2400000, 'vacant', NULL),
+(513, 101, 1703941800000, 2400000, 'vacant', NULL),
+(517, 101, 1704517800000, 2400000, 'vacant', NULL),
+(523, 101, 1704532200000, 2400000, 'vacant', NULL),
+(527, 101, 1704546600000, 2400000, 'vacant', NULL),
+(531, 101, 1705122600000, 2400000, 'vacant', NULL),
+(537, 101, 1705137000000, 2400000, 'vacant', NULL),
+(541, 101, 1705151400000, 2400000, 'vacant', NULL),
+(545, 101, 1705727400000, 2400000, 'vacant', NULL),
+(551, 101, 1705741800000, 2400000, 'vacant', NULL),
+(555, 101, 1705756200000, 2400000, 'vacant', NULL),
+(559, 101, 1706332200000, 2400000, 'vacant', NULL),
+(565, 101, 1706346600000, 2400000, 'vacant', NULL),
+(569, 101, 1706361000000, 2400000, 'vacant', NULL),
+(573, 101, 1706937000000, 2400000, 'vacant', NULL),
+(579, 101, 1706951400000, 2400000, 'vacant', NULL),
+(583, 101, 1706965800000, 2400000, 'vacant', NULL),
+(668, 101, 1702117800000, 14400000, 'vacant', NULL),
+(671, 101, 1702722600000, 14400000, 'vacant', NULL),
+(674, 101, 1703327400000, 14400000, 'vacant', NULL),
+(677, 101, 1703932200000, 14400000, 'vacant', NULL),
+(680, 101, 1704537000000, 14400000, 'vacant', NULL),
+(683, 101, 1705141800000, 14400000, 'vacant', NULL),
+(686, 101, 1705746600000, 14400000, 'vacant', NULL),
+(689, 101, 1706351400000, 14400000, 'vacant', NULL),
+(692, 101, 1706956200000, 14400000, 'vacant', NULL),
+(693, 101, 1702089000000, 18000000, 'vacant', NULL),
+(694, 101, 1702693800000, 18000000, 'vacant', NULL),
+(695, 101, 1703298600000, 18000000, 'vacant', NULL),
+(696, 101, 1703903400000, 18000000, 'vacant', NULL),
+(697, 101, 1704508200000, 18000000, 'vacant', NULL),
+(698, 101, 1705113000000, 18000000, 'vacant', NULL),
+(699, 101, 1705717800000, 18000000, 'vacant', NULL),
+(700, 101, 1706322600000, 18000000, 'vacant', NULL),
+(701, 101, 1706927400000, 18000000, 'vacant', NULL);
 
 -- --------------------------------------------------------
 
@@ -141,6 +196,16 @@ CREATE TABLE `donor_appointment` (
   `appointmentslot_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `donor_appointment`
+--
+
+INSERT INTO `donor_appointment` (`id`, `donor_id`, `appointmentslot_id`) VALUES
+(3, 1000, 1),
+(4, 1004, 308),
+(5, 1002, 455),
+(6, 1007, 388);
+
 -- --------------------------------------------------------
 
 --
@@ -227,16 +292,16 @@ CREATE TABLE `hospital_bloodrequest` (
 CREATE TABLE `hospital_configure` (
   `id` int(11) NOT NULL,
   `hospital_id` int(11) NOT NULL,
-  `appointment` text DEFAULT NULL,
-  `appointments_lastgened` bigint(20) DEFAULT NULL
+  `appointment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `hospital_configure`
 --
 
-INSERT INTO `hospital_configure` (`id`, `hospital_id`, `appointment`, `appointments_lastgened`) VALUES
-(1, 100, '{\"days\":[1,2],\"dates\":[],\"start\":\"08:00\",\"end\":\"20:00\",\"duration\":\"00:30\",\"breaks\":[]}', NULL);
+INSERT INTO `hospital_configure` (`id`, `hospital_id`, `appointment`) VALUES
+(1, 100, '{\"days\":[1,2],\"dates\":[],\"start\":\"08:00\",\"end\":\"20:00\",\"duration\":\"00:30\",\"breaks\":[]}'),
+(2, 101, '{\"days\":[0,1,2,3,4,5],\"dates\":[],\"start\":\"08:00\",\"end\":\"20:00\",\"duration\":\"05:00\",\"breaks\":[{\"start\":\"17:00\",\"end\":\"18:00\"},{\"start\":\"09:00\",\"end\":\"10:00\"}]}');
 
 --
 -- Indexes for dumped tables
@@ -339,7 +404,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointmentslot`
 --
 ALTER TABLE `appointmentslot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=702;
 
 --
 -- AUTO_INCREMENT for table `bloodcamp`
@@ -369,7 +434,7 @@ ALTER TABLE `donor`
 -- AUTO_INCREMENT for table `donor_appointment`
 --
 ALTER TABLE `donor_appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `donor_bloodtype`
@@ -399,7 +464,18 @@ ALTER TABLE `hospital_bloodrequest`
 -- AUTO_INCREMENT for table `hospital_configure`
 --
 ALTER TABLE `hospital_configure`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `donor_appointment`
+--
+ALTER TABLE `donor_appointment`
+  ADD CONSTRAINT `donor_appointment_ibfk_1` FOREIGN KEY (`donor_id`) REFERENCES `donor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `donor_appointment_ibfk_2` FOREIGN KEY (`appointmentslot_id`) REFERENCES `appointmentslot` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

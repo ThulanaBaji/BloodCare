@@ -98,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'donor/camps'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+                            <a href="<?php echo base_url().'donor/camp'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
                             <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 280 280">
                                 <g>

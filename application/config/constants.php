@@ -95,3 +95,8 @@ defined('APPOINTMENT_CANCELLED') OR define('APPOINTMENT_CANCELLED', 'cancelled')
 defined('APPOINTMENT_DONATED')  OR define('APPOINTMENT_DONATED', 'donated');
 
 defined('MAX_MAKEAPPOINTMENT')  OR define('MAX_MAKEAPPOINTMENT', 5);
+
+defined('CAMP_VACANT')     OR define('CAMP_VACANT', 'vacant');
+defined('CAMP_FULL')       OR define('CAMP_FULL', 'full');
+defined('CAMP_CANCELLED')  OR define('CAMP_CANCELLED', 'cancelled');
+defined('CAMP_JOINED')     OR define('CAMP_JOINED', 'joined');

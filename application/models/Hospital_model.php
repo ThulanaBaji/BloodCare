@@ -13,6 +13,58 @@ class hospital_model extends CI_Model {
     }
 
     /**
+     * --------------------------------Camps section
+     */
+
+    //ongoing, cancelled-filled-vacant
+    public function getCamps($id){
+        $str = 'SELECT bloodcamp.*, hospital.name as "hname", hospital.city as "hcity",
+                       (SELECT COUNT(bloodcamp_donor.id) 
+                       FROM bloodcamp_donor 
+                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status="'.CAMP_JOINED.'") as "cur_seats" 
+                FROM `bloodcamp` 
+                INNER JOIN hospital on bloodcamp.hospital_id = hospital.id
+                WHERE hospital_id = '.$id.' AND start_datetime + duration > '.time()*1000;
+        $result = $this->db->query($str);
+
+        return $result->result_array();
+    }
+
+    public function addCamp($id, $data)
+    {
+        $str = 'INSERT INTO `bloodcamp`(`id`, `name`, `organizer`, `profile`, `hospital_id`, 
+                                        `start_datetime`, `duration`, `location_pin`, `location_district`, `location_city`, 
+                                        `location_address`, `max_seats`, `cur_seats`, `message`, `status`) 
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        $this->db->query($str, array(NULL, $data['name'], $data['organizer'], $data['image'], $id,
+                                     $data['datetime'], $data['duration'], $data['pin'], $data['district'], $data['city'],
+                                     $data['address'], $data['maxseats'], 0, '', CAMP_VACANT));
+
+    }
+
+    public function updateCamp($id, $data, $default){
+        $str = 'UPDATE `bloodcamp` SET `name`= ?,`organizer`= ?,
+        `start_datetime`= ?,`duration`=?,
+        `location_pin`=?,`location_district`=?,`location_city`=?,
+        `location_address`=?,`max_seats`=?';
+        if (!$default)
+            $str .= ', profile = "'.$data['image'].'"';
+        $str .= ' WHERE `hospital_id`= ? AND id = ?';
+
+        $this->db->query($str, array($data['name'], $data['organizer'],
+                        $data['datetime'], $data['duration'], 
+                        $data['pin'], $data['district'], $data['city'], 
+                        $data['address'], $data['maxseats'], 
+                        $id, $data['campid']));
+    }
+
+    public function cancelCamp($hospitalid, $campid, $message){
+        $str = 'UPDATE `bloodcamp` SET `message`= ?,`status`= ? WHERE id=? AND hospital_id=?';
+        $this->db->query($str, array($message, CAMP_CANCELLED, $campid, $hospitalid));
+    }
+
+
+    /**
      * --------------------------------Appointments section
      */
 

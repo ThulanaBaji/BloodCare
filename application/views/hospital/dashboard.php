@@ -158,7 +158,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </aside>
 
-        <div class="p-4 lg:ml-64 lg:h-full">
+        <div class="p-4 h-[calc(100% - 3.75rem)] lg:ml-64 lg:h-full ">
             <?php
                 if(isset($view) && $view != ''){
                     if(isset($data) && $data != ''){

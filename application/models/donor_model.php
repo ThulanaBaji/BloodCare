@@ -12,6 +12,33 @@ class donor_model extends CI_Model {
         return $result->row();
     }
 
+    public function getCamps($id){
+        $str = 'SELECT bloodcamp.*, hospital.name as "hname", hospital.city as "hcity",
+                       (SELECT COUNT(bloodcamp_donor.id) 
+                       FROM bloodcamp_donor 
+                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status="'.CAMP_JOINED.'") as "cur_seats" 
+                FROM `bloodcamp` 
+                INNER JOIN hospital on bloodcamp.hospital_id = hospital.id
+                WHERE bloodcamp.id NOT IN (SELECT bloodcamp_donor.bloodcamp_id FROM bloodcamp_donor 
+                                           WHERE bloodcamp_donor.donor_id = '.$id.' AND bloodcamp_donor.status = "'.CAMP_JOINED.'") 
+                      AND bloodcamp.status != "'.CAMP_CANCELLED.'" AND start_datetime + duration > '.time()*1000;
+                
+        $result = $this->db->query($str);
+
+        return $result->result_array();
+    }
+
+    public function getJoinedCampCount($id){
+        $str = 'SELECT COUNT(id) as count FROM bloodcamp_donor 
+                WHERE donor_id = ' . $id . ' AND status = "' . CAMP_JOINED . '"';
+        $result = $this->db->query($str);
+        return $result->row();
+    }
+
+    /***
+     * ------------------------------- Appointment section
+     */
+
     public function getAppointments(){
         $str = 'SELECT hospital.email, hospital.name, hospital.profile, hospital.zipcode, hospital.city, hospital.district, hospital.province, `appointmentslot`.`id`, appointmentslot.datetime, appointmentslot.status,     appointmentslot.duration, appointmentslot.message FROM (`appointmentslot` 
         INNER JOIN hospital ON appointmentslot.hospital_id = hospital.id)

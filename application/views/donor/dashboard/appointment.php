@@ -1,4 +1,4 @@
-<div class="p-3 pt-6 md:p-6 flex flex-col h-full relative justify-between">
+<div class="p-3 pt-6 md:p-6 flex flex-col h-full relative justify-between ">
     <div class="absolute -top-1 left-1/2 -translate-x-1/2 max-w-xs">
         <div class="mt-3 alert alert-success flex items-center p-2 px-3 text-sm text-green-800 rounded bg-green-200" style="display:none;">
         <svg class="flex-shrink-0 inline w-4 h-4 me-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -96,7 +96,7 @@
             var d = h.district;
             var p = h.province;
 
-            var hospitalwrapper = $('<div class="p-1 pl-4 mb-3 rounded-xl border max-w-xl bg-gray-50 relative appointment"></div>');
+            var hospitalwrapper = $('<div class="p-1 pl-4 mb-3 rounded-xl border max-w-xl w- bg-gray-50 relative appointment"></div>');
             var dataspan = $(`<span class="hidden" data-name="${name}" data-location="${c}, ${d}" data-city="${c}" data-zipcode="${z}" data-district="${d}" data-province="${p}"></span>`);
             hospitalwrapper.append(dataspan);
 

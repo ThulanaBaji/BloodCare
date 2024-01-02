@@ -32,9 +32,10 @@ class Camp extends CI_Controller {
         foreach ($res as $key => $value)
             $data[$key] = $value;
 
-        $data['data'] = array('appointmentsJSON' => $this->generateAppointmentJSON());
-        $data['data']['ongoingcount'] = $this->donor_model->getOngoingAppointmentCount($this->id);
-
+        $data['data'] = array('camps' => $this->donor_model->getCamps($this->id));
+        $data['data']['joinedcount'] = $this->donor_model->getJoinedCampCount($this->id)->count;
+        
+        $this->load->helper('donor/Loadcamps');
         $this->load->view('donor/dashboard', $data);
     }
     

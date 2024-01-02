@@ -28,7 +28,7 @@
 
         <!-- filter by component -->
         <div class="flex mb-6 max-w-xl">
-            <select class="bg-gray-50 rounded-l-lg border-gray-300 outline-none z-10" id="filter-selection">
+            <select class="bg-gray-50 rounded-l-lg border-gray-300 outline-none z-10" id="filter-selection" onchange="changeSelectionPlaceholder()">
                 <option value="1">Name</option>
                 <option value="2">Organizer</option>
                 <option value="3">City</option>
@@ -36,7 +36,7 @@
             </select>
             <div class="relative w-full">
                 <input type="search" id="search-filter" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border
-                    border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="(Ex: Colombo)" required>
+                    border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="(Ex: Josephs 24th)" required>
                 <button onclick="filter()" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -450,6 +450,25 @@
         showModal('cancelcampModal');
     }
 
+    function changeSelectionPlaceholder(){
+        const selection = $('#filter-selection').val();
+        
+        switch (selection) {
+            case "1":
+                $('#search-filter').attr('placeholder', '(Ex: Josephs 24th)');
+                break;
+            case "2":
+                $('#search-filter').attr('placeholder', '(Ex: companyabc)');
+                break;
+            case "3":
+                $('#search-filter').attr('placeholder', '(Ex: seeduwa)');
+                break;
+            case "4":
+                $('#search-filter').attr('placeholder', '(Ex: rathnapura)');
+                break;
+        }
+    }
+
     function filter(){
         const selection = $('#filter-selection').val();
         const search = $('#search-filter').val().toLowerCase().trim();
@@ -460,7 +479,7 @@
                 
                 $('.body-container .camp').toArray().forEach(e => {
                     const dataelem = $(e).children('span');
-                    console.log(dataelem);
+                    
                     if($(dataelem).data('name').toLowerCase().includes(search))
                         $(e).removeClass('hidden');
                     else   

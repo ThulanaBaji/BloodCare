@@ -30,15 +30,15 @@
         </a>
         <!-- filter by component -->
         <div class="flex mb-6 max-w-xl">
-            <select class="bg-gray-50 rounded-l-lg border-gray-300 outline-none z-10" id="filter-selection">
-                <option value="4">Name</option>
-                <option value="4">Date</option>
-                <option value="1">City</option>
-                <option value="3">District</option>
+            <select class="bg-gray-50 rounded-l-lg border-gray-300 outline-none z-10" id="filter-selection" onchange="changeSelectionPlaceholder()">
+                <option value="1">Name</option>
+                <option value="2">Date</option>
+                <option value="3">City</option>
+                <option value="4">District</option>
             </select>
             <div class="relative w-full">
                 <input type="search" id="search-filter" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border
-                    border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="(Ex: Colombo)" required>
+                    border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="(Ex: Josephs 24th)" required>
                 <button onclick="filter()" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -96,5 +96,81 @@
     function joinCamp(e){
         var campid = $(e).data('id');
         window.location.replace('<?= base_url() ?>donor/camp/joincamp?campid=' + campid);
+    }
+
+    function changeSelectionPlaceholder(){
+        const selection = $('#filter-selection').val();
+        
+        switch (selection) {
+            case "1":
+                $('#search-filter').attr('placeholder', '(Ex: Josephs 24th)');
+                break;
+            case "2":
+                $('#search-filter').attr('placeholder', 'MM.DD.YYYY (Ex: 01.13.2024)');
+                break;
+            case "3":
+                $('#search-filter').attr('placeholder', '(Ex: seeduwa)');
+                break;
+            case "4":
+                $('#search-filter').attr('placeholder', '(Ex: rathnapura)');
+                break;
+        }
+    }
+
+    function filter(){
+        const selection = $('#filter-selection').val();
+        const search = $('#search-filter').val().toLowerCase().trim();
+        
+        switch (selection) {
+            //name
+            case "1":
+                
+                $('.body-container .camp').toArray().forEach(e => {
+                    const dataelem = $(e).children('span');
+                    
+                    if($(dataelem).data('name').toLowerCase().includes(search))
+                        $(e).removeClass('hidden');
+                    else   
+                        $(e).addClass('hidden');
+                });
+                break;
+            //date
+            case "2":
+                $('.body-container .camp').toArray().forEach(e => {
+                    const dataelem = $(e).children('span');
+                    var searchdaystart = Date.parse(search);
+                    var searchdayend = searchdaystart + 86400000;
+                    var time = parseInt($(dataelem).data('datetime'));
+
+                    if(time > searchdaystart && time < searchdayend)
+                        $(e).removeClass('hidden');
+                    else   
+                        $(e).addClass('hidden');
+                });
+                break;
+            //city
+            case "3":
+                $('.body-container .camp').toArray().forEach(e => {
+                    const dataelem = $(e).children('span');
+                    if($(dataelem).data('city').toLowerCase().includes(search))
+                        $(e).removeClass('hidden');
+                    else   
+                        $(e).addClass('hidden');
+                });
+                break;
+            //district
+            case "4":
+                $('.body-container .camp').toArray().forEach(e => {
+                    const dataelem = $(e).children('span');
+                    if($(dataelem).data('district').toLowerCase().includes(search))
+                        $(e).removeClass('hidden');
+                    else   
+                        $(e).addClass('hidden');
+                });
+                break;
+        
+            default:
+                break;
+        }
     }
 </script>

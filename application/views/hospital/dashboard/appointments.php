@@ -263,7 +263,7 @@
           $('.alert-success').fadeIn(200).delay(3000).fadeOut(200);
           $('#alert-top-success-text').text(response[1]);
           
-        }console.log(response  );
+        }
       }
     }
     

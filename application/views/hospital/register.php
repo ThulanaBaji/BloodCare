@@ -278,7 +278,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             reader.readAsDataURL(files[0]);
 
             reader.onloadend = function () {
-                console.log(this.result);
+                
                 $("#profilepreview").attr('src', this.result);
             }
         }

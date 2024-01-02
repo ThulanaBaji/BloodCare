@@ -29,7 +29,7 @@
         </a>
         <!-- filter by component -->
         <div class="flex mb-6 max-w-xl">
-            <select class="bg-gray-50 rounded-l-lg border-gray-300 outline-none z-10" id="filter-selection">
+            <select class="bg-gray-50 rounded-l-lg border-gray-300 outline-none z-10" id="filter-selection" onchange="changeSelectionPlaceholder()">
                 <option value="1">City</option>
                 <option value="2">Zipcode</option>
                 <option value="3">District</option>
@@ -157,7 +157,7 @@
             var calendarbody = $(`<div class="w-full" id="appointment-slot-${count}"></div>`);
             
             var order = 0;
-            console.log(h);
+            
             h.dates.forEach(i => {
                 var dategrid = $(`<div class="w-full grid grid-cols-2 px-4 mb-4 sm:grid-cols-4 gap-1 ${order == 0 ? '' : 'hidden'}" data-order="${order}"></div>`);
 
@@ -248,6 +248,25 @@
             
             loadReserveModal(($(dataelem).data('name') + '<br>' + $(dataelem).data('location')), (timestr + '<br>' + date), $(this).data('message'), $(this).data('id'));
         });
+    }
+
+    function changeSelectionPlaceholder(){
+        const selection = $('#filter-selection').val();
+        
+        switch (selection) {
+            case "1":
+                $('#search-filter').attr('placeholder', '(Ex: seeduwa)');
+                break;
+            case "2":
+                $('#search-filter').attr('placeholder', '(Ex: 0700)');
+                break;
+            case "3":
+                $('#search-filter').attr('placeholder', '(Ex: rathnapura)');
+                break;
+            case "4":
+                $('#search-filter').attr('placeholder', '(Ex: uva)');
+                break;
+        }
     }
 
     function filter(){

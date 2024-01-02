@@ -34,6 +34,7 @@ class Appointment extends CI_Controller {
 
         $data['data'] = array('appointmentsJSON' => $this->generateAppointmentJSON());
         $data['data']['ongoingcount'] = $this->donor_model->getOngoingAppointmentCount($this->id);
+        $data['data']['appointmentscount'] = count($this->donor_model->getAppointments());
 
         $this->load->view('donor/dashboard', $data);
     }

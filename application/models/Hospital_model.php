@@ -30,15 +30,32 @@ class hospital_model extends CI_Model {
         return $result->result_array();
     }
 
+    public function getOrganizedCamps($id){
+        $str = 'SELECT bloodcamp.*, hospital.name as "hname", hospital.city as "hcity",
+                       (SELECT COUNT(bloodcamp_donor.id) 
+                       FROM bloodcamp_donor 
+                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status="'.CAMP_JOINED.'") as "cur_seats" 
+                FROM `bloodcamp` 
+                INNER JOIN hospital on bloodcamp.hospital_id = hospital.id
+                WHERE hospital_id = '.$id.' AND start_datetime + duration <= '.time()*1000;
+        $result = $this->db->query($str);
+
+        return $result->result_array();
+    }
+
+    public function getOrganizedCampsCount($id){
+        return count($this->getOrganizedCamps($id));
+    }
+
     public function addCamp($id, $data)
     {
         $str = 'INSERT INTO `bloodcamp`(`id`, `name`, `organizer`, `profile`, `hospital_id`, 
                                         `start_datetime`, `duration`, `location_pin`, `location_district`, `location_city`, 
-                                        `location_address`, `max_seats`, `cur_seats`, `message`, `status`) 
-                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+                                        `location_address`, `max_seats`, `message`, `status`) 
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
         $this->db->query($str, array(NULL, $data['name'], $data['organizer'], $data['image'], $id,
                                      $data['datetime'], $data['duration'], $data['pin'], $data['district'], $data['city'],
-                                     $data['address'], $data['maxseats'], 0, '', CAMP_VACANT));
+                                     $data['address'], $data['maxseats'], '', CAMP_VACANT));
 
     }
 

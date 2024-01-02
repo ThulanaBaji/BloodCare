@@ -49,7 +49,25 @@ class Organize extends CI_Controller
     }
 
     public function history(){
-        
+        $data['active'] = '3';
+        $data['view'] = 'hospital/dashboard/organizedcamps';
+
+        $res = $this->hospital_model->getInfo($this->id);
+        foreach ($res as $key => $value)
+            $data[$key] = $value;
+
+        $success = $this->session->flashdata('success');
+		$error = $this->session->flashdata('error');
+		if($success != '')
+			$data['success'] = $success;
+		if($error != '')
+			$data ['error'] = $error;
+
+        $this->load->helper('hospital/Loadorganizedcamps');
+        $data['camps'] = $this->hospital_model->getOrganizedCamps($this->id);
+        $data['organizedcampscount'] = $this->hospital_model->getOrganizedCampsCount($this->id);
+
+        $this->load->view('hospital/dashboard', $data);
     }
 
     public function addcamp(){
@@ -120,6 +138,7 @@ class Organize extends CI_Controller
 
         $this->hospital_model->updateCamp($this->id, $data, $default);
         $this->session->set_flashdata('success', 'Camp details changed successfully');
+        redirect('hospital/organize');
     }
 
     public function cancelCamp(){
@@ -131,11 +150,5 @@ class Organize extends CI_Controller
 
         $this->session->set_flashdata('error', 'Bad request, try again');
         redirect('hospital/organize');
-    }
-
-    public function test(){
-        $camps = $this->hospital_model->getCamps($this->id);
-
-        loadCamps($camps);
     }
 }

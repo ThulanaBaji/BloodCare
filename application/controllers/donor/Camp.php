@@ -31,6 +31,13 @@ class Camp extends CI_Controller {
         $res = $this->donor_model->getInfo($this->id);
         foreach ($res as $key => $value)
             $data[$key] = $value;
+        
+        $success = $this->session->flashdata('success');
+		$error = $this->session->flashdata('error');
+		if($success != '')
+			$data['success'] = $success;
+		if($error != '')
+			$data ['error'] = $error;
 
         $data['data'] = array('camps' => $this->donor_model->getCamps($this->id));
         $data['data']['joinedcount'] = $this->donor_model->getJoinedCampCount($this->id)->count;
@@ -47,107 +54,50 @@ class Camp extends CI_Controller {
         foreach ($res as $key => $value)
             $data[$key] = $value;
 
-        $this->load->helper('donor/Loadongoingappointments');
+        $success = $this->session->flashdata('success');
+		$error = $this->session->flashdata('error');
+		if($success != '')
+			$data['success'] = $success;
+		if($error != '')
+			$data ['error'] = $error;
 
-        $subdata['appointments'] = $this->donor_model->getOngoingAppointments($this->id);
+        $this->load->helper('donor/Loadjoinedcamps');
+
+        $subdata['camps'] = $this->donor_model->getJoinedCamps($this->id);
+        $subdata['joinedcampcount'] = $this->donor_model->getJoinedCampCount($this->id)->count;
         $data['data'] = $subdata;
 
         $this->load->view('donor/dashboard', $data);
     }
 
-    public function reserveappointment(){
-        $count = $this->donor_model->getOngoingAppointmentCount($this->id);
-
-        if(isset($_GET['id']) && $_GET['id'] != '' && $count < MAX_MAKEAPPOINTMENT) {
-            $id = $_GET['id'];
-            $this->donor_model->reserveAppointment($id, $this->id);
+    public function joincamp(){
+        if(isset($_GET['campid']) && $_GET['campid'] != '')
+        {
+            if($this->donor_model->joinCamp($this->id, $_GET['campid']) == 1)
+                $this->session->set_flashdata('success','Joined the camp');
+            else 
+                $this->session->set_flashdata('error','Something went wrong, try again');
+        }
+        else{
+            $this->session->set_flashdata('error','Bad request in joining the camp, try again');
         }
 
-        redirect('donor/appointment');
+        redirect('donor/camp');
     }
 
-    public function cancelappointment(){
-
-        if(isset($_GET['id']) && $_GET['id'] != '' && isset($_GET['message']) && $_GET['message'] != '') {
-            $id = $_GET['id'];
-            $msg = $_GET['message'];
-
-            $this->donor_model->cancelAppointment($id, $this->id, $msg);
-
-            $appointments = $this->donor_model->getOngoingAppointments($this->id);
-            $this->load->helper('donor/Loadongoingappointments');
-            loadOngoingAppointments($appointments);
+    public function quitcamp(){
+        if(isset($_GET['campid']) && $_GET['campid'] != '')
+        {
+            if($this->donor_model->quitCamp($this->id, $_GET['campid']) == 1)
+                $this->session->set_flashdata('success','Quit the camp');
+            else 
+                $this->session->set_flashdata('error','Something went wrong, try again');
         }
-    }
-
-    private function generateAppointmentJSON(){
-        $rows = $this->donor_model->getAppointments();
-        $curindex = -1;
-
-        if(count($rows) == 0) return '[]';
-
-        $hnames = array();
-        $hospitals = array();
-        $dates = array();
-        $dnames = array();
-        $count = -1;
-        
-        foreach ($rows as $row) {
-
-            if(!in_array($row['email'], $hnames)){   
-                if($curindex != -1)
-                    $hospitals[$curindex]['dates'] = $dates;
-                
-                array_push($hnames, $row['email']);
-                array_push($hospitals, array(
-                                                "name" => $row['name'], 
-                                                "profile" => $row['profile'], 
-                                                "city" => $row['city'],
-                                                "zipcode" => $row['zipcode'],
-                                                "district" => $row['district'],
-                                                "province" => $row['province'],
-                                                "dates" => array()
-                                            ));
-                
-                $dates = array();
-                $dnames = array();
-                $count = -1;
-                $curindex++;
-            }
-
-            $datetime = substr($row['datetime'], 0, -3);
-            $date = date('d M Y', intval($datetime));
-            $time = date('H:i', intval($datetime));
-
-            $dur = intval($row['duration']);
-            $totalmins = $dur / 1000 / 60;
-            $hrs = floor($totalmins / 60);
-            $mins = $hrs > 0 ? $totalmins % 60 : $totalmins;
-            $duration = '(';
-            $duration = $duration.($hrs > 0 ? ($hrs > 1 ? $hrs.' hrs' : $hrs.' hr') : '');
-            $duration = $duration.($mins > 0 ? ($hrs > 0 ? ' '.$mins.' mins' : $mins.' mins') : '');
-            $duration = $duration.')';
-
-            if(!in_array($date, $dnames)){
-                array_push($dnames, $date);
-                array_push($dates, array());
-                $count++;
-            }
-
-            $msg = $row['status'] == APPOINTMENT_VACANT ? $row['message'] : '';
-            
-            array_push($dates[$count], array(
-                "id" => $row['id'],
-                "datetime" => $row['datetime'],
-                "date" => $date,
-                "start" => $time,
-                "duration" => $duration,
-                "message" => $msg
-            ));
+        else{
+            $this->session->set_flashdata('error','Bad request in quiting the camp, try again');
         }
 
-        $hospitals[$curindex]['dates'] = $dates;
+        redirect('donor/camp/joined');
         
-        return json_encode($hospitals);
     }
 }

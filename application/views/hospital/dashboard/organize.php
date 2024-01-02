@@ -1,7 +1,7 @@
 <script src="<?= base_url('assets/js/datepicker.js') ?>"></script>
 
-<div class="sm:p-3 pt-6 md:p-6 flex flex-col h-full relative items-center lg:items-start">
-    <div class="absolute -top-1 left-1/2 -translate-x-1/2 max-w-xs">
+<div class="sm:p-3 pt-6 md:p-6 flex flex-col h-full relative ">
+    <div class="absolute -top-10 left-1/2 -translate-x-1/2 max-w-xs">
         <div class="mt-3 alert alert-success flex items-center p-2 px-3 text-sm text-green-800 rounded bg-green-200" style="display:none;">
         <svg class="flex-shrink-0 inline w-4 h-4 me-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
@@ -14,18 +14,18 @@
         </svg>
         <div id="alert-top-error-text"></div>
         </div>
-    </div>    
-    <div class="body-container">
-
-        <a href="<?= base_url('hospital/organize/history') ?>" class="cursor-pointer text-md font-semibold p-2 text-gray-500 mb-4 gap-1 flex items-center justify-center bg-gray-200 sm:bg-transparent max-w-xl hover:bg-gray-200 rounded">
+    </div>  
+    <a href="<?= base_url('hospital/organize/history') ?>" class="<?= count($camps) > 0 ? 'max-w-xl' : '' ?> cursor-pointer text-md font-semibold p-2 text-gray-500 mb-4 gap-1 flex items-center justify-center bg-gray-200 sm:bg-transparent hover:bg-gray-200 rounded">
             <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M1 5h1.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 1 0 0-2H8.576a3.228 3.228 0 0 0-6.152 0H1a1 1 0 1 0 0 2Zm18 4h-1.424a3.228 3.228 0 0 0-6.152 0H1a1 1 0 1 0 0 2h10.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 0 0 0-2Zm0 6H8.576a3.228 3.228 0 0 0-6.152 0H1a1 1 0 0 0 0 2h1.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 0 0 0-2Z"/>
             </svg>
-            <p class="mb-1 ml-2">view organized camps</p>
+            <p class="mb-1 ml-2">previous camps</p>
             <svg class="w-3 h-3 text-gray-500 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1"/>
             </svg>
-        </a>
+        </a>  
+    <div class="body-container <?= count($camps) > 0 ? '' : 'hidden' ?>">
+
         <!-- filter by component -->
         <div class="flex mb-6 max-w-xl">
             <select class="bg-gray-50 rounded-l-lg border-gray-300 outline-none z-10" id="filter-selection">
@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <button onclick="showModal('newcampModal')" class="cursor-pointer text-md font-semibold px-2 shadow-lg text-gray-700 mb-6 py-2 gap-1 flex items-center justify-center bg-green-400 max-w-xl rounded">
+        <button onclick="showModal('newcampModal')" class="cursor-pointer text-md font-semibold px-2 shadow-lg text-gray-700 mb-6 py-2 gap-1 flex items-center justify-center bg-green-200 max-w-xl rounded">
             <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z"/>
                 </svg>
@@ -53,6 +53,19 @@
         </button>
 
         <?= loadCamps($camps) ?>
+    </div>
+    <div class="absolute <?= count($camps) == 0 ? '' : 'hidden' ?> w-full sm:w-fit px-3 sm:px-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center text-center flex flex-col">
+        <div class="text-lg font-semibold text-gray-500">There's no bloodcamp open for registration as of now<br>Lets organize a camp</div>
+        <div class="relative">
+            <img src="<?= base_url('assets/images/holdingheartwitheyes.svg') ?>" alt="" srcset="">
+            <img class="absolute top-0 left-0 z-20" src="<?= base_url('assets/images/holdinghearthandsonly.svg') ?>" alt="" srcset="">
+        </div>
+        <button onclick="showModal('newcampModal')" class="transform -translate-y-11 w-64 shadow hover:shadow-md border border-green-400 cursor-pointer text-md font-semibold p-2 text-green-500 gap-1 flex items-center justify-center bg-green-200 max-w-xl rounded">
+            <svg class="w-4 h-4 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z"/>
+                </svg>
+            <p class="mb-1 ml-1">new camp</p>
+        </button>
     </div>
 
 <div class="fixed top-0 left-0 h-screen w-full bg-black/10 z-40 hidden" id="modal-shadow" onclick="hideModal()" data-target=""></div>
@@ -156,7 +169,7 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="cursor-pointer text-md font-semibold px-2 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-green-400 max-w-xl rounded">
+                <button type="submit" class="cursor-pointer text-md font-semibold px-2 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-green-200 max-w-xl rounded">
                     <svg class="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z"></path>
                         </svg>
@@ -268,7 +281,7 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="cursor-pointer text-md font-semibold px-2 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-yellow-300 max-w-xl rounded">
+                <button type="submit" class="cursor-pointer text-md font-semibold px-2 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-yellow-100 max-w-xl rounded">
                     <svg class="w-4 h-4 text-gray-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 21 20">
                         <path d="M20.168 6.136 14.325.293a1 1 0 0 0-1.414 0l-1.445 1.444a1 1 0 0 0 0 1.414l5.844 5.843a1 1 0 0 0 1.414 0l1.444-1.444a1 1 0 0 0 0-1.414Zm-4.205 2.927L11.4 4.5a1 1 0 0 0-1-.25L4.944 5.9a1 1 0 0 0-.652.624L.518 17.206a1 1 0 0 0 .236 1.04l.023.023 6.606-6.606a2.616 2.616 0 1 1 3.65 1.304 2.615 2.615 0 0 1-2.233.108l-6.61 6.609.024.023a1 1 0 0 0 1.04.236l10.682-3.773a1 1 0 0 0 .624-.653l1.653-5.457a.999.999 0 0 0-.25-.997Z"/>
                         <path d="M10.233 11.1a.613.613 0 1 0-.867-.868.613.613 0 0 0 .867.868Z"/>
@@ -303,7 +316,7 @@
                 <input type="text" name="message" id="cancel-message" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="message informing registered donors" required>
                     
                 <div class="h-4"></div>
-                <button type="submit" class="cursor-pointer text-md  font-semibold px-2 mt-3 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-rose-400 max-w-xl rounded">
+                <button type="submit" class="cursor-pointer text-md  font-semibold px-2 mt-3 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-rose-200 max-w-xl rounded">
                     <svg class="w-4 h-4 text-gray-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
                     </svg>

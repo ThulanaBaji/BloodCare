@@ -28,11 +28,71 @@ class donor_model extends CI_Model {
         return $result->result_array();
     }
 
+    public function getJoinedCamps($id){
+        $str = 'SELECT bloodcamp.*, hospital.name as "hname", hospital.city as "hcity",
+                       (SELECT COUNT(bloodcamp_donor.id) 
+                       FROM bloodcamp_donor 
+                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status="'.CAMP_JOINED.'") as "cur_seats" 
+                FROM `bloodcamp_donor` 
+                INNER JOIN bloodcamp on bloodcamp.id = bloodcamp_donor.bloodcamp_id
+                INNER JOIN hospital on bloodcamp.hospital_id = hospital.id
+                WHERE bloodcamp_donor.donor_id = '.$id.' AND bloodcamp_donor.status = "'.CAMP_JOINED.'"';
+                
+        $result = $this->db->query($str);
+
+        return $result->result_array();
+    }
+
     public function getJoinedCampCount($id){
         $str = 'SELECT COUNT(id) as count FROM bloodcamp_donor 
                 WHERE donor_id = ' . $id . ' AND status = "' . CAMP_JOINED . '"';
         $result = $this->db->query($str);
         return $result->row();
+    }
+
+    public function joinCamp($id, $campid){
+        $str = 'SELECT * FROM bloodcamp WHERE id = ? AND status = ?';
+        $num = $this->db->query($str, array($campid, CAMP_VACANT))->num_rows();
+
+        if($num > 0) {
+            $str = 'SELECT id FROM bloodcamp_donor WHERE donor_id = ? AND bloodcamp_id = ?';
+            $recs = $this->db->query($str, array($id, $campid));
+
+            if($recs->num_rows() > 0){
+                $recid = $recs->result_array()[0]['id'];
+                $str = 'UPDATE bloodcamp_donor SET status = ? WHERE id = ?';
+                $this->db->query($str, array(CAMP_JOINED, $recid));
+            }else{
+                $str = 'INSERT INTO `bloodcamp_donor`(`bloodcamp_id`, `donor_id`, `id`, `status`) VALUES (?, ?, ?, ?)';
+                $this->db->query($str, array($campid, $id, NULL, CAMP_JOINED));
+            }
+
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
+    public function quitCamp($id, $campid){
+        $str = 'SELECT * FROM bloodcamp WHERE id = ? AND status != ?';
+        $num = $this->db->query($str, array($campid, CAMP_CANCELLED))->num_rows();
+
+        if($num > 0) {
+            $str = 'SELECT id FROM bloodcamp_donor WHERE donor_id = ? AND bloodcamp_id = ? AND status = ?';
+            $recs = $this->db->query($str, array($id, $campid, CAMP_JOINED));
+
+            if($recs->num_rows() > 0){
+                $recid = $recs->result_array()[0]['id'];
+                $str = 'UPDATE bloodcamp_donor SET status = ? WHERE id = ?';
+                $this->db->query($str, array(CAMP_QUIT, $recid));
+            }else{
+                return -1;
+            }
+
+            return 1;
+        }else{
+            return -1;
+        }
     }
 
     /***
@@ -42,7 +102,8 @@ class donor_model extends CI_Model {
     public function getAppointments(){
         $str = 'SELECT hospital.email, hospital.name, hospital.profile, hospital.zipcode, hospital.city, hospital.district, hospital.province, `appointmentslot`.`id`, appointmentslot.datetime, appointmentslot.status,     appointmentslot.duration, appointmentslot.message FROM (`appointmentslot` 
         INNER JOIN hospital ON appointmentslot.hospital_id = hospital.id)
-        WHERE appointmentslot.status IN ? AND appointmentslot.datetime > ?';
+        WHERE appointmentslot.status IN ? AND appointmentslot.datetime > ?
+        ORDER BY hospital.email, appointmentslot.datetime';
 
         $result = $this->db->query($str, array(array(APPOINTMENT_VACANT, APPOINTMENT_CANCELLED), time()*1000));
         return $result->result_array();

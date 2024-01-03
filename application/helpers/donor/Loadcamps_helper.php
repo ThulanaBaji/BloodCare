@@ -15,6 +15,7 @@ if (!function_exists('loadCamps')) {
 
             $id = $row['id'];
             $name = $row['name'];
+            $profile = $row['profile'];
             $organizer = $row['organizer'];
             $pin = $row['location_pin'];
             $district = $row['location_district'];
@@ -24,6 +25,13 @@ if (!function_exists('loadCamps')) {
             $duration = $row['duration'];
             $maxseats = $row['max_seats'];
             $curseats = $row['cur_seats'];
+
+            $socialmediamessage = rawurlencode('Reserve your seat in ' . $name . ' TODAY !') . '%0A%0A';
+            $socialmediamessage .= rawurlencode('📅 '.$date).'%0A'.rawurlencode('📌 '.$address).'%0A'.rawurlencode('🕑 '.$time).'%0A%0A';
+            $socialmediamessage .= rawurlencode('organized by ' . $organizer) . '%0A';
+            $socialmediamessage .= rawurlencode('in collaboration with ' . $with) . '%0A%0A';
+            $socialmediamessage .= rawurlencode('visit: '.base_url('view/camp/'.$id));
+            $viewurl = base_url('view/camp/' . $id);
 
             $row['status'] = $maxseats == $curseats ? CAMP_FILLED : $row['status'];
 
@@ -55,8 +63,8 @@ if (!function_exists('loadCamps')) {
             echo <<<BC
 
             <div class="p-1 pl-4 mb-3 rounded-xl border $border max-w-xl bg-gray-50 relative camp">
-            <span class="hidden dataset" data-profile="default.svg"
-            data-name="$name" data-organizer="$organizer" 
+            <span class="hidden dataset" data-profile="$profile"
+            data-name="$name" data-organizer="$organizer" data-socialmsg="$socialmediamessage" data-view="$viewurl"
             data-address="$address" data-city="$city" data-district="$district" data-pin="$pin" 
             data-datetime="$datetime" data-duration="$duration" data-maxseats="$maxseats"></span>
             
@@ -88,28 +96,28 @@ if (!function_exists('loadCamps')) {
             <div class="py-1 flex justify-center hidden" id="camp-panel-$id">
                 <div class="w-full pt-4 pr-3">
                     <div class="bg-gray-100 p-3 rounded-lg">
-                        <div class="flex items-center gap-3">
-                            <div class="text-gray-500 font-bold text-xs rounded w-20 p-1 px-2">Time</div>
-                            <div class="text-gray-500 font-semibold text-sm">$time</div>
+                        <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3">
+                            <div class="text-gray-500 font-semibold sm:font-bold text-sm rounded w-20 sm:p-1 sm:px-2">Time</div>
+                            <div class="text-gray-500 sm:font-semibold text-sm">$time</div>
                         </div>
-                        <div class="flex items-center gap-3 mt-2">
-                            <div class="text-gray-500 font-bold text-xs rounded w-20 p-1 px-2">Location</div>
-                            <div class="text-gray-500 font-semibold text-sm underline">
+                        <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 mt-3">
+                            <div class="text-gray-500 font-semibold sm:font-bold text-sm rounded w-20 sm:p-1 sm:px-2">Location</div>
+                            <div class="text-gray-500 sm:font-semibold text-sm underline">
                                 <a href="$pin"><u>$address</u>
                                 <svg class="w-3 h-3 inline-block ml-1 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
                                 </svg></a>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3 mt-2">
-                            <div class="text-gray-500 font-bold text-xs rounded w-20 p-1 px-2">Organizer</div>
-                            <div class="text-gray-500 font-semibold text-sm">
+                        <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 mt-3">
+                            <div class="text-gray-500 font-semibold sm:font-bold text-sm rounded w-20 sm:p-1 sm:px-2">Organizer</div>
+                            <div class="text-gray-500 sm:font-semibold text-sm">
                                 $organizer
                             </div>
                         </div>
-                        <div class="flex items-center gap-3 mt-2">
-                            <div class=" text-gray-500 font-bold text-xs rounded w-20 p-1 px-2">With</div>
-                            <div class="camp-details-organizer text-gray-500 font-semibold text-sm">
+                        <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 mt-3">
+                            <div class="text-gray-500 font-semibold sm:font-bold text-sm rounded w-20 sm:p-1 sm:px-2">With</div>
+                            <div class="camp-details-organizer text-gray-500 sm:font-semibold text-sm">
                                 $with
                             </div>
                         </div>

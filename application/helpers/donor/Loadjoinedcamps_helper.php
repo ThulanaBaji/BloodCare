@@ -15,6 +15,7 @@ if (!function_exists('loadJoinedCamps')) {
 
             $id = $row['id'];
             $name = $row['name'];
+            $profile = $row['profile'];
             $organizer = $row['organizer'];
             $pin = $row['location_pin'];
             $district = $row['location_district'];
@@ -25,6 +26,13 @@ if (!function_exists('loadJoinedCamps')) {
             $maxseats = $row['max_seats'];
             $curseats = $row['cur_seats'];
             $message = $row['message'];
+
+            $socialmediamessage = rawurlencode('Reserve your seat in ' . $name . ' TODAY !') . '%0A%0A';
+            $socialmediamessage .= rawurlencode('📅 '.$date).'%0A'.rawurlencode('📌 '.$address).'%0A'.rawurlencode('🕑 '.$time).'%0A%0A';
+            $socialmediamessage .= rawurlencode('organized by ' . $organizer) . '%0A';
+            $socialmediamessage .= rawurlencode('in collaboration with ' . $with) . '%0A%0A';
+            $socialmediamessage .= rawurlencode('visit: '.base_url('view/camp/'.$id));
+            $viewurl = base_url('view/camp/' . $id);
 
             $row['status'] = $maxseats == $curseats ? CAMP_FILLED : $row['status'];
 
@@ -59,8 +67,8 @@ if (!function_exists('loadJoinedCamps')) {
             echo <<<BC
             <li class="mb-10 ms-4">
             <div class="p-1 pl-4 mb-3 rounded-xl border $border max-w-xl bg-gray-50 relative camp">
-            <span class="hidden dataset" data-profile="default.svg"
-            data-name="$name" data-organizer="$organizer" 
+            <span class="hidden dataset" data-profile="$profile"
+            data-name="$name" data-organizer="$organizer" data-socialmsg="$socialmediamessage" data-view="$viewurl"
             data-address="$address" data-city="$city" data-district="$district" data-pin="$pin" 
             data-datetime="$datetime" data-duration="$duration" data-maxseats="$maxseats"></span>
 

@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="my-6 w-full text-center">
             <a class="text-xl text-white font-semibold" href="<?php echo base_url()?>">BloodCare</a>
         </div>
-        <div class="container mx-auto">
+        <div class="container mx-auto max-w-[742px]">
             <div class="my-11 py-2 bg-white rounded-2xl shadow-2xl">
             
                 <ul class="md:hidden mb-12" id="smstepper">

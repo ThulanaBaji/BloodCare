@@ -48,7 +48,7 @@ class Camp extends CI_Controller {
     
     public function joined(){
         $data['active'] = '3';
-        $data['view'] = 'donor/dashboard/joinedcamp';
+        $data['view'] = 'donor/dashboard/campjoined';
 
         $res = $this->donor_model->getInfo($this->id);
         foreach ($res as $key => $value)

@@ -12,6 +12,43 @@ class donor_model extends CI_Model {
         return $result->row();
     }
 
+    /***
+     * ---------------------------------------------- Edit profile section
+     */
+
+    public function getEditInfo($id){
+        $query_str = 'SELECT CONCAT(`firstname` , " ", `lastname`) as name, `firstname`, `lastname`, `profile`, `contact`, `city`, `district`, `province`, `email` FROM `donor` WHERE `id` = ?';
+
+        $result = $this->db->query($query_str, $id);
+        return $result->row();
+    }
+
+    public function checkOldPassword($pass, $id){
+        $p = md5($pass);
+
+        $str = 'SELECT id FROM donor WHERE id=? AND password=?';
+        return $this->db->query($str, array($id, $p))->num_rows();
+    }
+
+    public function updatePassword($oldpass, $newpass, $id){
+        if($this->checkOldPassword($oldpass, $id) > 0){
+            $p = md5($newpass);
+            $str = 'UPDATE donor SET password = ? WHERE id = ?';
+            $this->db->query($str, array($p, $id));
+            return 1;   
+        } else
+            return -1;
+    }
+
+    public function updateDetails($strfrac, $id){
+        $str = 'UPDATE donor SET ' . $strfrac . ' WHERE id='.$id;
+        $this->db->query($str);
+    }
+
+    /***
+     * ---------------------------------------------- Camp section
+     */
+
     public function getCamps($id){
         $str = 'SELECT bloodcamp.*, hospital.name as "hname", hospital.city as "hcity",
                        (SELECT COUNT(bloodcamp_donor.id) 
@@ -96,7 +133,7 @@ class donor_model extends CI_Model {
     }
 
     /***
-     * ------------------------------- Appointment section
+     * ---------------------------------------------- Appointment section
      */
 
     public function getAppointments(){

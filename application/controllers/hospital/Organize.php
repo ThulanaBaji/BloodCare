@@ -75,7 +75,8 @@ class Organize extends CI_Controller
 
         if(!empty($_FILES['profile']['name'])){
 
-            $filename = time().$_FILES['profile']['name'];
+            $arr = explode('.', $_FILES['profile']['name']);
+            $filename = time().strval(rand(100,999)).'.'.$arr[count($arr) - 1];
 
             $config['upload_path'] = 'uploads/camp/profileimages/';
             $config['allowed_types'] = 'gif|jpg|png';
@@ -110,7 +111,8 @@ class Organize extends CI_Controller
 
         if(!empty($_FILES['profile']['name'])){
 
-            $filename = time().$_FILES['profile']['name'];
+            $arr = explode('.', $_FILES['profile']['name']);
+            $filename = time().strval(rand(100,999)).'.'.$arr[count($arr) - 1];
 
             $config['upload_path'] = 'uploads/camp/profileimages/';
             $config['allowed_types'] = 'gif|jpg|png';

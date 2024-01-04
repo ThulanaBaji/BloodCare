@@ -12,6 +12,39 @@ class hospital_model extends CI_Model {
         return $result->row();
     }
 
+    /***
+     * ---------------------------------------------- Edit profile section
+     */
+
+    public function getEditInfo($id){
+        $query_str = 'SELECT name, regnumber, `profile`, `contact`, `city`, zipcode, street_address, `district`, `province`, `email` FROM `hospital` WHERE `id` = ?';
+
+        $result = $this->db->query($query_str, $id);
+        return $result->row();
+    }
+
+    public function checkOldPassword($pass, $id){
+        $p = md5($pass);
+
+        $str = 'SELECT id FROM hospital WHERE id=? AND password=?';
+        return $this->db->query($str, array($id, $p))->num_rows();
+    }
+
+    public function updatePassword($oldpass, $newpass, $id){
+        if($this->checkOldPassword($oldpass, $id) > 0){
+            $p = md5($newpass);
+            $str = 'UPDATE hospital SET password = ? WHERE id = ?';
+            $this->db->query($str, array($p, $id));
+            return 1;   
+        } else
+            return -1;
+    }
+
+    public function updateDetails($strfrac, $id){
+        $str = 'UPDATE hospital SET ' . $strfrac . ' WHERE id='.$id;
+        $this->db->query($str);
+    }
+
     /**
      * --------------------------------Camps section
      */

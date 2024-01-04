@@ -67,8 +67,9 @@ class Register extends CI_Controller {
 			$data = $_POST;
 
 			if(!empty($_FILES['profile']['name'])){
-
-				$filename = time().$_FILES['profile']['name'];
+			
+				$arr = explode('.', $_FILES['profile']['name']);
+            	$filename = time().strval(rand(100,999)).'.'.$arr[count($arr) - 1];
 	
 				$config['upload_path'] = 'uploads/donor/profileimages/';
 				$config['allowed_types'] = 'gif|jpg|png';
@@ -115,7 +116,8 @@ class Register extends CI_Controller {
 
 					if(!empty($_FILES['profile']['name'])){
 
-						$filename = time().$_FILES['profile']['name'];
+						$arr = explode('.', $_FILES['profile']['name']);
+            			$filename = time().strval(rand(100,999)).'.'.$arr[count($arr) - 1];
 			
 						$config['upload_path'] = 'uploads/hospital/profileimages/';
 						$config['allowed_types'] = 'gif|jpg|png';

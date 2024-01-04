@@ -117,7 +117,7 @@
             var hospitalheader = $(`<div class="flex items-center justify-between w-full">
                 <div class="flex items-center gap-6">
                     <div class="hidden sm:flex w-16 h-16 border items-center rounded-full overflow-hidden">
-                        <img src="http://localhost/bloodcare/uploads/hospital/profileimages/${profile}" class="object-cover object-center w-16">
+                        <img src="<?= base_url('uploads/hospital/profileimages/') ?>${profile}" class="object-cover object-center w-16">
                     </div>
                     <div class="flex flex-col text-left text-gray-500 font-semibold gap-3 sm:gap-2">
                         <p class="text-lg sm:text-lg leading-tight">${name}</p>

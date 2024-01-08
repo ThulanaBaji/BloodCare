@@ -22,6 +22,6 @@ class Share extends CI_Controller
         $data['url'] = base_url('uploads/camp/profileimages/'.$camp->profile);
         $data['status'] = $camp->status;
 
-        $this->load->view('view/camp', $data);
+        $this->load->view('share/camp', $data);
     }
 }

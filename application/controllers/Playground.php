@@ -1,6 +1,16 @@
 <?php
 
-class Playground{
+class Playground extends CI_Controller{
+
+    public function component(){
+        $this->load->model('donor_model');
+            $this->load->database();
+            $notifications = $this->donor_model->getNotifications(1000);
+            $this->load->helper('loadnotifications');
+
+        $this->load->view('component/index', array('component' => 'component/notification', 'notifications' => $notifications));
+    }
+
     public function index(){
         //dummy config
         echo strtotime("00:30").'<br>';

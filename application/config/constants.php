@@ -101,3 +101,11 @@ defined('CAMP_FILLED')     OR define('CAMP_FILLED', 'filled');
 defined('CAMP_CANCELLED')  OR define('CAMP_CANCELLED', 'cancelled');
 defined('CAMP_JOINED')     OR define('CAMP_JOINED', 'joined');
 defined('CAMP_QUIT')       OR define('CAMP_QUIT', 'quit');
+
+defined('MSG_SENT')     OR define('MSG_SENT', 'sent');
+defined('MSG_SEEN')     OR define('MSG_SEEN', 'seen');
+defined('MSG_DEL')      OR define('MSG_DEL', 'deleted');
+defined('MSG_WARNING')  OR define('MSG_WARNING', 'warning');
+defined('MSG_INFO')     OR define('MSG_INFO', 'info');
+defined('MSG_SUCCESS')  OR define('MSG_SUCCESS', 'success');
+defined('MSG_HELP')     OR define('MSG_HELP', 'help');

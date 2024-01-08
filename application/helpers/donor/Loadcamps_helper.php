@@ -30,8 +30,8 @@ if (!function_exists('loadCamps')) {
             $socialmediamessage .= rawurlencode('📅 '.$date).'%0A'.rawurlencode('📌 '.$address).'%0A'.rawurlencode('🕑 '.$time).'%0A%0A';
             $socialmediamessage .= rawurlencode('organized by ' . $organizer) . '%0A';
             $socialmediamessage .= rawurlencode('in collaboration with ' . $with) . '%0A%0A';
-            $socialmediamessage .= rawurlencode('visit: '.base_url('view/camp/'.$id));
-            $viewurl = base_url('view/camp/' . $id);
+            $socialmediamessage .= rawurlencode('visit: '.base_url('share/camp/'.$id));
+            $viewurl = base_url('share/camp/' . $id);
 
             $row['status'] = $maxseats == $curseats ? CAMP_FILLED : $row['status'];
 

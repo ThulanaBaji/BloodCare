@@ -1,0 +1,12 @@
+notification generation
+
+[admin] 
+  -everything
+
+[donor] 
+  -dashboard 
+  -donations
+
+[hospital] 
+  -dashboard
+  -blood requests

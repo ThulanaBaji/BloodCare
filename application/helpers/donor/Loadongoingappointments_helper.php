@@ -21,11 +21,11 @@ if (!function_exists('loadOngoingAppointments'))
             if($row['status'] == APPOINTMENT_RESERVED){
             echo 
             <<<BC
-            <li class="mb-10 ms-4">
+            <li class="mb-10 ms-4" id="$id">
                 <div class="absolute -start-[22px] translate-y-4 w-11 h-11 ring-1 ring-gray-400 border-gray-50 border-2 flex items-center rounded-full overflow-hidden">
                     <img class="w-14 object-cover object-center" src="$url">
                 </div>
-                <div class="transition-shadow rounded-lg max-w-xl p-4 border border-gray-400 group hover:shadow-lg bg-gray-50">
+                <div class="transition-shadow rounded-lg max-w-xl p-4 focus:border-2 border border-gray-400 group hover:shadow-lg bg-gray-50">
                     <div class="flex justify-between items-start">
                         <div class="flex flex-col">
                         <time class="mb-1 text-sm leading-none text-gray-600 font-semibold inline-block">$time</time>

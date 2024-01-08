@@ -32,6 +32,18 @@
 </div>
 
 <script>
+    var s = $(location).attr('href');
+    var a = s.split('/');
+    var id = a[a.length - 1];
+
+    if(id[0] === '#'){
+        $( id ).animate({
+            opacity: [ 0.25, "linear" ]
+        }, 300, () => $( id ).animate({
+            opacity: [ 1.0, "linear" ]
+        }, 300 ));
+    }
+
     function cancelAppointment(button){
         var id = $(button).data('id');
         var msg = $($(button).siblings('input')).val().trim();

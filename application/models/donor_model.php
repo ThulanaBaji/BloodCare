@@ -6,20 +6,43 @@ class donor_model extends CI_Model {
 
     //name, profile, email, contact
     public function getInfo($id){
-        $query_str = 'SELECT CONCAT(`firstname` , " ", `lastname`) as name, `profile`, `email` FROM `donor` WHERE `id` = ?';
+        $query_str = 'SELECT (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `profile`, `email` FROM `donor` WHERE `id` = ?';
 
-        $result = $this->db->query($query_str, $id);
+        $result = $this->db->query($query_str, array($id, MSG_SENT, $id));
         return $result->row();
     }
+
+    /**
+     * ---------------------------------------------- Notifications
+     */
+
+    public function getNotifications($id){
+        $str = 'SELECT notification.*, notification_donor.id as nid, status FROM notification_donor
+                INNER JOIN notification on notification.id = notification_donor.notification_id
+                WHERE status != "'.MSG_DEL.'" AND notification_donor.donor_id = ' . $id.' 
+                ORDER BY notification.time DESC';
+        return $this->db->query($str)->result_array();
+    }
+
+    public function deleteNotification($id, $notification_id){
+        $str = 'UPDATE notification_donor SET status = ? WHERE donor_id = ? AND notification_id = ?';
+        $this->db->query($str, array(MSG_DEL, $id, $notification_id));
+    }
+
+    public function seenNotification($id, $notification_id){
+        $str = 'UPDATE notification_donor SET status = ? WHERE donor_id = ? AND notification_id = ?';
+        $this->db->query($str, array(MSG_SEEN, $id, $notification_id));
+    }
+
 
     /***
      * ---------------------------------------------- Edit profile section
      */
 
     public function getEditInfo($id){
-        $query_str = 'SELECT CONCAT(`firstname` , " ", `lastname`) as name, `firstname`, `lastname`, `profile`, `contact`, `city`, `district`, `province`, `email` FROM `donor` WHERE `id` = ?';
+        $query_str = 'SELECT (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `firstname`, `lastname`, `profile`, `contact`, `city`, `district`, `province`, `email` FROM `donor` WHERE `id` = ?';
 
-        $result = $this->db->query($query_str, $id);
+        $result = $this->db->query($query_str, array($id, MSG_SENT, $id));
         return $result->row();
     }
 

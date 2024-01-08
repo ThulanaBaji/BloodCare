@@ -6,10 +6,32 @@ class hospital_model extends CI_Model {
 
     //name, profile, email, contact, status
     public function getInfo($id){
-        $query_str = 'SELECT `name`, `profile`, `email`, `status` FROM `hospital` WHERE `id` = ?';
+        $query_str = 'SELECT (SELECT COUNT(id) FROM notification_hospital WHERE hospital_id = ? AND status = ?) as ncount, `name`, `profile`, `email`, `status` FROM `hospital` WHERE `id` = ?';
 
-        $result = $this->db->query($query_str, $id);
+        $result = $this->db->query($query_str, array($id, MSG_SENT, $id));
         return $result->row();
+    }
+
+    /**
+     * ---------------------------------------------- Notifications
+     */
+
+    public function getNotifications($id){
+        $str = 'SELECT notification.*, notification_hospital.id as nid, status FROM notification_hospital
+                INNER JOIN notification on notification.id = notification_hospital.notification_id
+                WHERE status != "'.MSG_DEL.'" AND notification_hospital.hospital_id = ' . $id.' 
+                ORDER BY notification.time DESC';
+        return $this->db->query($str)->result_array();
+    }
+
+    public function deleteNotification($id, $notification_id){
+        $str = 'UPDATE notification_hospital SET status = ? WHERE hospital_id = ? AND notification_id = ?';
+        $this->db->query($str, array(MSG_DEL, $id, $notification_id));
+    }
+
+    public function seenNotification($id, $notification_id){
+        $str = 'UPDATE notification_hospital SET status = ? WHERE hospital_id = ? AND notification_id = ?';
+        $this->db->query($str, array(MSG_SEEN, $id, $notification_id));
     }
 
     /***
@@ -17,9 +39,9 @@ class hospital_model extends CI_Model {
      */
 
     public function getEditInfo($id){
-        $query_str = 'SELECT name, regnumber, `profile`, `contact`, `city`, zipcode, street_address, `district`, `province`, `email` FROM `hospital` WHERE `id` = ?';
+        $query_str = 'SELECT (SELECT COUNT(id) FROM notification_hospital WHERE hospital_id = ? AND status = ?) as ncount, name, regnumber, `profile`, `contact`, `city`, zipcode, street_address, `district`, `province`, `email` FROM `hospital` WHERE `id` = ?';
 
-        $result = $this->db->query($query_str, $id);
+        $result = $this->db->query($query_str, array($id, MSG_SENT, $id));
         return $result->row();
     }
 

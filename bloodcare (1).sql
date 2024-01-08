@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2023 at 06:12 AM
+-- Generation Time: Jan 08, 2024 at 01:47 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -54,55 +54,24 @@ CREATE TABLE `appointmentslot` (
 --
 
 INSERT INTO `appointmentslot` (`id`, `hospital_id`, `datetime`, `duration`, `status`, `message`) VALUES
-(1, 101, 1701570600000, 3600000, 'rejected', 'service available appointments changed, please make another appointment.'),
-(308, 101, 1701691200000, 1800000, 'reserved', NULL),
-(388, 101, 1702733400000, 3600000, 'rejected', 'Unfortunately, service unavailble at this time'),
-(455, 101, 1706952600000, 3600000, 'rejected', 'service available appointments changed, please make another appointment.'),
-(461, 101, 1702098600000, 2400000, 'vacant', NULL),
-(467, 101, 1702113000000, 2400000, 'vacant', NULL),
-(471, 101, 1702127400000, 2400000, 'vacant', NULL),
-(475, 101, 1702703400000, 2400000, 'vacant', NULL),
-(481, 101, 1702717800000, 2400000, 'vacant', NULL),
-(485, 101, 1702732200000, 2400000, 'vacant', NULL),
-(489, 101, 1703308200000, 2400000, 'vacant', NULL),
-(495, 101, 1703322600000, 2400000, 'vacant', NULL),
-(499, 101, 1703337000000, 2400000, 'vacant', NULL),
-(503, 101, 1703913000000, 2400000, 'vacant', NULL),
-(509, 101, 1703927400000, 2400000, 'vacant', NULL),
-(513, 101, 1703941800000, 2400000, 'vacant', NULL),
-(517, 101, 1704517800000, 2400000, 'vacant', NULL),
-(523, 101, 1704532200000, 2400000, 'vacant', NULL),
-(527, 101, 1704546600000, 2400000, 'vacant', NULL),
-(531, 101, 1705122600000, 2400000, 'vacant', NULL),
-(537, 101, 1705137000000, 2400000, 'vacant', NULL),
-(541, 101, 1705151400000, 2400000, 'vacant', NULL),
-(545, 101, 1705727400000, 2400000, 'vacant', NULL),
-(551, 101, 1705741800000, 2400000, 'vacant', NULL),
-(555, 101, 1705756200000, 2400000, 'vacant', NULL),
-(559, 101, 1706332200000, 2400000, 'vacant', NULL),
-(565, 101, 1706346600000, 2400000, 'vacant', NULL),
-(569, 101, 1706361000000, 2400000, 'vacant', NULL),
-(573, 101, 1706937000000, 2400000, 'vacant', NULL),
-(579, 101, 1706951400000, 2400000, 'vacant', NULL),
-(583, 101, 1706965800000, 2400000, 'vacant', NULL),
-(668, 101, 1702117800000, 14400000, 'vacant', NULL),
-(671, 101, 1702722600000, 14400000, 'vacant', NULL),
-(674, 101, 1703327400000, 14400000, 'vacant', NULL),
-(677, 101, 1703932200000, 14400000, 'vacant', NULL),
-(680, 101, 1704537000000, 14400000, 'vacant', NULL),
-(683, 101, 1705141800000, 14400000, 'vacant', NULL),
-(686, 101, 1705746600000, 14400000, 'vacant', NULL),
-(689, 101, 1706351400000, 14400000, 'vacant', NULL),
-(692, 101, 1706956200000, 14400000, 'vacant', NULL),
-(693, 101, 1702089000000, 18000000, 'vacant', NULL),
-(694, 101, 1702693800000, 18000000, 'vacant', NULL),
-(695, 101, 1703298600000, 18000000, 'vacant', NULL),
-(696, 101, 1703903400000, 18000000, 'vacant', NULL),
-(697, 101, 1704508200000, 18000000, 'vacant', NULL),
-(698, 101, 1705113000000, 18000000, 'vacant', NULL),
-(699, 101, 1705717800000, 18000000, 'vacant', NULL),
-(700, 101, 1706322600000, 18000000, 'vacant', NULL),
-(701, 101, 1706927400000, 18000000, 'vacant', NULL);
+(702, 101, 1704508200000, 18000000, 'vacant', NULL),
+(703, 101, 1705113000000, 18000000, 'cancelled', 'Alpha Palaia cancelled the appointment'),
+(704, 101, 1705717800000, 18000000, 'cancelled', 'Alpha Palaia cancelled the appointment'),
+(705, 101, 1706322600000, 18000000, 'vacant', NULL),
+(706, 101, 1706927400000, 18000000, 'vacant', NULL),
+(707, 101, 1707532200000, 18000000, 'vacant', NULL),
+(708, 101, 1708137000000, 18000000, 'vacant', NULL),
+(709, 101, 1708741800000, 18000000, 'vacant', NULL),
+(710, 101, 1709346600000, 18000000, 'vacant', NULL),
+(711, 101, 1704526200000, 18000000, 'reserved', NULL),
+(712, 101, 1705131000000, 18000000, 'cancelled', 'Alpha Palaia cancelled the appointment'),
+(713, 101, 1705735800000, 18000000, 'cancelled', 'Alpha Palaia cancelled the appointment'),
+(714, 101, 1706340600000, 18000000, 'cancelled', 'Alpha Palaia cancelled the appointment'),
+(715, 101, 1706945400000, 18000000, 'vacant', NULL),
+(716, 101, 1707550200000, 18000000, 'vacant', NULL),
+(717, 101, 1708155000000, 18000000, 'vacant', NULL),
+(718, 101, 1708759800000, 18000000, 'vacant', NULL),
+(719, 101, 1709364600000, 18000000, 'vacant', NULL);
 
 -- --------------------------------------------------------
 
@@ -113,13 +82,26 @@ INSERT INTO `appointmentslot` (`id`, `hospital_id`, `datetime`, `duration`, `sta
 CREATE TABLE `bloodcamp` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `profile` varchar(200) NOT NULL,
   `organizer` varchar(45) NOT NULL,
   `hospital_id` int(11) NOT NULL,
-  `start_datetime` datetime NOT NULL,
-  `duration` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `message` varchar(45) DEFAULT NULL,
+  `start_datetime` bigint(20) NOT NULL,
+  `duration` bigint(20) NOT NULL DEFAULT current_timestamp(),
+  `location_pin` varchar(200) NOT NULL,
+  `location_district` varchar(200) NOT NULL,
+  `location_city` varchar(200) NOT NULL,
+  `location_address` varchar(400) NOT NULL,
+  `max_seats` int(11) NOT NULL,
+  `message` varchar(1000) DEFAULT NULL,
   `status` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `bloodcamp`
+--
+
+INSERT INTO `bloodcamp` (`id`, `name`, `profile`, `organizer`, `hospital_id`, `start_datetime`, `duration`, `location_pin`, `location_district`, `location_city`, `location_address`, `max_seats`, `message`, `status`) VALUES
+(1, 'Vivekananda blood camp', '1704351491Blood-Donation-Camp.jpg', 'Vivekananda college of Engineering', 101, 1728100200000, 30600000, 'https://maps.app.goo.gl/XdJKfBJg5Dp9A6JS9', 'Puttur', 'Nahru Nagar', 'Sri Rama hall, Vivekananda College, Nahru Nagar, Puttur.', 1000, 'Due to an unavoidable reason, organizers had to cancel the camp. A new camp will be organized with the decided new date. We are sorry for any inconvenience occurred.', 'vacant');
 
 -- --------------------------------------------------------
 
@@ -130,21 +112,18 @@ CREATE TABLE `bloodcamp` (
 CREATE TABLE `bloodcamp_donor` (
   `bloodcamp_id` int(11) NOT NULL,
   `donor_id` int(11) NOT NULL,
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `bloodcamp_seats`
+-- Dumping data for table `bloodcamp_donor`
 --
 
-CREATE TABLE `bloodcamp_seats` (
-  `bloodcamp_id` int(11) NOT NULL,
-  `max_seats` int(11) NOT NULL,
-  `cur_seats` int(11) NOT NULL,
-  `status` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+INSERT INTO `bloodcamp_donor` (`bloodcamp_id`, `donor_id`, `id`, `status`) VALUES
+(1, 1000, 1, 'joined'),
+(1, 1005, 2, 'quit'),
+(1, 1002, 3, 'quit');
 
 -- --------------------------------------------------------
 
@@ -175,14 +154,14 @@ CREATE TABLE `donor` (
 --
 
 INSERT INTO `donor` (`id`, `firstname`, `lastname`, `profile`, `dob`, `email`, `zipcode`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `create_time`, `status`) VALUES
-(1000, 'Cecilia', 'Colaizzo', '1701336896icons8-team-6LZuSzSwso0-unsplash.jpg', '2000-02-02', 'cecilia.colaizzo@gmail.com', 0, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94712178659', 'yRKNsi7btHMDwc4!', '2023-11-29 18:30:00', 'registered'),
-(1001, 'Tegan', 'Arceo', '1701350643redd-f-pzOUnvx9c1E-unsplash.jpg', '2004-04-04', 'tegan.arceo@gmail.com', 0, 'Norris Canal Road', 'Dual', 'Colombo', 'Western province', '+94778698766', 'skFGQCa238zeZjz!', '2023-11-29 18:30:00', 'registered'),
-(1002, 'Loren', 'Asar', '1701351072charlesdeluvio-kVg2DQTAK7c-unsplash.jpg', '2001-05-05', 'loren.asar@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94712345678', 'UuWQ9LszX57iEs3!', '2023-11-29 18:30:00', 'registered'),
-(1003, 'Roslyn', 'Chavous', '1701351157gift-habeshaw-ImFZSnfobKk-unsplash.jpg', '2000-06-06', 'roslyn.chavous@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94756712345', 'PZq2PZLbXsPB4bV!', '2023-11-29 18:30:00', 'registered'),
-(1004, 'Diane', 'Devreese', '1701351240toa-heftiba-O3ymvT7Wf9U-unsplash.jpg', '2001-04-02', 'diane.devreese@gmail.com', 0, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94768912345', 'qdJ2vs3wTdGrfa2!', '2023-11-29 18:30:00', 'registered'),
-(1005, 'Alpha', 'Palaia', '1701351346tyler-nix-X2YO8KFxgEM-unsplash.jpg', '2000-01-01', 'alpha.palaia@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94756812345', 'E4HBQFuUV4GJZ8w@', '2023-11-29 18:30:00', 'registered'),
-(1006, 'Mona', 'Delasancha', '1701351413aiony-haust-3TLl_97HNJo-unsplash.jpg', '2001-07-07', 'mona.delasancha@gmail.com', 0, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94765412345', 'G3WLWUQi74gqsP9!', '2023-11-29 18:30:00', 'registered'),
-(1007, 'Jani', 'Biddy', '1701351500kimson-doan-HD8KlyWRYYM-unsplash.jpg', '2000-01-01', 'jani.biddy@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94756712345', 'yYkg9agp3QNFvb9@', '2023-11-29 18:30:00', 'registered');
+(1000, 'Cecilia', 'Colaizzo', '1704377577952.jpg', '2000-02-02', 'cecilia.colaizzo@gmail.com', 0, 'Norris Canal Road', 'Colombo 10', 'Kegalle', 'Sabaragamuwa province', '+94712178659', 'e69c2991405e016e9a897b340598beb1', '2023-11-29 18:30:00', 'registered'),
+(1001, 'Tegan', 'Arceo', '1701350643redd-f-pzOUnvx9c1E-unsplash.jpg', '2004-04-04', 'tegan.arceo@gmail.com', 0, 'Norris Canal Road', 'Dual', 'Colombo', 'Western province', '+94778698766', '3d5c88ce740769344583c723f2efb0b3', '2023-11-29 18:30:00', 'registered'),
+(1002, 'Loren', 'Asar', '1701351072charlesdeluvio-kVg2DQTAK7c-unsplash.jpg', '2001-05-05', 'loren.asar@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94712345678', 'bdb1ad040ee48e4b3adf6903acb0258e', '2023-11-29 18:30:00', 'registered'),
+(1003, 'Roslyn', 'Chavous', '1701351157gift-habeshaw-ImFZSnfobKk-unsplash.jpg', '2000-06-06', 'roslyn.chavous@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94756712345', '2102c8adab8896992b733aaef02d12eb', '2023-11-29 18:30:00', 'registered'),
+(1004, 'Diane', 'Devreese', '1701351240toa-heftiba-O3ymvT7Wf9U-unsplash.jpg', '2001-04-02', 'diane.devreese@gmail.com', 0, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94768912345', '93032a1258b3f32dc771dc7499f6666b', '2023-11-29 18:30:00', 'registered'),
+(1005, 'Alpha', 'Palaia', '1701351346tyler-nix-X2YO8KFxgEM-unsplash.jpg', '2000-01-01', 'alpha.palaia@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94756812345', '65bd271b6cb466944f944ad1cc184995', '2023-11-29 18:30:00', 'registered'),
+(1006, 'Mona', 'Delasancha', '1701351413aiony-haust-3TLl_97HNJo-unsplash.jpg', '2001-07-07', 'mona.delasancha@gmail.com', 0, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94765412345', '3e1e25fe36bd6ec709a5748eb864d388', '2023-11-29 18:30:00', 'registered'),
+(1007, 'Jani', 'Biddy', '1701351500kimson-doan-HD8KlyWRYYM-unsplash.jpg', '2000-01-01', 'jani.biddy@gmail.com', 0, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '+94756712345', '225067dfd4dec1bc07d5ec6e2b5eea25', '2023-11-29 18:30:00', 'registered');
 
 -- --------------------------------------------------------
 
@@ -201,10 +180,12 @@ CREATE TABLE `donor_appointment` (
 --
 
 INSERT INTO `donor_appointment` (`id`, `donor_id`, `appointmentslot_id`) VALUES
-(3, 1000, 1),
-(4, 1004, 308),
-(5, 1002, 455),
-(6, 1007, 388);
+(7, 1005, 711),
+(8, 1005, 712),
+(9, 1005, 703),
+(10, 1005, 713),
+(11, 1005, 704),
+(12, 1005, 714);
 
 -- --------------------------------------------------------
 
@@ -264,8 +245,8 @@ CREATE TABLE `hospital` (
 --
 
 INSERT INTO `hospital` (`id`, `regnumber`, `name`, `profile`, `email`, `zipcode`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `create_time`, `verification`, `expire`, `status`) VALUES
-(100, 'LK0010N00005', 'Asiri Hospital', '1701353336asiri.png', 'thulanabaji@gmail.com', 10600, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94114665500', '2BGvSwx3iePdxcS!', '2023-11-29 18:30:00', '939f2202fed2688e08b76372db02b752', 0, 'verified'),
-(101, 'LK0338N00000', 'Durdans Hospital', '1701354726logo-small.jpg', 'thulanactf@gmail.com', 82400, 'Norris Canal Road', 'Beliatta', 'Matara', 'Southern province', '0112140000', '7NqS5wD67JqCkES@', '2023-11-29 18:30:00', '9f2baa2c76a82e5e975a5497e7d38f1a', 0, 'verified');
+(100, 'LK0010N00005', 'Asiri Hospital', '1701353336asiri.png', 'thulanabaji@gmail.com', 10600, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94114665500', 'd0abeba5dd236379e84d75d21a53294d', '2023-11-29 18:30:00', '939f2202fed2688e08b76372db02b752', 0, 'verified'),
+(101, 'LK0338N00000', 'Durdans Hospital', '1701354726logo-small.jpg', 'thulanactf@gmail.com', 82401, 'Norris Canal Cross Road', 'Mahaunava', 'Colombo', 'Western province', '0112140001', 'b76ad8b2ed9b9c2f67202e16c76f06d2', '2023-11-29 18:30:00', '9f2baa2c76a82e5e975a5497e7d38f1a', 0, 'verified');
 
 -- --------------------------------------------------------
 
@@ -301,7 +282,53 @@ CREATE TABLE `hospital_configure` (
 
 INSERT INTO `hospital_configure` (`id`, `hospital_id`, `appointment`) VALUES
 (1, 100, '{\"days\":[1,2],\"dates\":[],\"start\":\"08:00\",\"end\":\"20:00\",\"duration\":\"00:30\",\"breaks\":[]}'),
-(2, 101, '{\"days\":[0,1,2,3,4,5],\"dates\":[],\"start\":\"08:00\",\"end\":\"20:00\",\"duration\":\"05:00\",\"breaks\":[{\"start\":\"17:00\",\"end\":\"18:00\"},{\"start\":\"09:00\",\"end\":\"10:00\"}]}');
+(2, 101, '{\"days\":[0,1,2,3,4,5],\"dates\":[],\"start\":\"08:00\",\"end\":\"20:00\",\"duration\":\"05:00\",\"breaks\":[{\"start\":\"09:00\",\"end\":\"10:00\"}]}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `sender` varchar(200) NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `action` varchar(300) DEFAULT NULL,
+  `action_name` varchar(100) DEFAULT NULL,
+  `type` varchar(20) NOT NULL,
+  `time` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `message`, `sender`, `image`, `action`, `action_name`, `type`, `time`) VALUES
+(1, 'your appointment at <b>Durdans Hospital</b> was cancelled.', 'Durdans Hospital', 'uploads/hospital/profileimages/1701354726logo-small.jpg', 'donor/appointment/ongoing/#2', 'appointment', 'success', '2024-01-03 00:00:00'),
+(2, 'appointments available now at your favorite blood donation center ~ <b>Durdans Hospital</b>', 'BloodCare', 'uploads/hospital/profileimages/1701354726logo-small.jpg', 'donor/appointment/', 'lets check', 'info', '2024-01-08 15:41:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_donor`
+--
+
+CREATE TABLE `notification_donor` (
+  `id` int(11) NOT NULL,
+  `donor_id` int(11) NOT NULL,
+  `notification_id` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notification_donor`
+--
+
+INSERT INTO `notification_donor` (`id`, `donor_id`, `notification_id`, `status`) VALUES
+(1, 1000, 1, 'deleted'),
+(2, 1000, 2, 'deleted');
 
 --
 -- Indexes for dumped tables
@@ -334,12 +361,6 @@ ALTER TABLE `bloodcamp_donor`
   ADD PRIMARY KEY (`id`),
   ADD KEY `bloodcamp_donor_bloodcamp_id` (`bloodcamp_id`),
   ADD KEY `bloodcamp_donor_donor_id` (`donor_id`);
-
---
--- Indexes for table `bloodcamp_seats`
---
-ALTER TABLE `bloodcamp_seats`
-  ADD PRIMARY KEY (`bloodcamp_id`);
 
 --
 -- Indexes for table `donor`
@@ -391,6 +412,20 @@ ALTER TABLE `hospital_configure`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notification_donor`
+--
+ALTER TABLE `notification_donor`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notification_donor_donorid_fk` (`donor_id`),
+  ADD KEY `notification_donor_notificationid_fk` (`notification_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -404,25 +439,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointmentslot`
 --
 ALTER TABLE `appointmentslot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=702;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=720;
 
 --
 -- AUTO_INCREMENT for table `bloodcamp`
 --
 ALTER TABLE `bloodcamp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bloodcamp_donor`
 --
 ALTER TABLE `bloodcamp_donor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `bloodcamp_seats`
---
-ALTER TABLE `bloodcamp_seats`
-  MODIFY `bloodcamp_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `donor`
@@ -434,7 +463,7 @@ ALTER TABLE `donor`
 -- AUTO_INCREMENT for table `donor_appointment`
 --
 ALTER TABLE `donor_appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `donor_bloodtype`
@@ -467,6 +496,18 @@ ALTER TABLE `hospital_configure`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `notification_donor`
+--
+ALTER TABLE `notification_donor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -476,6 +517,13 @@ ALTER TABLE `hospital_configure`
 ALTER TABLE `donor_appointment`
   ADD CONSTRAINT `donor_appointment_ibfk_1` FOREIGN KEY (`donor_id`) REFERENCES `donor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `donor_appointment_ibfk_2` FOREIGN KEY (`appointmentslot_id`) REFERENCES `appointmentslot` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `notification_donor`
+--
+ALTER TABLE `notification_donor`
+  ADD CONSTRAINT `notification_donor_donorid_fk` FOREIGN KEY (`donor_id`) REFERENCES `donor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notification_donor_notificationid_fk` FOREIGN KEY (`notification_id`) REFERENCES `notification` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

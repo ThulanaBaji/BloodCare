@@ -6,10 +6,32 @@ class donor_model extends CI_Model {
 
     //name, profile, email, contact
     public function getInfo($id){
-        $query_str = 'SELECT (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `profile`, `email` FROM `donor` WHERE `id` = ?';
+        $query_str = 'SELECT (SELECT COUNT(id) FROM donor_donation WHERE donor_id = ?) as dcount, (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `profile`, `email` FROM `donor` WHERE `id` = ?';
 
-        $result = $this->db->query($query_str, array($id, MSG_SENT, $id));
+        $result = $this->db->query($query_str, array($id, $id, MSG_SENT, $id));
         return $result->row();
+    }
+
+    /**
+     * --------------------------------------------- Donations
+     */
+
+    public function getDonations($id){
+        $str = 'SELECT donor_donation.*, CONCAT(hospital.name, ", ", hospital.city) as hospital_name, bloodcamp.name FROM donor_donation
+                INNER JOIN bloodcamp ON bloodcamp.id = donor_donation.bloodcamp_id
+                INNER JOIN hospital ON hospital.id = donor_donation.hospital_id 
+                WHERE donor_donation.donor_id = ?
+                ORDER BY donor_donation.datetime';
+        return $this->db->query($str, $id)->result_array();
+    }
+
+    public function getDonationsCount($id){
+        $str = 'SELECT donor_donation.*, CONCAT(hospital.name, ", ", hospital.city) as hospital_name, bloodcamp.name FROM donor_donation
+                INNER JOIN bloodcamp ON bloodcamp.id = donor_donation.bloodcamp_id
+                INNER JOIN hospital ON hospital.id = donor_donation.hospital_id 
+                WHERE donor_donation.donor_id = ? AND donor_donation.status = ?
+                ORDER BY donor_donation.datetime';
+        return count($this->db->query($str, array($id, DONATION_PROCESSED))->result_array());
     }
 
     /**
@@ -40,9 +62,9 @@ class donor_model extends CI_Model {
      */
 
     public function getEditInfo($id){
-        $query_str = 'SELECT (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `firstname`, `lastname`, `profile`, `contact`, `city`, `district`, `province`, `email` FROM `donor` WHERE `id` = ?';
+        $query_str = 'SELECT (SELECT COUNT(id) FROM donor_donation WHERE donor_id = ?) as dcount, (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `firstname`, `lastname`, `profile`, `contact`, `city`, `district`, `province`, `email` FROM `donor` WHERE `id` = ?';
 
-        $result = $this->db->query($query_str, array($id, MSG_SENT, $id));
+        $result = $this->db->query($query_str, array($id, $id, MSG_SENT, $id));
         return $result->row();
     }
 

@@ -143,7 +143,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </g>
                             </svg>
                             <div class="flex-1 ms-3 whitespace-nowrap">Donations</div>
-                            <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full ">63</span>
+                            <?php if($dcount > 0): ?>
+                            <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full "><?= $dcount?></span>
+                            <?php endif; ?>
                             </a>
                         </li>
                         <li class="border-t border-gray-200 pt-2">

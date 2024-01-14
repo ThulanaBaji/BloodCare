@@ -109,3 +109,18 @@ defined('MSG_WARNING')  OR define('MSG_WARNING', 'warning');
 defined('MSG_INFO')     OR define('MSG_INFO', 'info');
 defined('MSG_SUCCESS')  OR define('MSG_SUCCESS', 'success');
 defined('MSG_HELP')     OR define('MSG_HELP', 'help');
+
+defined('DONATION_PROCESSING')   OR define('DONATION_PROCESSING', 'processing');
+defined('DONATION_PROCESSED')    OR define('DONATION_PROCESSED', 'processed');
+defined('DONATION_REJECTED')     OR define('DONATION_REJECTED', 'rejected');
+defined('DONATION_CAMP')         OR define('DONATION_CAMP', 'bloodcamp');
+defined('DONATION_APPOINTMENT')  OR define('DONATION_APPOINTMENT', 'appointment');
+
+defined('BLOOD_AP')    OR define('BLOOD_AP', 'ap');
+defined('BLOOD_AN')    OR define('BLOOD_AN', 'an');
+defined('BLOOD_ABP')   OR define('BLOOD_ABP', 'abp');
+defined('BLOOD_ABN')   OR define('BLOOD_ABN', 'abn');
+defined('BLOOD_BP')    OR define('BLOOD_BP', 'bp');
+defined('BLOOD_BN')    OR define('BLOOD_BN', 'bn');
+defined('BLOOD_OP')    OR define('BLOOD_OP', 'op');
+defined('BLOOD_ON')    OR define('BLOOD_ON', 'on');

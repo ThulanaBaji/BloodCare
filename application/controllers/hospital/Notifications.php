@@ -26,7 +26,7 @@ class Notifications extends CI_Controller {
 
     public function index(){
         
-        $data['active'] = '5';
+        $data['active'] = '6';
         $data['view'] = 'notifications';
 
         $res = $this->hospital_model->getInfo($this->id);

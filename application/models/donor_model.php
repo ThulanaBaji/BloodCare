@@ -52,8 +52,8 @@ class donor_model extends CI_Model {
     }
 
     public function seenNotification($id, $notification_id){
-        $str = 'UPDATE notification_donor SET status = ? WHERE donor_id = ? AND notification_id = ?';
-        $this->db->query($str, array(MSG_SEEN, $id, $notification_id));
+        $str = 'UPDATE notification_donor SET status = "'.MSG_SEEN.'" WHERE donor_id = '.$id.' AND notification_id = '.$notification_id;
+        $this->db->query($str);
     }
 
 
@@ -219,7 +219,7 @@ class donor_model extends CI_Model {
         $str = 'SELECT id FROM `donor_appointment` WHERE donor_id = ? AND appointmentslot_id = ?';
         $result = $this->db->query($str, array($id, $appointment_id));
 
-        if($result->num_rows() == 1)
+        if($result->num_rows() >= 1)
         {   
             $query_str = 'UPDATE `appointmentslot` SET `status` = ?, `message` = ? WHERE id = ?';
             $result = $this->db->query($query_str, array(APPOINTMENT_CANCELLED, $msg, $appointment_id));
@@ -231,9 +231,14 @@ class donor_model extends CI_Model {
         $result = $this->db->query($str, array($appointment_id, array(APPOINTMENT_VACANT, APPOINTMENT_CANCELLED)));
 
         if($result->num_rows() == 1)
-        {   
-            $query_str = 'INSERT INTO `donor_appointment`(`id`, `donor_id`, `appointmentslot_id`) VALUES (?, ?, ?)';
-            $result = $this->db->query($query_str, array(NULL, $donor_id, $appointment_id));
+        {
+            $str = 'SELECT id FROM donor_appointment WHERE donor_id = ' . $donor_id . ' AND appointmentslot_id = '.$appointment_id;
+            $result = $this->db->query($str, array($donor_id, $appointment_id));
+            
+            if($result->num_rows() == 0){    
+                $query_str = 'INSERT INTO `donor_appointment`(`id`, `donor_id`, `appointmentslot_id`) VALUES (?, ?, ?)';
+                $result = $this->db->query($query_str, array(NULL, $donor_id, $appointment_id));
+            }
 
             $query_str = 'UPDATE `appointmentslot` SET `status` = ? WHERE id = ?';
             $result = $this->db->query($query_str, array(APPOINTMENT_RESERVED, $appointment_id));

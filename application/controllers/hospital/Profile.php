@@ -27,7 +27,7 @@ class Profile extends CI_Controller
 
     public function index(){
         
-        $data['active'] = '6';
+        $data['active'] = '7';
         $data['view'] = 'hospital/dashboard/profile';
 
         $res = $this->hospital_model->getEditInfo($this->id);

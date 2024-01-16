@@ -14,7 +14,7 @@ if (!function_exists('loadNotifications')) {
                 $action_name = $n['action_name'];
             }
 
-            $id = $n['nid'];
+            $id = $n['id'];
             $time = time_elapsed_string($n['time']);
             $action_color = 
                 $n['type'] == MSG_WARNING ? 'bg-red-400' :
@@ -33,7 +33,7 @@ if (!function_exists('loadNotifications')) {
             $seen = $seen ? 'true' : 'false';
 
             echo <<<BC
-<div class="py-5 group relative sm:pl-3 w-full hover:rounded hover:bg-gray-200 notification">
+<div class="py-5 border-y group relative sm:pl-3 w-full hover:rounded hover:bg-gray-200 notification">
     <button onclick="delNotification(this)" data-seen="$seen" data-id="$id" class="p-1 hidden sm:group-hover:inline-flex bg-red-600 items-center justify-center rounded absolute top-2 right-2">
         <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
             <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>

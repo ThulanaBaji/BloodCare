@@ -1,6 +1,6 @@
 <div class=" relative w-full sm:pr-6 h-full flex justify-center p-3 sm:pt-8 lg:pl-6 lg:justify-start">
     
-    <div class="max-w-3xl divide-y" id="notifications-container">
+    <div class="max-w-3xl w-full divide-y" id="notifications-container">
         <?= loadNotifications($notifications) ?>
     </div>
     
@@ -21,11 +21,11 @@
             let n = $('.notification')[e];
             let b = $(n).children('button')[0];
             let id = $(b).data('id');
-            
+
             if($(b).data('seen') == false){
                 var xhttp = new XMLHttpRequest();
                 xhttp.open('GET', 'notifications/seen?id=' + id);
-                xhttp.send();
+                xhttp.send(); 
             }
         })
     })

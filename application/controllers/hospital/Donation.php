@@ -27,7 +27,29 @@ class Donation extends CI_Controller
     public function index(){
         
         $data['active'] = '5';
-        $data['view'] = 'hospital/dashboard/donation';
+        $data['view'] = 'hospital/dashboard/donationtoday';
+
+        $res = $this->hospital_model->getInfo($this->id);
+        foreach ($res as $key => $value)
+            $data[$key] = $value;
+
+        $this->load->view('hospital/dashboard', $data);
+    }
+
+    public function todaycamps(){
+                $data['active'] = '5';
+        $data['view'] = 'hospital/dashboard/donationtodaycamps';
+
+        $res = $this->hospital_model->getInfo($this->id);
+        foreach ($res as $key => $value)
+            $data[$key] = $value;
+
+        $this->load->view('hospital/dashboard', $data);
+    }
+
+    public function todayappointments(){
+                $data['active'] = '5';
+        $data['view'] = 'hospital/dashboard/donationtodayappointments';
 
         $res = $this->hospital_model->getInfo($this->id);
         foreach ($res as $key => $value)

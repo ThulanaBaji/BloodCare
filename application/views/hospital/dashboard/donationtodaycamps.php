@@ -61,52 +61,54 @@
             <div class="w-full pt-1 sm:pr-3">
                 <div class="w-full flex flex-col items-center bg-gray-100 p-3 rounded-lg">
                     <div class="max-w-xl relative w-full mb-6">
-                        <input type="search" id="search-filter" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border
+                        <input type="search" id="search-filter" onkeyup="filter(this)" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border
                             border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="(Ex: Joe Brown)" required="">
-                        <button onclick="filter()" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800">
+                        <button class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800">
                             <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
                             </svg>
                         </button>
                     </div>
 
-                    <div class="donor-list divide-y w-full flex flex-col items-center">
-                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2">
-                            <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
-                                <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
+                    <div class="donor-list divide-y w-full flex flex-col items-center" data-camp="vivekanada blood camp">
+                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2" data-name="Cecilia Coller">
+                            <div class="flex items-center gap-2">
+                                <div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
+                                    <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
+                                </div>
+                                <p class="text-sm font-semibold text-gray-600 ">Cecilia Coller</p>
                             </div>
-                            <p class="text-sm font-semibold text-gray-600">Cecilia Coller</p></div>
-                            <button class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
+                            <button onclick="addDonation(this)" data-id="" class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
                                 <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
         C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
                             </button>
                         </div>
-                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2">
+                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2" data-name="Rogue Vinson">
                             <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
                                 <img src="http://localhost/bloodcare/uploads/donor/profileimages/1701351413aiony-haust-3TLl_97HNJo-unsplash.jpg" alt="">
                             </div>
-                            <p class="text-sm font-semibold text-gray-600">Rogue Vinson</p></div>
-                            <button class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
+                            <p class="text-sm font-semibold text-gray-600 ">Rogue Vinson</p></div>
+                            <button onclick="addDonation(this)" data-id="" class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
                                 <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
         C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
                             </button>
                         </div>
-                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2">
+                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2" data-name="Diane Devreese">
                             <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
                                 <img src="http://localhost/bloodcare/uploads/donor/profileimages/1701351240toa-heftiba-O3ymvT7Wf9U-unsplash.jpg" alt="">
                             </div>
-                            <p class="text-sm font-semibold text-gray-600">Diane Devreese</p></div>
-                            <button onclick="showModal('donationModal')" class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
+                            <p class="text-sm font-semibold text-gray-600 ">Diane Devreese</p></div>
+                            <button onclick="addDonation(this)" data-id="" class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
                                 <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
         C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
                             </button>
                         </div>
-                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2">
+                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2" data-name="Roslyn Chavous">
                             <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
                                 <img src="http://localhost/bloodcare/uploads/donor/profileimages/1701351157gift-habeshaw-ImFZSnfobKk-unsplash.jpg" alt="">
                             </div>
-                            <p class="text-sm font-semibold text-gray-600">Roslyn Chavous</p></div>
-                            <button class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
+                            <p class="text-sm font-semibold text-gray-600 ">Roslyn Chavous</p></div>
+                            <button onclick="addDonation(this)" data-id="" class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
                                 <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
         C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
                             </button>
@@ -144,11 +146,11 @@
 
                 <div class="flex items-center gap-2 my-6">
                     <div class="flex w-16 h-16 border items-center justify-center rounded-full overflow-hidden mr-2">
-                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
+                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" id="modal-profile" alt="">
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-600 mb-1">Cecilia Coller</p>
-                        <p class="text-xs font-semibold text-gray-600 p-1 bg-gray-200 rounded">Vivekananda Blood camp</p>
+                        <p class="text-sm font-semibold text-gray-600 mb-1" id="modal-donorname">Cecilia Coller</p>
+                        <p class="text-xs font-semibold text-gray-600 p-1 bg-gray-200 rounded" id="modal-campname">Vivekananda Blood camp</p>
                     </div>
                 </div>
 
@@ -200,6 +202,34 @@ C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
             $('#alert-top-error-text').text(error);
         }
     });
+
+    function addDonation(e){
+        var p = $(e).siblings()[0];
+        $('#modal-profile').attr('src', $($(p).children()[0]).children('img')[0].currentSrc);
+        $('#modal-donorname').text($(p).children()[1].innerText);
+        $('#modal-campname').text($($(e).parents('.donor-list')).data('camp'));
+
+        showModal('donationModal');
+    }
+
+    function filter(e){
+        var p = $(e).parent();
+        var donorlist = $(p).siblings('.donor-list');
+        var search = $(e).val().toLowerCase();
+
+
+        $(donorlist).children().toArray().forEach(donor => {
+            var name = $(donor).data('name').toLowerCase();
+            if(name.includes(search)){
+                $(donor).removeClass('hidden');
+            }else{
+                console.log(search);
+                console.log();
+                $(donor).addClass('hidden');
+            }
+
+        });
+    }
 
     function showModal(modal){
         $('#' + modal).removeClass('hidden');

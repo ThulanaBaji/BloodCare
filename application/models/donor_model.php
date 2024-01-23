@@ -6,7 +6,7 @@ class donor_model extends CI_Model {
 
     //name, profile, email, contact
     public function getInfo($id){
-        $query_str = 'SELECT (SELECT COUNT(id) FROM donor_donation WHERE donor_id = ?) as dcount, (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `profile`, `email` FROM `donor` WHERE `id` = ?';
+        $query_str = 'SELECT (SELECT COUNT(id) FROM donor_donation WHERE donor_id = ?) as dcount, (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `profile`, `membership_id`, `email` FROM `donor` WHERE `id` = ?';
 
         $result = $this->db->query($query_str, array($id, $id, MSG_SENT, $id));
         return $result->row();
@@ -62,7 +62,7 @@ class donor_model extends CI_Model {
      */
 
     public function getEditInfo($id){
-        $query_str = 'SELECT (SELECT COUNT(id) FROM donor_donation WHERE donor_id = ?) as dcount, (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `firstname`, `lastname`, `profile`, `contact`, `city`, `district`, `province`, `email` FROM `donor` WHERE `id` = ?';
+        $query_str = 'SELECT (SELECT COUNT(id) FROM donor_donation WHERE donor_id = ?) as dcount, (SELECT COUNT(id) FROM notification_donor WHERE donor_id = ? AND status = ?) as ncount, CONCAT(`firstname` , " ", `lastname`) as name, `firstname`, `lastname`, `profile`, `membership_id`, `contact`, `city`, `district`, `create_time`, `province`, `email` FROM `donor` WHERE `id` = ?';
 
         $result = $this->db->query($query_str, array($id, $id, MSG_SENT, $id));
         return $result->row();

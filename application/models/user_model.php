@@ -48,14 +48,14 @@ class user_model extends CI_Model{
         $time = date('Y-m-d');
         $query_str = 'INSERT INTO `donor`(`id`, `firstname`, `lastname`, `profile`, `dob`, `email`, 
                                           `street_address`, `city`, `district`, `province`, 
-                                          `contact`, `password`, `create_time`, `status`) 
+                                          `contact`, `password`, `create_time`, `status`, `membership_id`) 
                       VALUES (?, ?, ?, ?, ?, ?, 
                               ?, ?, ?, ?, 
-                              ?, ?, ?, ?)';
+                              ?, ?, ?, ?, ?)';
 
         $this->db->query($query_str, array(NULL, $data['fname'], $data['lname'], $data['image'], $data['bod'], $data['email'],
                                            $data['street'], $data['city'], $data['district'], $data['province'], 
-                                           $data['contact'], md5($data['password']), $time, 'registered'));
+                                           $data['contact'], md5($data['password']), $time, 'registered', $data['membership_id']));
     }
 
     public function registerHospital($data, $key){

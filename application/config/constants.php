@@ -113,6 +113,7 @@ defined('MSG_HELP')     OR define('MSG_HELP', 'help');
 defined('DONATION_PROCESSING')   OR define('DONATION_PROCESSING', 'processing');
 defined('DONATION_PROCESSED')    OR define('DONATION_PROCESSED', 'processed');
 defined('DONATION_REJECTED')     OR define('DONATION_REJECTED', 'rejected');
+defined('DONATION_DONATED')      OR define('DONATION_DONATED', 'donated');
 defined('DONATION_CAMP')         OR define('DONATION_CAMP', 'bloodcamp');
 defined('DONATION_APPOINTMENT')  OR define('DONATION_APPOINTMENT', 'appointment');
 

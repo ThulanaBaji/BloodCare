@@ -33,6 +33,10 @@ class Donation extends CI_Controller
         foreach ($res as $key => $value)
             $data[$key] = $value;
 
+        $data['todaycamps'] = $this->hospital_model->getTodayCamps($this->id);
+        $data['todayappointments'] = $this->hospital_model->getTodayAppointments($this->id);
+        $this->load->helper('hospital/loaddonation');
+
         $this->load->view('hospital/dashboard', $data);
     }
 
@@ -44,7 +48,13 @@ class Donation extends CI_Controller
         foreach ($res as $key => $value)
             $data[$key] = $value;
 
+        $data['camps'] = $this->hospital_model->getTodayCampsWithDonors($this->id);
+
         $this->load->view('hospital/dashboard', $data);
+    }
+
+    public function test(){
+        $this->hospital_model->getProcessingDonations($this->id);
     }
 
     public function todayappointments(){
@@ -66,6 +76,8 @@ class Donation extends CI_Controller
         foreach ($res as $key => $value)
             $data[$key] = $value;
 
+        $data['donations'] = $this->hospital_model->getProcessingDonations($this->id);
+
         $this->load->view('hospital/dashboard', $data);
     }
 
@@ -77,6 +89,41 @@ class Donation extends CI_Controller
         foreach ($res as $key => $value)
             $data[$key] = $value;
 
+        $data['donations'] = $this->hospital_model->getProcessedDonations($this->id);
+        
         $this->load->view('hospital/dashboard', $data);
+    }
+
+    public function addDonation(){
+        if (!isset($_POST['donorid']))
+            return;
+
+        if(isset($_POST['campid'])){
+            $this->hospital_model->addDonation($_POST, $this->id);
+            $this->hospital_model->markDonated($_POST['donorid'], $_POST['campid'], DONATION_CAMP);
+        
+            redirect('hospital/donation/todaycamps');
+        }
+
+        $this->hospital_model->addDonation($_POST, $this->id);
+        $this->hospital_model->markDonated($_POST['donorid'], $_POST['appointmentid'], DONATION_APPOINTMENT);
+
+        redirect('hospital/donation/todayappointments');
+    }
+
+    public function confirmDonation(){
+        if (!isset($_POST['donationid']))
+            redirect('hospital/donation/processing');
+
+        $this->hospital_model->processDonation($_POST, $this->id);
+        redirect('hospital/donation/processing');
+    }
+
+    public function rejectDonation(){
+        if (!isset($_POST['donationid']))
+            redirect('hospital/donation/processing');
+
+        $this->hospital_model->rejectDonation($_POST, $this->id);
+        redirect('hospital/donation/processing');
     }
 }

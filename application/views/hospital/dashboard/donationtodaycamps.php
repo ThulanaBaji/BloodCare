@@ -35,29 +35,33 @@
     <div class="w-full">
 
 
+        <?php $index = 0;
+        foreach ($camps as $camp):
+            $index++;?>
         <div class="p-1 sm:pl-4 rounded-xl mb-3 border  max-w-xl bg-gray-50 relative camp">
-            <span class="hidden dataset" data-profile="default.svg" data-name="Vivekananda blood camp" data-organizer="Vivekananda college of Engineering" data-address="Sri Rama hall, Vivekananda College, Nahru Nagar, Puttur." data-city="Nahru Nagar" data-district="Puttur" data-pin="https://maps.app.goo.gl/XdJKfBJg5Dp9A6JS9" data-datetime="1728100200000" data-duration="30600000" data-maxseats="1000"></span>
+            <span class="hidden dataset" data-profile="<?= $camp['profile'] ?>" data-name="<?= $camp['name'] ?>" data-organizer="<?= $camp['organizer'] ?>" data-address="<?= $camp['location_address'] ?>" 
+            data-city="<?= $camp['location_city'] ?>" data-district="<?= $camp['location_district'] ?>" data-pin="<?= $camp['location_pin'] ?>" data-datetime="<?= $camp['start_datetime'] ?>" data-duration="<?= $camp['duration'] ?>" data-maxseats="<?= $camp['max_seats'] ?>"></span>
 
         <div class="flex items-center justify-between w-full">
             <div class="flex items-center gap-6">
                 <div class="hidden sm:flex w-16 h-16 border items-center justify-center rounded-full overflow-hidden">
-                    <img src="http://localhost/bloodcare/uploads/camp/profileimages/1704351491Blood-Donation-Camp.jpg" alt="">
+                    <img src="<?= base_url('uploads/camp/profileimages/'.$camp['profile']) ?>" alt="">
                 </div>
                 <div class="flex flex-col text-left text-gray-500 font-semibold gap-3 sm:gap-2">
-                    <p class="text-lg sm:text-lg leading-tight">Vivekananda blood camp</p>
+                    <p class="text-lg sm:text-lg leading-tight"><?= $camp['name'] ?></p>
                     <p class="text-xs uppercase flex items-center gap-2 sm:gap-1">
                         <svg class="w-4 h-4 inline-block text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
                             <path d="M8 0a7.992 7.992 0 0 0-6.583 12.535 1 1 0 0 0 .12.183l.12.146c.112.145.227.285.326.4l5.245 6.374a1 1 0 0 0 1.545-.003l5.092-6.205c.206-.222.4-.455.578-.7l.127-.155a.934.934 0 0 0 .122-.192A8.001 8.001 0 0 0 8 0Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"></path>
-                        </svg>Nahru Nagar, Puttur</p>
+                        </svg><?= $camp['location_city'].', '.$camp['location_district'] ?></p>
                 </div>
             </div>
-            <button class="h-[114px] w-[114px] group hover:bg-gray-100 rounded-lg flex items-center justify-center button-dropdown" data-target="camp-panel-1">
+            <button class="h-[114px] w-[114px] group hover:bg-gray-100 rounded-lg flex items-center justify-center button-dropdown" data-target="camp-panel-<?= $index ?>">
                 <svg class="w-6 h-6 text-gray-400 transition-all" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1"></path>
                 </svg>
             </button> 
         </div>
-        <div class="pb-1 sm:pb-3 sm:py-1 flex justify-center hidden" id="camp-panel-1">
+        <div class="pb-1 sm:pb-3 sm:py-1 flex justify-center hidden" id="camp-panel-<?= $index ?>">
             <div class="w-full pt-1 sm:pr-3">
                 <div class="w-full flex flex-col items-center bg-gray-100 p-3 rounded-lg">
                     <div class="max-w-xl relative w-full mb-6">
@@ -70,54 +74,31 @@
                         </button>
                     </div>
 
-                    <div class="donor-list divide-y w-full flex flex-col items-center" data-camp="vivekanada blood camp">
-                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2" data-name="Cecilia Coller">
+                    <div class="donor-list divide-y w-full flex flex-col items-center" data-camp="<?= $camp['name'] ?>" data-campid="<?= $camp['id'] ?>">
+                        
+                        <?php foreach($camp['donors'] as $donor): ?>
+                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2"  data-name="<?= $donor['name'] ?>" data-membership="<?= $donor['membership_id'] ?>" data-donorid="<?= $donor['id'] ?>">
                             <div class="flex items-center gap-2">
                                 <div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
-                                    <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
+                                    <img src="<?= base_url('uploads/donor/profileimages/'.$donor['profile']) ?>" alt="">
                                 </div>
-                                <p class="text-sm font-semibold text-gray-600 ">Cecilia Coller</p>
+                                <div class="flex flex-col gap-1">
+                                    <p class="text-sm px-2 font-semibold text-gray-600 "><?= $donor['name'] ?></p>
+                                    <p class="text-xs px-2 border font-semibold py-1 rounded-full bg-gradient-to-r from-pink-100 via-amber-100 to-cyan-100 text-gray-500"><?= $donor['membership_id'] ?></p>
+                                </div>
                             </div>
-                            <button onclick="addDonation(this)" data-id="" class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
+                            <button onclick="addDonation(this)" data-id="<?= $donor['id'] ?>" class="self-center bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
                                 <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
         C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
                             </button>
                         </div>
-                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2" data-name="Rogue Vinson">
-                            <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
-                                <img src="http://localhost/bloodcare/uploads/donor/profileimages/1701351413aiony-haust-3TLl_97HNJo-unsplash.jpg" alt="">
-                            </div>
-                            <p class="text-sm font-semibold text-gray-600 ">Rogue Vinson</p></div>
-                            <button onclick="addDonation(this)" data-id="" class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
-                                <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
-        C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
-                            </button>
-                        </div>
-                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2" data-name="Diane Devreese">
-                            <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
-                                <img src="http://localhost/bloodcare/uploads/donor/profileimages/1701351240toa-heftiba-O3ymvT7Wf9U-unsplash.jpg" alt="">
-                            </div>
-                            <p class="text-sm font-semibold text-gray-600 ">Diane Devreese</p></div>
-                            <button onclick="addDonation(this)" data-id="" class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
-                                <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
-        C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
-                            </button>
-                        </div>
-                        <div class="donor flex gap-2 items-center justify-between max-w-xs w-full py-2" data-name="Roslyn Chavous">
-                            <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
-                                <img src="http://localhost/bloodcare/uploads/donor/profileimages/1701351157gift-habeshaw-ImFZSnfobKk-unsplash.jpg" alt="">
-                            </div>
-                            <p class="text-sm font-semibold text-gray-600 ">Roslyn Chavous</p></div>
-                            <button onclick="addDonation(this)" data-id="" class="self-end bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
-                                <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
-        C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
-                            </button>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
         </div>
         </div>
+        <?php endforeach; ?>
 
     </div>
 </div>
@@ -140,25 +121,29 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="<?= base_url('hospital/organize/cancelcamp') ?>" method="get">
+            <form action="<?= base_url('hospital/donation/addDonation') ?>" method="post">
                 
-                <input type="hidden" name="campid" id="cancel-campid">
+                <input type="hidden" name="campid" id="donation-campid">
+                <input type="hidden" name="donationmedium" id="donation-campname">
+                <input type="hidden" name="donorid" id="donation-donorid">
 
                 <div class="flex items-center gap-2 my-6">
                     <div class="flex w-16 h-16 border items-center justify-center rounded-full overflow-hidden mr-2">
                         <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" id="modal-profile" alt="">
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-600 mb-1" id="modal-donorname">Cecilia Coller</p>
-                        <p class="text-xs font-semibold text-gray-600 p-1 bg-gray-200 rounded" id="modal-campname">Vivekananda Blood camp</p>
+                        <p class="text-sm px-2 font-semibold text-gray-600 mb-1" id="modal-donorname"></p>
+                        <p class="text-xs px-2 font-semibold  text-gray-500" id="modal-memid"></p>
+                        <p class="text-xs px-2 mt-2 font-semibold text-gray-600 p-1 bg-gray-200 rounded" id="modal-campname"></p>
                     </div>
                 </div>
 
                 <label class="block mb-2 text-sm font-medium text-gray-900 ">Reference number</label>
-                <input type="text" name="message" id="cancel-message" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="blood donation reference" required>
+                <input type="text" name="reference" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="blood donation reference" required>
                     
                 <div class="h-4"></div>
-                <button type="submit" class="cursor-pointer text-md  font-semibold px-2 mt-3 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-red-950 max-w-xl rounded">
+                <button type="submit" class="cursor-pointer text-md  font-semibold px-2 mt-3 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-red-950 max-w-xl rounded"
+                data-campid="" data-donorid="" id="modal-addbutton">
                     <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
 C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
                     <p class="mb-1 ml-1 text-white">add donation</p>
@@ -206,8 +191,13 @@ C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
     function addDonation(e){
         var p = $(e).siblings()[0];
         $('#modal-profile').attr('src', $($(p).children()[0]).children('img')[0].currentSrc);
-        $('#modal-donorname').text($(p).children()[1].innerText);
+        $('#modal-donorname').text($($(p).children()[1]).children()[0].innerText);
+        $('#modal-memid').text($($(p).children()[1]).children()[1].innerText);
         $('#modal-campname').text($($(e).parents('.donor-list')).data('camp'));
+
+        $('#donation-campid').val($($(e).parents('.donor-list')).data('campid'));
+        $('#donation-campname').val($($(e).parents('.donor-list')).data('camp'));
+        $('#donation-donorid').val($($(e).parents('.donor')).data('donorid'));
 
         showModal('donationModal');
     }
@@ -220,7 +210,8 @@ C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
 
         $(donorlist).children().toArray().forEach(donor => {
             var name = $(donor).data('name').toLowerCase();
-            if(name.includes(search)){
+            var mem = $(donor).data('membership').toLowerCase();
+            if(name.includes(search) || mem.includes(search)){
                 $(donor).removeClass('hidden');
             }else{
                 console.log(search);

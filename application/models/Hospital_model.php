@@ -13,6 +13,97 @@ class hospital_model extends CI_Model {
     }
 
     /**
+     * ---------------------------------------------- Donation Processing
+     */
+
+    //- - - - today subsection
+
+    public function getTodayCamps($id){
+        $query_str = 'SELECT bloodcamp.name, bloodcamp.profile, (SELECT COUNT(bloodcamp_donor.id) 
+                                                                 FROM bloodcamp_donor 
+                                                                 WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status IN ("'.CAMP_JOINED.'", "'.DONATION_DONATED.'")) as "registered" FROM bloodcamp
+                      WHERE bloodcamp.hospital_id = ? AND bloodcamp.start_datetime > ? AND bloodcamp.start_datetime < ? AND bloodcamp.status != ?';
+        $result = $this->db->query($query_str, array($id, strtotime('today')*1000, strtotime('tomorrow')*10000, CAMP_CANCELLED));
+        return $result->result_array();
+    }
+
+    public function getTodayCampsWithDonors($id){
+        $query_str = 'SELECT bloodcamp.organizer, bloodcamp.start_datetime, bloodcamp.duration, bloodcamp.location_pin, bloodcamp.location_address, bloodcamp.max_seats, bloodcamp.id, bloodcamp.name, bloodcamp.profile, bloodcamp.location_city, bloodcamp.location_district FROM bloodcamp
+                      WHERE bloodcamp.hospital_id = ? AND bloodcamp.start_datetime > ? AND bloodcamp.start_datetime < ? AND bloodcamp.status != ?';
+        $result = $this->db->query($query_str, array($id, strtotime('today')*1000, strtotime('tomorrow')*10000, CAMP_CANCELLED));
+        
+        $camps = $result->result_array();
+
+        $index = 0;
+        foreach($camps as $camp){
+            $str = 'SELECT CONCAT(donor.firstname, " ", donor.lastname) as name, donor.profile, donor.membership_id, donor.id FROM bloodcamp_donor
+                    INNER JOIN donor on bloodcamp_donor.donor_id = donor.id
+                    WHERE bloodcamp_donor.bloodcamp_id = ? AND bloodcamp_donor.status = ?';
+            $donors = $this->db->query($str, array($camp['id'], CAMP_JOINED))->result_array();
+            $camps[$index]['donors'] = $donors;
+            $index++;
+        }
+
+        return $camps;
+    }
+
+    public function getTodayAppointments($id){
+        return $this->getAppointmentsOf($id, strtotime('today')*1000, strtotime('+3 month', strtotime('today'))*1000);
+    }
+
+    public function addDonation($data, $id){
+        $qd = array(
+            'id' => NULL,
+            'donor_id' => $data['donorid'],
+            'reference' => $data['reference'],
+            'donation_medium' => $data['donationmedium'],
+            'donated_datetime' => time()*1000,
+            'hospital_id' => $id,
+            'status' => DONATION_PROCESSING
+        );
+
+        $this->db->insert('donor_donation', $qd);
+    }
+
+    public function markDonated($donor_id, $medium_id, $medium){
+        if($medium == DONATION_CAMP){
+            $str = 'UPDATE bloodcamp_donor SET status = ? WHERE donor_id = ? AND bloodcamp_id = ?';
+            $this->db->query($str, array(DONATION_DONATED, $donor_id, $medium_id));
+        }
+        else{
+            $str = 'UPDATE donor_appointment SET status = ? WHERE donor_id = ? AND appointmentslot_id = ?';
+            $this->db->query($str, array(DONATION_DONATED, $donor_id, $medium_id));
+        }
+    }
+
+    //- - - - processing subsection
+
+    public function getProcessingDonations($id){
+        $str = 'SELECT donor_donation.id, reference, donor.membership_id, CONCAT(donor.firstname, " ", donor.lastname) as name, donor.profile, donated_datetime, donation_medium FROM donor_donation
+                INNER JOIN donor on donor.id = donor_donation.donor_id
+                WHERE donor_donation.status = ? AND donor_donation.hospital_id = ?';
+        return $this->db->query($str, array(DONATION_PROCESSING, $id))->result_array();
+    }
+
+    public function processDonation($data, $id){
+        //blood type, blood vol, message = null
+        $str = 'UPDATE donor_donation SET status = ?, processed_datetime = ?, blood_type = ?, blood_vol = ? WHERE hospital_id = ? AND id = ?';
+        $this->db->query($str, array(DONATION_PROCESSED, time()*1000, $data['bloodtype'], $data['bloodvol'], $id, $data['donationid']));
+    }
+
+    public function rejectDonation($data, $id){
+        $str = 'UPDATE donor_donation SET status = ?, processed_datetime = ?, blood_type = ?, blood_vol = ?, message = ? WHERE hospital_id = ? AND id = ?';
+        $this->db->query($str, array(DONATION_REJECTED, time()*1000, $data['bloodtype'], $data['bloodvol'], $data['message'], $id, $data['donationid']));
+    }
+
+    //- - - - processed subsection
+    public function getProcessedDonations($id){
+        $str = 'SELECT reference, status, processed_datetime, donated_datetime, donation_medium, blood_vol, blood_type, message FROM donor_donation
+                WHERE donor_donation.status in ? AND donor_donation.hospital_id = ?';
+        return $this->db->query($str, array(array(DONATION_PROCESSED, DONATION_REJECTED), $id))->result_array();
+    }
+
+    /**
      * ---------------------------------------------- Notifications
      */
 
@@ -76,7 +167,7 @@ class hospital_model extends CI_Model {
         $str = 'SELECT bloodcamp.*, hospital.name as "hname", hospital.city as "hcity",
                        (SELECT COUNT(bloodcamp_donor.id) 
                        FROM bloodcamp_donor 
-                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status="'.CAMP_JOINED.'") as "cur_seats" 
+                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status IN ("'.CAMP_JOINED.'", "'.DONATION_DONATED.'")) as "cur_seats" 
                 FROM `bloodcamp` 
                 INNER JOIN hospital on bloodcamp.hospital_id = hospital.id
                 WHERE hospital_id = '.$id.' AND start_datetime + duration > '.time()*1000;
@@ -89,7 +180,7 @@ class hospital_model extends CI_Model {
         $str = 'SELECT bloodcamp.*, hospital.name as "hname", hospital.city as "hcity",
                        (SELECT COUNT(bloodcamp_donor.id) 
                        FROM bloodcamp_donor 
-                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status="'.CAMP_JOINED.'") as "cur_seats" 
+                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status IN ("'.CAMP_JOINED.'", "'.DONATION_DONATED.'")) as "cur_seats" 
                 FROM `bloodcamp` 
                 INNER JOIN hospital on bloodcamp.hospital_id = hospital.id
                 WHERE hospital_id = '.$id.' AND start_datetime + duration <= '.time()*1000;

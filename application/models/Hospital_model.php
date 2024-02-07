@@ -71,7 +71,7 @@ class hospital_model extends CI_Model {
             $this->db->query($str, array(DONATION_DONATED, $donor_id, $medium_id));
         }
         else{
-            $str = 'UPDATE donor_appointment SET status = ? WHERE donor_id = ? AND appointmentslot_id = ?';
+            $str = 'UPDATE donor_appointment SET status = ? WHERE donor_id = ? AND id = ?';
             $this->db->query($str, array(DONATION_DONATED, $donor_id, $medium_id));
         }
     }
@@ -247,16 +247,16 @@ class hospital_model extends CI_Model {
     }
 
     public function getAppointmentsOf($id, $from, $to){
-        $query_str = 'SELECT CONCAT(donor.firstname, " ", donor.lastname) as name, donor.profile, 
-                             appointmentslot.id, appointmentslot.datetime as starttime, (appointmentslot.datetime + appointmentslot.duration) as endtime, 
+        $query_str = 'SELECT CONCAT(donor.firstname, " ", donor.lastname) as name, donor.id as donorid, donor.membership_id, donor.profile, 
+                             donor_appointment.id, appointmentslot.datetime as starttime, (appointmentslot.datetime + appointmentslot.duration) as endtime, 
                              appointmentslot.status, appointmentslot.message 
                        FROM (
                         (`appointmentslot` 
                         INNER JOIN donor_appointment ON donor_appointment.appointmentslot_id = appointmentslot.id) 
                         INNER JOIN donor ON donor.id = donor_appointment.donor_id ) 
-                       WHERE appointmentslot.hospital_id = ? AND appointmentslot.datetime >= ? AND appointmentslot.datetime <= ? AND appointmentslot.status != ?
+                       WHERE appointmentslot.hospital_id = ? AND appointmentslot.datetime >= ? AND appointmentslot.datetime <= ? AND appointmentslot.status != ? AND donor_appointment.status != ?
                        ORDER BY starttime;';
-        $result = $this->db->query($query_str, array($id, $from, $to, APPOINTMENT_VACANT));
+        $result = $this->db->query($query_str, array($id, $from, $to, APPOINTMENT_VACANT, DONATION_DONATED));
 
         return $result->result_array();
     }

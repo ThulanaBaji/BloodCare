@@ -53,10 +53,6 @@ class Donation extends CI_Controller
         $this->load->view('hospital/dashboard', $data);
     }
 
-    public function test(){
-        $this->hospital_model->getProcessingDonations($this->id);
-    }
-
     public function todayappointments(){
         $data['active'] = '5';
         $data['view'] = 'hospital/dashboard/donationtodayappointments';
@@ -64,6 +60,8 @@ class Donation extends CI_Controller
         $res = $this->hospital_model->getInfo($this->id);
         foreach ($res as $key => $value)
             $data[$key] = $value;
+
+        $data['appointments'] = $this->hospital_model->getTodayAppointments($this->id);
 
         $this->load->view('hospital/dashboard', $data);
     }
@@ -104,7 +102,7 @@ class Donation extends CI_Controller
         
             redirect('hospital/donation/todaycamps');
         }
-
+        
         $this->hospital_model->addDonation($_POST, $this->id);
         $this->hospital_model->markDonated($_POST['donorid'], $_POST['appointmentid'], DONATION_APPOINTMENT);
 

@@ -34,9 +34,9 @@
 
     <div class="w-full max-w-xl">
         <div class="max-w-xl relative w-full mb-6">
-            <input type="search" id="search-filter" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border
+            <input onkeyup="filter(this)" type="search" id="search-filter" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border
                 border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="(Ex: Joe Brown)" required="">
-            <button onclick="filter()" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800">
+            <button onclick="filter(this)" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
                 </svg>
@@ -44,36 +44,27 @@
         </div>
 
         <div class="appointment-list max-w-2xl w-full divide-y flex flex-col items-center">
-            <div class="donor flex gap-2 items-center justify-between max-w-sm w-full p-4 rounded hover:bg-gray-200">
+            <?php foreach ($appointments as $app): ?>
+            
+            <div class="donor flex gap-2 items-center justify-between max-w-sm w-full p-4 rounded hover:bg-gray-200"
+                data-name="<?= $app['name'] ?>" data-membership="<?= $app['membership_id'] ?>" data-donorid="<?= $app['donorid'] ?>" data-appid="<?= $app['id'] ?>">
                 <div class="flex items-center gap-2">
                     <div class="flex w-11 h-11 border items-center justify-center rounded-full overflow-hidden mr-2">
-                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
+                        <img src="<?= base_url('uploads/donor/profileimages/'.$app['profile']) ?>" alt="">
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-600">Cecilia Coller</p>
-                        <p class="text-sm font-semibold text-gray-600">16:00</p>
+                        <p class="text-sm pl-2 font-semibold text-gray-600"><?= date('H:i', substr($app['starttime'], 0, -3)) ?></p>
+                        <p class="text-sm px-2 mt-2 font-semibold text-gray-600"><?= $app['name'] ?></p>
+                        <p class="text-xs px-2 border font-semibold py-1 rounded-full bg-gradient-to-r from-pink-100 via-amber-100 to-cyan-100 text-gray-500"><?= $app['membership_id'] ?></p>
                     </div>
                 </div>
-                <button onclick="showModal('donationModal')" class="self-center bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
+                <button onclick="addDonation(this)" class="self-center bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
                     <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
 C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
                 </button>
-            </div>
-            <div class="donor flex gap-2 items-center justify-between max-w-sm w-full p-4 rounded hover:bg-gray-200">
-                <div class="flex items-center gap-2">
-                    <div class="flex w-11 h-11 border items-center justify-center rounded-full overflow-hidden mr-2">
-                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-gray-600">Cecilia Coller</p>
-                        <p class="text-sm font-semibold text-gray-600">16:00</p>
-                    </div>
-                </div>
-                <button onclick="showModal('donationModal')" class="self-center bg-red-950 text-sm text-gray-600 font-semibold rounded p-1.5">
-                    <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
-C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
-                </button>
-            </div>
+            </div>  
+
+            <?php endforeach; ?>
             
         </div>
     </div>
@@ -87,7 +78,7 @@ C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
         <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
             <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 ">
-                <h3 class="text-lg font-semibold text-gray-9000" id="cancel-campname">
+                <h3 class="text-lg font-semibold text-gray-9000">
                     Add donation 
                 </h3>
                 <button onclick="hideModal()" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="donationModal">
@@ -96,25 +87,28 @@ C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="<?= base_url('hospital/organize/cancelcamp') ?>" method="get">
+            <form action="<?= base_url('hospital/donation/addDonation') ?>" method="post">
                 
-                <input type="hidden" name="campid" id="cancel-campid">
+                <input type="hidden" name="appointmentid" id="donation-appointmentid">
+                <input type="hidden" name="donationmedium" value="Through appointment">
+                <input type="hidden" name="donorid" id="donation-donorid">
 
                 <div class="flex items-center gap-2 my-6">
                     <div class="flex w-16 h-16 border items-center justify-center rounded-full overflow-hidden mr-2">
-                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
+                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" id="modal-profile" alt="">
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-600 mb-1">Cecilia Coller</p>
-                        <p class="text-xs font-semibold text-gray-600 p-1 bg-gray-200 rounded">Through appointment</p>
+                        <p class="text-sm px-2 font-semibold text-gray-600 mb-1" id="modal-donorname"></p>
+                        <p class="text-xs px-2 border font-semibold py-1 rounded-full bg-gradient-to-r from-pink-100 via-amber-100 to-cyan-100 text-gray-500" id="modal-memid"></p>
                     </div>
                 </div>
 
                 <label class="block mb-2 text-sm font-medium text-gray-900 ">Reference number</label>
-                <input type="text" name="message" id="cancel-message" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="blood donation reference" required>
+                <input type="text" name="reference" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="blood donation reference" required>
                     
                 <div class="h-4"></div>
-                <button type="submit" class="cursor-pointer text-md  font-semibold px-2 mt-3 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-red-950 max-w-xl rounded">
+                <button type="submit" class="cursor-pointer text-md  font-semibold px-2 mt-3 shadow-lg text-gray-700 py-2 gap-1 flex items-center justify-center bg-red-950 max-w-xl rounded"
+                data-appointmentid="" data-donorid="" id="modal-addbutton">
                     <svg viewBox="0 0 15 15" class="w-5 h-5" version="1.1" id="blood-bank" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.2,7.1L11.2,7.1L7.5,2L3.8,7.1h0C3.3,7.8,3,8.7,3,9.6C3,12,5,14,7.5,14c0,0,0,0,0,0C10,14,12,12,12,9.6c0,0,0,0,0,0
 C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
                     <p class="mb-1 ml-1 text-white">add donation</p>
@@ -145,6 +139,38 @@ C12,8.7,11.7,7.8,11.2,7.1z M10,10H8v2H7v-2H5V9h2V7h1v2h2V10z"></path> </g></svg>
             $('#alert-top-error-text').text(error);
         }
     });
+
+    function addDonation(e){
+        var p = $(e).siblings()[0];
+
+        $('#modal-profile').attr('src', $($(p).children()[0]).children('img')[0].currentSrc);
+        $('#modal-donorname').text($($(p).children()[1]).children()[1].innerText);
+        $('#modal-memid').text($($(p).children()[1]).children()[2].innerText);
+
+        $('#donation-appointmentid').val($($(e).parents('.donor')).data('appid'));
+        $('#donation-donorid').val($($(e).parents('.donor')).data('donorid'));
+
+        showModal('donationModal');
+    }
+
+    function filter(e){
+        var p = $(e).parent();
+        var applist = $(p).siblings('.appointment-list');
+        var search = $('#search-filter').val().toLowerCase();
+
+        $(applist).children().toArray().forEach(donor => {
+            var name = $(donor).data('name').toLowerCase();
+            var mem = $(donor).data('membership').toLowerCase();
+            if(name.includes(search) || mem.includes(search)){
+                $(donor).removeClass('hidden');
+            }else{
+                console.log(search);
+                console.log();
+                $(donor).addClass('hidden');
+            }
+
+        });
+    }
 
     function showModal(modal){
         $('#' + modal).removeClass('hidden');

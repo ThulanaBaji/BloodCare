@@ -5,14 +5,19 @@ function loadtodaycampcard($camps){
     $numcamps = count($camps);
     $numdonors = 0;
     $camplist = "";
+    $counter = 0;
 
     foreach ($camps as $camp) {
+        $counter++;
         $numdonors += intval($camp['registered']);
         $profile = $camp['profile'];
         $name = $camp['name'];
         $num = $camp['registered'];
 
-        $camplist .= '<div class="camp flex justify-between items-center max-w-xs w-full py-2">
+        $addhidden = $counter > 2 ? 'extra-camp hidden' : '';
+
+
+        $camplist .= '<div class="camp '.$addhidden.' flex justify-between items-center max-w-xs w-full py-2">
                 <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
                     <img src="'.base_url('uploads/camp/profileimages/'.$profile).'" alt="">
                 </div>
@@ -26,6 +31,7 @@ function loadtodaycampcard($camps){
     }
 
     $link = base_url('hospital/donation/todaycamps');
+    $more = $numcamps > 2 ? '<button onclick="showAllCamps(this)" type="button" class="block bg-transparent hover:underline text-blue-500 text-xs">more camps</button>' : '';
     
     echo <<<BC
     <div class="block p-6 bg-white border max-w-sm w-full border-gray-200 rounded-lg shadow mb-6 sm:mb-0">
@@ -50,6 +56,8 @@ function loadtodaycampcard($camps){
             $camplist
         </div>
 
+        $more
+
         <a href="$link" class="inline-flex items-center px-3 py-2 mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
             View camps
             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -63,10 +71,28 @@ BC;
 function loadtodayappointmentcard($appointments){
     $num = count($appointments);
     $appointmentlist = "";
+    $counter = 0;
 
     foreach($appointments as $app){
+        $counter++;
+        $profile = base_url('uploads/donor/profileimages/'.$app['profile']);
+        $name = $app['name'];
+        $time = date('H:i', substr($app['starttime'], 0, -3));
 
+        $addhidden = $counter > 2 ? 'extra-donor hidden' : '';
+
+        $appointmentlist .= '<div class="appointment'.$addhidden.' flex justify-between items-center max-w-xs w-full py-2">
+                    <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
+                        <img src="'.$profile.'" alt="">
+                    </div>
+                    <p class="text-sm font-semibold text-gray-600">'.$name.'</p></div>
+                    <div class="self-end text-md text-gray-800 font-semibold rounded p-2 flex ">'.$time.'</div>
+                </div>';
     }
+
+    $link = base_url('hospital/donation/todayappointments');
+
+    $more = $num > 2 ? '<button onclick="showAllAppointments(this)" type="button" class="block bg-transparent hover:underline text-blue-500 text-xs">more appointments</button>' : '';
 
     echo <<<BC
         <div class="block p-6 bg-white border max-w-sm w-full border-gray-200 mb-4 sm:mb-0 rounded-lg shadow">
@@ -79,47 +105,14 @@ function loadtodayappointmentcard($appointments){
             </div>
 
             <div class="divide-y w-full max-h-32 overflow-y-auto">
-                <div class="camp flex justify-between items-center max-w-xs w-full py-2">
-                    <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
-                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
-                    </div>
-                    <p class="text-sm font-semibold text-gray-600">Smile Coop</p></div>
-                    <div class="self-end text-md text-gray-800 font-semibold rounded p-2 flex ">15:30
-                        
-                    </div>
-                </div>
-                <div class="camp flex justify-between items-center max-w-xs w-full py-2">
-                    <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
-                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
-                    </div>
-                    <p class="text-sm font-semibold text-gray-600">Smile Coop</p></div>
-                    <div class="self-end text-md text-gray-800 font-semibold rounded p-2 flex ">15:30
-                        
-                    </div>
-                </div>
-                <div class="camp flex justify-between items-center max-w-xs w-full py-2 hidden extra-donor">
-                    <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
-                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1704377577952.jpg" alt="">
-                    </div>
-                    <p class="text-sm font-semibold text-gray-600">Smile Coop</p></div>
-                    <div class="self-end text-md text-gray-800 font-semibold rounded p-2 flex ">15:30
-                        
-                    </div>
-                </div>
-                <div class="camp flex justify-between items-center max-w-xs w-full py-2 hidden extra-donor">
-                    <div class="flex items-center gap-2"><div class="flex w-8 h-8 border items-center justify-center rounded-full overflow-hidden">
-                        <img src="http://localhost/bloodcare/uploads/donor/profileimages/1701351413aiony-haust-3TLl_97HNJo-unsplash.jpg" alt="">
-                    </div>
-                    <p class="text-sm font-semibold text-gray-600">Joe Brown</p></div>
-                    <div class="self-end text-md text-gray-800 font-semibold rounded p-2 flex ">16:00
-                        
-                    </div>
-                </div>
+                
+                $appointmentlist
                 
             </div>
-            <button onclick="showAllAppointments(this)" type="button" class="block bg-transparent hover:underline text-blue-500 text-xs">more appointments</button>
 
-            <a href="http://localhost/bloodcare/hospital/donation/todayappointments" class="inline-flex items-center px-3 py-2 mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+            $more
+
+            <a href="$link" class="inline-flex items-center px-3 py-2 mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                 View appointments
                 <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"></path>
@@ -127,4 +120,5 @@ function loadtodayappointmentcard($appointments){
             </a>
         </div>
 BC;
+
 }

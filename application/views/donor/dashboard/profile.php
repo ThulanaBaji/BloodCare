@@ -177,9 +177,9 @@
                             <img src="<?= base_url('uploads/donor/profileimages/').$profile ?>" style="width: 112px; object-position: center; object-fit: cover;">
                         </div>
                         <p 
-                        style="font-size: 0.875rem; line-height: 1.25rem; margin-top: -1rem; padding: 0.5rem; font-weight: 600; padding-top: 0.25rem; padding-bottom: 0.25rem; border-radius: 9999px; background-image: linear-gradient(to right, #FCE8F3, #fef3c7, #cffafe); color: rgb(107 114 128);">2033065AF3ED302</p>
+                        style="font-size: 0.875rem; line-height: 1.25rem; margin-top: -1rem; padding: 0.5rem; font-weight: 600; padding-top: 0.25rem; padding-bottom: 0.25rem; border-radius: 9999px; background-image: linear-gradient(to right, #FCE8F3, #fef3c7, #cffafe); color: rgb(107 114 128);"><?= $membership_id ?></p>
                     
-                        <p style="font-weight: 600; color:white;">Jaul Paulze</p>
+                        <p style="font-weight: 600; color:white;"><?= $name ?></p>
                         <p style="font-size: 0.75rem; line-height: 1rem; color: rgb(255 255 255 / 0.8); font-weight: 600; border-radius: 0.25rem; padding: 0.25rem; background-color: rgb(0 0 0 / 0.1);">since <?= date("j F\, Y", strtotime($create_time)) ?></p>
                     </div>
                 </div></div>
@@ -192,7 +192,7 @@
 
 <script type="module">
         
-    import QrCreator from 'https://cdn.jsdelivr.net/npm/qr-creator/dist/qr-creator.es6.min.js';
+    import QrCreator from '<?= base_url('assets/js/qr-creator.min.js') ?>';
         
 </script>
 
@@ -414,9 +414,9 @@
         $('#qrcode').empty();
 
         new QrCreator.render({
-            text: 'some text',
+            text: '<?= $membership_id ?>',
             radius: 0.4, // 0.0 to 0.5
-            ecLevel: 'H', // L, M, Q, H
+            ecLevel: 'Q', // L, M, Q, H
             fill: {
                 type: 'linear-gradient', // or 'linear-gradient'
                 position: [ '-2', '-2', '2', '2' ],

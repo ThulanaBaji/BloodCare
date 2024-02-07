@@ -53,7 +53,7 @@ if (!function_exists('loadDonations'))  {
                     break;
             }
             $vol = $row['blood_vol'].' ml';
-            $date = date("F j\, Y", substr($row['datetime'], 0, -3));
+            $date = date("F j\, Y", substr($row['donated_datetime'], 0, -3));
 
             $message = $rejected ? '<div class="mt-3 flex items-center max-w-sm text-xs font-semibold p-2  border-red-500 text-red-500 rounded bg-red-100">
                     <svg class="flex-shrink-0 inline w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -63,30 +63,12 @@ if (!function_exists('loadDonations'))  {
                     </p>
                 </div>' : '';
 
-            if ($row['donation_type'] == DONATION_CAMP)
-                $camp = '
-                    <svg class="w-4 h-4 text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280">
-                        <g>
-                            <path d="M36.071,242.425h56.215c2.066,0,4.073-0.683,5.711-1.942c25.672-19.74,41.615-56.115,50.503-83.33
-                                c8.889,27.215,24.832,63.59,50.503,83.33c1.638,1.26,3.645,1.942,5.711,1.942h56.215c5.174,0,9.369-4.195,9.369-9.369v-98.375
-                                c0-3.755-2.242-7.147-5.696-8.619c-42.68-18.191-69.613-42.597-84.691-59.868c-16.348-18.725-22.707-33.364-22.784-33.543
-                                c-1.468-3.464-4.864-5.715-8.627-5.715c-3.771,0-7.176,2.262-8.637,5.739c-0.243,0.58-25.316,58.373-107.465,93.387
-                                c-3.454,1.472-5.696,4.864-5.696,8.619v98.375C26.702,238.23,30.897,242.425,36.071,242.425z" fill="currentColor"></path>
-                            <path d="M287.631,251.326H9.369c-5.174,0-9.369,4.195-9.369,9.369s4.195,9.369,9.369,9.369h278.262
-                                c5.174,0,9.369-4.195,9.369-9.369S292.805,251.326,287.631,251.326z" fill="currentColor"></path>
-                        </g>
-                    </svg>
-                    <a href="' . base_url('share/camp/'.$row['bloodcamp_id']) . '" class="underline">'.$row['name'].'</a>
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"></path>
-                    </svg>';
-            else
-                $camp = '
+            $camp = '
                     <svg class="w-4 h-4 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
                         <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2Zm-3 15H4.828a1 1 0 0 1 0-2h6.238a1 1 0 0 1 0 2Zm0-4H4.828a1 1 0 0 1 0-2h6.238a1 1 0 1 1 0 2Z"></path>
                         <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"></path>
                     </svg>
-                    <p class="text-xs font-semibold p-1 bg-gray-200 rounded">Through appointment</p>';
+                    <p class="text-xs font-semibold p-1 bg-gray-200 rounded">'.$row['donation_medium'].'</p>';
 
             $hospital = '<a href="' . base_url('share/hospital/'.$row['hospital_id']) . '" class="underline">'.$row['hospital_name'].'</a>';
             $height = $rejected ? 'h-40' : 'h-32';

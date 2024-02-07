@@ -17,20 +17,18 @@ class donor_model extends CI_Model {
      */
 
     public function getDonations($id){
-        $str = 'SELECT donor_donation.*, CONCAT(hospital.name, ", ", hospital.city) as hospital_name, bloodcamp.name FROM donor_donation
-                INNER JOIN bloodcamp ON bloodcamp.id = donor_donation.bloodcamp_id
+        $str = 'SELECT donor_donation.*, CONCAT(hospital.name, ", ", hospital.city) as hospital_name FROM donor_donation
                 INNER JOIN hospital ON hospital.id = donor_donation.hospital_id 
                 WHERE donor_donation.donor_id = ?
-                ORDER BY donor_donation.datetime';
+                ORDER BY donor_donation.donated_datetime';
         return $this->db->query($str, $id)->result_array();
     }
 
     public function getDonationsCount($id){
-        $str = 'SELECT donor_donation.*, CONCAT(hospital.name, ", ", hospital.city) as hospital_name, bloodcamp.name FROM donor_donation
-                INNER JOIN bloodcamp ON bloodcamp.id = donor_donation.bloodcamp_id
+        $str = 'SELECT donor_donation.*, CONCAT(hospital.name, ", ", hospital.city) as hospital_name FROM donor_donation
                 INNER JOIN hospital ON hospital.id = donor_donation.hospital_id 
                 WHERE donor_donation.donor_id = ? AND donor_donation.status = ?
-                ORDER BY donor_donation.datetime';
+                ORDER BY donor_donation.donated_datetime';
         return count($this->db->query($str, array($id, DONATION_PROCESSED))->result_array());
     }
 

@@ -35,6 +35,32 @@ class Requests extends CI_Controller
         foreach ($res as $key => $value)
             $data[$key] = $value;
 
+        $data['requests'] = $this->hospital_model->getRequests($this->id);
+
         $this->load->view('hospital/dashboard', $data);
+    }
+
+    public function makeRequest(){
+
+        if(isset($_POST['reference']) && isset($_POST['bloods']) && count($_POST['bloods']) > 0){
+            $data = $_POST;
+
+            $data['bloodsjson'] = json_encode($_POST['bloods']);
+            $this->hospital_model->makeRequest($data, $this->id);
+        }
+
+        redirect('hospital/requests/');
+    }
+
+    public function test(){
+        print_r($this->hospital_model->getRequests($this->id));
+    }
+
+    public function cancelRequest($id){
+        if(isset($id) && is_numeric($id)){
+            $this->hospital_model->cancelRequest($id, $this->id);
+        }
+
+        redirect('hospital/requests');
     }
 }

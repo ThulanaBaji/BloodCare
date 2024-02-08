@@ -6,11 +6,43 @@ class hospital_model extends CI_Model {
 
     //name, profile, email, contact, status
     public function getInfo($id){
-        $query_str = 'SELECT (SELECT COUNT(id) FROM notification_hospital WHERE hospital_id = ? AND status = ?) as ncount, `name`, `profile`, `email`, `status` FROM `hospital` WHERE `id` = ?';
+        $query_str = 'SELECT (SELECT COUNT(id) FROM notification_hospital WHERE hospital_id = ? AND status = ?) as ncount, `name`, `profile`, `email`, `city`,`status` FROM `hospital` WHERE `id` = ?';
 
         $result = $this->db->query($query_str, array($id, MSG_SENT, $id));
         return $result->row();
     }
+
+    /**
+     * ---------------------------------------------- Requests
+     */
+
+    public function getRequests($id){
+        $str = 'SELECT *
+                FROM hospital_request
+                WHERE hospital_id = ?
+                ORDER BY FIELD(status, ?) DESC, request_datetime DESC';
+        $result = $this->db->query($str, array($id, REQUEST_PENDING));
+        return $result->result_array();
+    }
+
+    public function makeRequest($data, $id){
+        $qd = array(
+            'hospital_id' => $id,
+            'request' => $data['bloodsjson'],
+            'priority' => $data['priority'],
+            'request_datetime' => time()*1000,
+            'reference' => $data['reference'],
+            'status' => REQUEST_PENDING
+        );
+
+        $this->db->insert('hospital_request', $qd);
+    }
+
+    public function cancelRequest($id, $hospital_id){
+        $str = 'UPDATE hospital_request SET status=?, responsed_datetime=? WHERE id=? AND hospital_id=?';
+        $this->db->query($str, array(REQUEST_CANCELLED, time()*1000, $id, $hospital_id));
+    }
+
 
     /**
      * ---------------------------------------------- Donation Processing

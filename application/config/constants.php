@@ -125,3 +125,11 @@ defined('BLOOD_BP')    OR define('BLOOD_BP', 'bp');
 defined('BLOOD_BN')    OR define('BLOOD_BN', 'bn');
 defined('BLOOD_OP')    OR define('BLOOD_OP', 'op');
 defined('BLOOD_ON')    OR define('BLOOD_ON', 'on');
+
+defined('PRIORITY_NORMAL') or define('PRIORITY_NORMAL', 'normal');
+defined('PRIORITY_URGENT') or define('PRIORITY_URGENT', 'urgent');
+
+defined('REQUEST_PENDING')   or define('REQUEST_PENDING', 'pending');
+defined('REQUEST_CANCELLED') or define('REQUEST_CANCELLED', 'cancelled');
+defined('REQUEST_REJECTED')  or define('REQUEST_REJECTED', 'rejected');
+defined('REQUEST_ACCEPTED')  or define('REQUEST_ACCEPTED', 'accepted');

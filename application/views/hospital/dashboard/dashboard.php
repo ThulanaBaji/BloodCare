@@ -178,8 +178,8 @@
                 
                 <div class="h-[88px] w-[24px] hover:w-[184px] transition-all group border-gray-500 self-center flex items-center justify-center bg-amber-300 rounded-r-lg">
                     <div class="hidden w-40 py-3 group-hover:block">
-                        <span class="flex h-6 justify-center items-baseline"><p class="font-semibold text-md">443</p><p class="ml-0.5 text-xs">processing blood pints</p></span>
-                        <a href="<?= base_url('hospital/donation/processing') ?>" class="p-3 py-1 bg-black/5 text-sm font-semibold rounded block mt-2 ml-3 w-fit hover:bg-black/10">view</a>    
+                        <span class="flex h-6 justify-center items-baseline"><p class="font-semibold text-md">443</p><p class="ml-0.5 text-xs">pending blood requests</p></span>
+                        <a href="<?= base_url('hospital/requests') ?>" class="p-3 py-1 bg-black/5 text-sm font-semibold rounded block mt-2 ml-3 w-fit hover:bg-black/10">view</a>    
                     </div>
                     <svg class="w-4 h-4 mx-1 my-9  flex-shrink-0 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M10.3 5.6A2 2 0 0 0 7 7v10a2 2 0 0 0 3.3 1.5l5.9-4.9a2 2 0 0 0 0-3l-6-5Z" clip-rule="evenodd"/>

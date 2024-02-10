@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 				if(isset($error)){
 					echo '<div class="alert relative
-				z-40 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-400">
+				z-40 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50">
 					<svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 						<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
 					</svg>
@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				?>
 
 				<?php echo validation_errors('<div class="alert relative
-				z-40 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-400">
+				z-40 flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50">
 					<svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 						<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
 					</svg>
@@ -60,13 +60,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 			</div>
 
-			<div class="w-full md:w-fit md:mx-auto my-auto -translate-y-[20%]">
+			<div class="w-fit mx-auto my-auto">
 				
                 <div class="text-center flex flex-col justify-center items-center m-auto">
-                    <h1 class="text-3xl text-white font-semibold">To access your portal, just</h1>
+                    <h1 class="sm:text-3xl text-2xl text-white font-semibold">To access your portal, just</h1>
 
-                    <div class="w-full bg-white p-[50px] mt-[30px] rounded-2xl drop-shadow-2xl">
-
+                    <div class="w-full bg-white p-8 m-2 sm:p-[50px] mt-[30px] rounded-2xl drop-shadow-2xl">
                     <?php 
                         echo form_open('login');
                     ?>

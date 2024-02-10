@@ -1,5 +1,5 @@
-<div class="p-3 pt-6 md:p-6 flex flex-col h-full relative justify-between">
-    <div class="absolute -top-1 left-1/2 -translate-x-1/2 max-w-xs">
+<div class="p-3 pt-6 md:p-6 flex flex-col h-full relative justify-between ">
+    <div class="absolute top-10 left-1/2 -translate-x-1/2 max-w-xs">
         <div class="mt-3 alert alert-success flex items-center p-2 px-3 text-sm text-green-800 rounded bg-green-200" style="display:none;">
         <svg class="flex-shrink-0 inline w-4 h-4 me-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
@@ -13,7 +13,7 @@
         <div id="alert-top-error-text"></div>
         </div>
     </div>    
-    <div class="body-container">
+    <div class="body-container <?= $appointmentscount > 0 ? '' : 'hidden' ?>">
 
         <a href="<?= base_url('donor/appointment/ongoing') ?>" class="cursor-pointer text-md font-semibold p-2 text-gray-500 mb-4 gap-1 flex items-center justify-center bg-gray-200 sm:bg-transparent max-w-xl hover:bg-gray-200 rounded">
             <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 20">
@@ -29,7 +29,7 @@
         </a>
         <!-- filter by component -->
         <div class="flex mb-6 max-w-xl">
-            <select class="bg-gray-50 rounded-l-lg border-gray-300 outline-none z-10" id="filter-selection">
+            <select class="bg-gray-50 rounded-l-lg border-gray-300 outline-none z-10" id="filter-selection" onchange="changeSelectionPlaceholder()">
                 <option value="1">City</option>
                 <option value="2">Zipcode</option>
                 <option value="3">District</option>
@@ -45,6 +45,20 @@
                 </button>
             </div>
         </div>
+    </div>
+    <div class="absolute <?= $appointmentscount == 0 ? '' : 'hidden' ?> w-full sm:w-fit px-3 sm:px-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center text-center flex flex-col">
+        <div class="text-lg font-semibold text-gray-500">It seems there's no appointment available as of now, come again later<br>Until then check the appointments YOU have !</div>
+        <div class="relative">
+            <img src="<?= base_url('assets/images/disheartwitheyes.svg') ?>" alt="" srcset="">
+            <img src="<?= base_url('assets/images/disheartwitheyeshandonly.svg') ?>" class="absolute top-0 left-0 z-20" alt="" srcset="">
+        </div>
+        <a href="<?= base_url('donor/appointment/ongoing') ?>" class="transform -translate-y-6 w-64 shadow hover:shadow-md border border-gray-400 cursor-pointer text-md font-semibold p-2 text-gray-500 gap-1 flex items-center justify-center bg-gray-200 max-w-xl hover:bg-gray-200 rounded">
+            <p class="mb-1">ongoing appointments</p>
+            <svg class="w-4 h-4 text-gray-500 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                <path d="M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z"/>
+                <path d="M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z"/>
+            </svg>
+        </a>
     </div>
 
     <!-- reserve appointment component -->
@@ -96,14 +110,14 @@
             var d = h.district;
             var p = h.province;
 
-            var hospitalwrapper = $('<div class="p-1 pl-4 mb-3 rounded-xl border max-w-xl bg-gray-50 relative appointment"></div>');
+            var hospitalwrapper = $('<div class="p-1 pl-4 mb-3 rounded-xl border max-w-xl w- bg-gray-50 relative appointment"></div>');
             var dataspan = $(`<span class="hidden" data-name="${name}" data-location="${c}, ${d}" data-city="${c}" data-zipcode="${z}" data-district="${d}" data-province="${p}"></span>`);
             hospitalwrapper.append(dataspan);
 
             var hospitalheader = $(`<div class="flex items-center justify-between w-full">
                 <div class="flex items-center gap-6">
                     <div class="hidden sm:flex w-16 h-16 border items-center rounded-full overflow-hidden">
-                        <img src="http://localhost/bloodcare/uploads/hospital/profileimages/${profile}" class="object-cover object-center w-16">
+                        <img src="<?= base_url('uploads/hospital/profileimages/') ?>${profile}" class="object-cover object-center w-16">
                     </div>
                     <div class="flex flex-col text-left text-gray-500 font-semibold gap-3 sm:gap-2">
                         <p class="text-lg sm:text-lg leading-tight">${name}</p>
@@ -143,9 +157,10 @@
             var calendarbody = $(`<div class="w-full" id="appointment-slot-${count}"></div>`);
             
             var order = 0;
+            
             h.dates.forEach(i => {
                 var dategrid = $(`<div class="w-full grid grid-cols-2 px-4 mb-4 sm:grid-cols-4 gap-1 ${order == 0 ? '' : 'hidden'}" data-order="${order}"></div>`);
-                
+
                 i.forEach(j => {
                     dategrid.append(`<div>
                             <input type="radio" id="ap${j.id}" class="hidden peer" name="appointment-selection" data-id="${j.id}" data-datetime="${j.datetime}" data-date="${j.date}" data-start="${j.start}" data-duration="${j.duration}" data-message="${j.message}">
@@ -233,6 +248,25 @@
             
             loadReserveModal(($(dataelem).data('name') + '<br>' + $(dataelem).data('location')), (timestr + '<br>' + date), $(this).data('message'), $(this).data('id'));
         });
+    }
+
+    function changeSelectionPlaceholder(){
+        const selection = $('#filter-selection').val();
+        
+        switch (selection) {
+            case "1":
+                $('#search-filter').attr('placeholder', '(Ex: seeduwa)');
+                break;
+            case "2":
+                $('#search-filter').attr('placeholder', '(Ex: 0700)');
+                break;
+            case "3":
+                $('#search-filter').attr('placeholder', '(Ex: rathnapura)');
+                break;
+            case "4":
+                $('#search-filter').attr('placeholder', '(Ex: uva)');
+                break;
+        }
     }
 
     function filter(){

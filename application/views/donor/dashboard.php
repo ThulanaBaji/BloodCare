@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,11 +40,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             <div class="fixed top-0 left-0 h-screen w-full bg-black/10 z-20 hidden lg:hidden" id="profilemenu-shadow" onclick="toggleProfileMenu(this)" data-drawer-target="profilemenu"></div>
             <div class="bg-gray-50 z-40 w-fit rounded-lg shadow hidden lg:hidden" style="position:absolute; right:16px; top:8px;" id="profilemenu">
-                <div class="pt-2 text-sm text-gray-500 font-bold flex items-center gap-4" style="margin-right: 8px; margin-bottom: 8px;">
+                <div class="pt-2 text-sm text-gray-500 font-bold flex items-start gap-4" style="margin-right: 8px; margin-bottom: 8px;">
                     <p></p>
                     <div>
                         <p class="text-sm text-gray-500 font-semibold"><?php echo $name?></p>
                         <p class="text-sm text-gray-500 font-semibold"><?php echo $email?></p>
+                        <p class="text-xs my-2 mr-auto w-fit px-2 border font-semibold py-1 rounded-full bg-gradient-to-r from-pink-100 via-amber-100 to-cyan-100 text-gray-500"><?php echo $membership_id?></p>
                     </div>
                     <div class="w-11 h-11 border-2 flex items-center rounded-full overflow-hidden">
                         <img class="w-14 object-cover object-center" src="<?php echo base_url().'uploads/donor/profileimages/'.$profile; ?>">
@@ -71,6 +72,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
                     <div class="hidden pt-2 text-sm text-gray-500 font-bold sm:flex flex-col justify-center items-center gap-4" style="margin-right: 8px; margin-bottom: 8px;">
                         <div class="w-16 h-16 border-2 flex items-center md:w-20 md:h-20 lg:w-28 lg:h-28 rounded-full overflow-hidden"><img src="<?php echo base_url().'uploads/donor/profileimages/'.$profile; ?>" class="object-cover object-center w-16 md:w-20 lg:w-28"></div>
+                        <p class="text-xs -mt-6 px-2 border font-semibold py-1 rounded-full bg-gradient-to-r from-pink-100 via-amber-100 to-cyan-100 text-gray-500"><?php echo $membership_id?></p>
+                        
                         <div class="text-center">
                             <p class="text-sm text-gray-500 font-semibold"><?php echo $name?></p>
                             <p class="text-sm text-gray-500 font-semibold"><?php echo $email?></p>
@@ -98,7 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'donor/camps'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+                            <a href="<?php echo base_url().'donor/camp'; ?>" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
                             <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 280 280">
                                 <g>
@@ -121,7 +124,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
                             </svg>
                             <div class="flex-1 ms-3 whitespace-nowrap">Notifications</div>
-                            <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full ">3</span>
+                            <?php if($ncount > 0): ?>
+                                <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full "><?= $ncount ?></span>
+                            <?php endif; ?>
                             </a>
                         </li>
                         <li>
@@ -141,7 +146,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </g>
                             </svg>
                             <div class="flex-1 ms-3 whitespace-nowrap">Donations</div>
-                            <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full ">63</span>
+                            <?php if($dcount > 0): ?>
+                            <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full "><?= $dcount?></span>
+                            <?php endif; ?>
                             </a>
                         </li>
                         <li class="border-t border-gray-200 pt-2">
@@ -149,7 +156,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
                                 <path d="M18 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM6.5 3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.014 13.021l.157-.625A3.427 3.427 0 0 1 6.5 9.571a3.426 3.426 0 0 1 3.322 2.805l.159.622-6.967.023ZM16 12h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Z"/>
                             </svg>
-                            <div class="flex-1 ms-3 whitespace-nowrap">Edit profile</div>
+                            <div class="flex-1 ms-3 whitespace-nowrap">My profile</div>
                             </a>
                         </li>
                         <li>

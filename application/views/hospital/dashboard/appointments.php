@@ -5,7 +5,7 @@
   
   <div id="padding-container">
   
-  <div class="absolute -top-1 left-1/2 -translate-x-1/2 max-w-xs">
+  <div class="absolute top-10 left-1/2 -translate-x-1/2 max-w-xs">
     <div class="mt-3 alert alert-success flex items-center p-2 px-3 text-sm text-green-800 rounded bg-green-200" style="display:none;">
       <svg class="flex-shrink-0 inline w-4 h-4 me-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
@@ -263,7 +263,7 @@
           $('.alert-success').fadeIn(200).delay(3000).fadeOut(200);
           $('#alert-top-success-text').text(response[1]);
           
-        }console.log(response  );
+        }
       }
     }
     

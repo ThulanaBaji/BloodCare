@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="my-6 w-full text-center">
             <a class="text-xl text-white font-semibold" href="<?php echo base_url()?>">BloodCare</a>
         </div>
-        <div class="container mx-auto">
+        <div class="container mx-auto max-w-[742px]">
             <div class="my-11 py-2 bg-white rounded-2xl shadow-2xl">
             
                 <ul class="md:hidden mb-12" id="smstepper">
@@ -214,7 +214,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <button class="btn-navigate-form-step
                                        rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9 mb-5" type="button" step_number="1">Prev</button>
                             <button class="btn-navigate-form-step
-                                       rounded bg-red-950 text-white py-2 px-3 ml-3 mt-9 mb-5" type="button" step_number="3">Next</button>
+                                       rounded bg-red-950 text-white py-2 px-3 mt-9 ml-3 mb-5" type="button" step_number="3">Next</button>
                         </div>
                     </section>
                     
@@ -238,7 +238,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="mt-3 mb-5">
                             <button class="btn-navigate-form-step
                                        rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9" type="button" step_number="2">Prev</button>
-                            <button class="rounded bg-red-950 text-white py-2 px-3 ml-3 md:ml-8 mt-9 " type="submit" id="registerButton">Register</button>
+                            <button class="rounded bg-red-950 text-white py-2 px-3 ml-3 mt-9 " type="submit" id="registerButton">Register</button>
                         </div>
                     </section>
                 </form>
@@ -278,7 +278,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             reader.readAsDataURL(files[0]);
 
             reader.onloadend = function () {
-                console.log(this.result);
+                
                 $("#profilepreview").attr('src', this.result);
             }
         }

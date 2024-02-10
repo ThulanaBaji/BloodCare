@@ -67,8 +67,9 @@ class Register extends CI_Controller {
 			$data = $_POST;
 
 			if(!empty($_FILES['profile']['name'])){
-
-				$filename = time().$_FILES['profile']['name'];
+			
+				$arr = explode('.', $_FILES['profile']['name']);
+            	$filename = time().strval(rand(100,999)).'.'.$arr[count($arr) - 1];
 	
 				$config['upload_path'] = 'uploads/donor/profileimages/';
 				$config['allowed_types'] = 'gif|jpg|png';
@@ -83,6 +84,35 @@ class Register extends CI_Controller {
 			}else{
 				$data['image'] = 'default.png';
 			}
+
+			$provincedict = [
+				"Western province" => '20',
+				"Southern province" => '21',
+				"Central province" => '22',
+				"Eastern province" => '23',
+				"Nothern province" => '24',
+				"Sabaragamuwa province" => '25',
+				"Uva province" => '26',
+				"North Central province" => '27',
+				"North Western province" => '28'
+			];
+
+			$districtdict = [
+				"Colombo" => '310', "Gampaha" => '320', "Kalutara" => '330',
+				"Galle" => '340', "Matara" => '350', "Hambantota" => '360',
+				"Kandy" => '370', "Matale" => '380', "Nuwara Eliya" => '390',
+				"Ampara" => '400', "Batticaloa" => '420', "Trincomalee" => '430',
+				"Jaffna" => '440', "Kilinochchi" => '450', "Mullaitivu" => '460',
+				"Kegalle" => '480', "Rathnapura" => '490',
+				"Badulla" => '500', "Monaragala" => '510',
+				"Anuraghapura" => '520', "Polonnaruwa" => '530',
+				"Kurunegala" => '540', "Puttalam" => '550'
+			];
+
+			$memid = $provincedict[$data['province']] . $districtdict[$data['district']];
+			$memid .= substr(uniqid(), 0, -3);
+
+			$data['membership_id'] = strtoupper($memid);
 
 			$this->user_model->registerDonor($data);
 			$this->session->set_flashdata('message', 'Your registration was successful, login to access your portal');
@@ -115,7 +145,8 @@ class Register extends CI_Controller {
 
 					if(!empty($_FILES['profile']['name'])){
 
-						$filename = time().$_FILES['profile']['name'];
+						$arr = explode('.', $_FILES['profile']['name']);
+            			$filename = time().strval(rand(100,999)).'.'.$arr[count($arr) - 1];
 			
 						$config['upload_path'] = 'uploads/hospital/profileimages/';
 						$config['allowed_types'] = 'gif|jpg|png';

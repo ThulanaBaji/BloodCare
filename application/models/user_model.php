@@ -48,14 +48,14 @@ class user_model extends CI_Model{
         $time = date('Y-m-d');
         $query_str = 'INSERT INTO `donor`(`id`, `firstname`, `lastname`, `profile`, `dob`, `email`, 
                                           `street_address`, `city`, `district`, `province`, 
-                                          `contact`, `password`, `create_time`, `status`) 
+                                          `contact`, `password`, `create_time`, `status`, `membership_id`) 
                       VALUES (?, ?, ?, ?, ?, ?, 
                               ?, ?, ?, ?, 
-                              ?, ?, ?, ?)';
+                              ?, ?, ?, ?, ?)';
 
         $this->db->query($query_str, array(NULL, $data['fname'], $data['lname'], $data['image'], $data['bod'], $data['email'],
                                            $data['street'], $data['city'], $data['district'], $data['province'], 
-                                           $data['contact'], $data['password'], $time, 'registered'));
+                                           $data['contact'], md5($data['password']), $time, 'registered', $data['membership_id']));
     }
 
     public function registerHospital($data, $key){
@@ -71,7 +71,7 @@ class user_model extends CI_Model{
 
         $this->db->query($query_str, array(NULL, $data['regnum'], $data['name'], $data['image'], $data['email'], $data['zipcode'],
                                            $data['street'], $data['city'], $data['district'], $data['province'], 
-                                           $data['contact'], $data['password'], $date, $key, $expire_time, 'pending'));
+                                           $data['contact'], md5($data['password']), $date, $key, $expire_time, 'pending'));
     }
 
     /*
@@ -119,8 +119,8 @@ class user_model extends CI_Model{
         $query_str = "SELECT id, 'admin' as role FROM admin WHERE email = ? AND password = ?
                       UNION SELECT id, 'donor' as role FROM donor WHERE email = ? AND password = ?
                       UNION SELECT id, 'hospital' as role FROM hospital WHERE email = ? AND password = ?";
-        
-        $result = $this->db->query($query_str, array($data['email'], $data['password'], $data['email'], $data['password'], $data['email'], $data['password']));
+        $p = md5($data['password']);
+        $result = $this->db->query($query_str, array($data['email'], $p, $data['email'], $p, $data['email'], $p));
         $query_row = $result->row();
 
         if($result->num_rows() != 0){

@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<body class="bg-red-950 ">
 
 		<div class="grid grid-flow-row grid-rows-[auto_1fr] h-screen relative">
-            <div class="w-screen p-10 sticky top-0 left-0 bg-red-950">
+            <div class="p-10 sticky top-0 left-0 bg-red-950">
                 <nav class="flex justify-center md:justify-between items-center">
                     <a class="text-xl text-white font-semibold" href="<?php echo base_url()?>">BloodCare</a>
                     
@@ -27,9 +27,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </nav>
             </div>
 
-			<div class="w-full my-auto md:w-fit md:mx-auto  text-center md:-translate-y-[20%]">
+			<div class=" my-auto md:w-fit md:mx-auto text-center md:-translate-y-[20%]">
 
-				<h1 class="mt-6 mb-11 text-white text-3xl font-semibold">Wants to become a member as, A</h1>
+				<h1 class="mt-6 mb-11 text-white text-2xl sm:text-3xl font-semibold">Wants to become a member as, A</h1>
 				
 				<div class="mx-11 flex flex-row flex-wrap gap-4 justify-around">
 					<a href="<?php echo base_url().'register/hospital'?>">
@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</a>
 				</div>
 
-				<p class="mt-12 text-md">Already registered ?<a href="<?php echo base_url().'login'?>" class=" font-semibold hover:underline hover:cursor-pointer"> Login</a></p>
+				<p class="mt-12 text-md mb-6">Already registered ?<a href="<?php echo base_url().'login'?>" class=" font-semibold hover:underline hover:cursor-pointer"> Login</a></p>
 			</div>
 		</div>
 	</body>

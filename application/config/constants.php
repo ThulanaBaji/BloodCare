@@ -95,3 +95,41 @@ defined('APPOINTMENT_CANCELLED') OR define('APPOINTMENT_CANCELLED', 'cancelled')
 defined('APPOINTMENT_DONATED')  OR define('APPOINTMENT_DONATED', 'donated');
 
 defined('MAX_MAKEAPPOINTMENT')  OR define('MAX_MAKEAPPOINTMENT', 5);
+
+defined('CAMP_VACANT')     OR define('CAMP_VACANT', 'vacant');
+defined('CAMP_FILLED')     OR define('CAMP_FILLED', 'filled');
+defined('CAMP_CANCELLED')  OR define('CAMP_CANCELLED', 'cancelled');
+defined('CAMP_JOINED')     OR define('CAMP_JOINED', 'joined');
+defined('CAMP_QUIT')       OR define('CAMP_QUIT', 'quit');
+
+defined('MSG_SENT')     OR define('MSG_SENT', 'sent');
+defined('MSG_SEEN')     OR define('MSG_SEEN', 'seen');
+defined('MSG_DEL')      OR define('MSG_DEL', 'deleted');
+defined('MSG_WARNING')  OR define('MSG_WARNING', 'warning');
+defined('MSG_INFO')     OR define('MSG_INFO', 'info');
+defined('MSG_SUCCESS')  OR define('MSG_SUCCESS', 'success');
+defined('MSG_HELP')     OR define('MSG_HELP', 'help');
+
+defined('DONATION_PROCESSING')   OR define('DONATION_PROCESSING', 'processing');
+defined('DONATION_PROCESSED')    OR define('DONATION_PROCESSED', 'processed');
+defined('DONATION_REJECTED')     OR define('DONATION_REJECTED', 'rejected');
+defined('DONATION_DONATED')      OR define('DONATION_DONATED', 'donated');
+defined('DONATION_CAMP')         OR define('DONATION_CAMP', 'bloodcamp');
+defined('DONATION_APPOINTMENT')  OR define('DONATION_APPOINTMENT', 'appointment');
+
+defined('BLOOD_AP')    OR define('BLOOD_AP', 'ap');
+defined('BLOOD_AN')    OR define('BLOOD_AN', 'an');
+defined('BLOOD_ABP')   OR define('BLOOD_ABP', 'abp');
+defined('BLOOD_ABN')   OR define('BLOOD_ABN', 'abn');
+defined('BLOOD_BP')    OR define('BLOOD_BP', 'bp');
+defined('BLOOD_BN')    OR define('BLOOD_BN', 'bn');
+defined('BLOOD_OP')    OR define('BLOOD_OP', 'op');
+defined('BLOOD_ON')    OR define('BLOOD_ON', 'on');
+
+defined('PRIORITY_NORMAL') or define('PRIORITY_NORMAL', 'normal');
+defined('PRIORITY_URGENT') or define('PRIORITY_URGENT', 'urgent');
+
+defined('REQUEST_PENDING')   or define('REQUEST_PENDING', 'pending');
+defined('REQUEST_CANCELLED') or define('REQUEST_CANCELLED', 'cancelled');
+defined('REQUEST_REJECTED')  or define('REQUEST_REJECTED', 'rejected');
+defined('REQUEST_ACCEPTED')  or define('REQUEST_ACCEPTED', 'accepted');

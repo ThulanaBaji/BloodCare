@@ -13,6 +13,27 @@ class hospital_model extends CI_Model {
     }
 
     /**
+     * ---------------------------------------------- Dashboard
+     */
+
+    public function getDonationsCount($id){
+        $str = 'SELECT COUNT(id) as count FROM donor_donation WHERE hospital_id = ?';
+        $result = $this->db->query($str, $id);
+        return $result->result_array()[0]['count'];
+    }
+
+    public function getProcessingBloodCount($id){
+        $str = 'SELECT COUNT(id) as count FROM donor_donation WHERE hospital_id = ? AND status = ?';
+        return $this->db->query($str, array($id, DONATION_PROCESSING))->result_array()[0]['count'];
+    }
+
+    public function getPendingRequestCount($id){
+        $str = 'SELECT COUNT(id) as count FROM hospital_request WHERE hospital_id = ? AND status = ?';
+        return $this->db->query($str, array($id, REQUEST_PENDING))->result_array()[0]['count'];
+    }
+
+
+    /**
      * ---------------------------------------------- Requests
      */
 

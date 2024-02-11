@@ -11,7 +11,7 @@ class Dashboard extends CI_Controller {
         
         if(!$this->session->has_userdata('user')){
             $this->session->set_flashdata('error','Please login first to access the page');
-            redirect('login');
+            redirect('login/admin');
         }
 
         if($this->session->userdata('user')['role'] != $this->role)

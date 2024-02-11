@@ -75,4 +75,48 @@ class Login extends CI_Controller {
 
         $this->load->view('login', $data);
 	}
+
+	public function admin(){
+		if($this->session->has_userdata('user'))
+			redirect('/'.$this->session->userdata('user')['role'].'/dashboard');
+
+		$message = $this->session->flashdata('message');
+		$error = $this->session->flashdata('error');
+		$data = '';
+
+		if($message != '')
+			$data = array('message' => $message);
+		if($error != '')
+			$data = array('error' => $error);
+
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+
+		if (isset($_POST['email'])) {
+			if ($this->form_validation->run() == TRUE) {
+				$result = $this->user_model->authenticate($_POST);
+
+				if($result->code == 0){
+					$data = array('error' => 'Check your email or password again');
+				}
+
+				else if($result->role != 'admin'){
+					$this->session->set_flashdata('error', 'Please use this login page');
+					redirect('login');
+				}
+
+				else if($result->code == 1){
+					$userinfo = array(
+							'id'=> $result->id,
+							'role' => $result->role
+						);
+						
+					$this->session->set_userdata('user', $userinfo);
+					redirect($result->role.'/dashboard');
+				}
+			}
+		}
+
+        $this->load->view('admin/login', $data);
+	}
 }

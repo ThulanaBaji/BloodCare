@@ -18,12 +18,13 @@
         <!-- row -->
 
         <div class="flex mb-11">
-            <div class="rounded-xl w-fit gap-8 items-center flex p-3  bg-gradient-to-r from-yellow-400 to-orange-400">
+            <div class="rounded-xl w-fit gap-8 items-center flex p-3  bg-gradient-to-r <?= $donationCount < 50 ? 'from-slate-400 to-zinc-400' : ($donationCount < 100 ? 'from-yellow-400 to-orange-400' : 'from-purple-400 to-indigo-400') ?>">
                 <span class="flex flex-col text-sm font-mono text-white/90">
+
                     <p class="pl-1"><?= $name ?></p>
                     <p class="pl-1"><?= $city ?></p>
 
-                    <span class="bg-black/20 w-fit text-white/70 rounded p-1 px-2 font-sans text-xs uppercase mt-2">golden partner</span>
+                    <span class="bg-black/20 w-fit text-white/70 rounded p-1 px-2 font-sans text-xs uppercase mt-2"><?= $donationCount < 50 ? 'silver' : ($donationCount < 100 ? 'golden' : 'platinum') ?> partner</span>
                 </span>
 
                 <span class="rounded-full h-16 w-16">
@@ -42,8 +43,8 @@
                 <div class="max-w-sm shadow-md w-full bg-gradient-to-tr from-emerald-300  to-orange-200 rounded-lg dark:bg-gray-800 p-4 md:p-6">
                     <div class="flex justify-between">
                         <div>
-                        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">32.4k (ml)</h5>
-                        <p class="text-base font-normal text-gray-500 dark:text-gray-400">Blood collection this week</p>
+                        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"><span class="collectiontotal">32.4k</span> (ml)</h5>
+                        <p class="text-base font-normal text-gray-500 dark:text-gray-400">Blood collection this <span id="collectionname">week</span></p>
                         </div>
                         <div
                         class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
@@ -58,33 +59,27 @@
                         <div class="flex justify-between items-center pt-5">
                             <!-- Button -->
                             <button
-                                id="dropdownDefaultButton"
-                                data-dropdown-toggle="lastDaysdropdown"
+                                id="collectiondropdownbutton"
+                                data-dropdown-toggle="collectiondropdown"
                                 data-dropdown-placement="bottom"
                                 class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
                                 type="button">
-                                Last 7 days
+                                <p>Last 7 days</p> 
                                 <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                                 </svg>
                             </button>
                             <!-- Dropdown menu -->
-                            <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                            <div id="collectiondropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                                     <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+                                    <button onclick="collectionChart(1)" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Last 7 days</button>
                                     </li>
                                     <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+                                    <button onclick="collectionChart(2)" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Last 30 days</button>
                                     </li>
                                     <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
-                                    </li>
-                                    <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
-                                    </li>
-                                    <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
+                                    <button onclick="collectionChart(3)" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Last 12 months</button>
                                     </li>
                                 </ul>
                             </div>
@@ -100,9 +95,10 @@
                     </div>
                 </div>
                 
+                <?php if($donationProcessingCount > 0): ?>
                 <div class="h-[88px] w-[24px] hover:w-[184px] transition-all hover:z-30 hover:shadow group border-gray-500 self-center flex items-center justify-center bg-amber-300 rounded-r-lg">
                     <div class="hidden w-40 py-3 group-hover:block">
-                        <span class="flex h-6 justify-center items-baseline"><p class="font-semibold text-md">443</p><p class="ml-0.5 text-xs">processing blood pints</p></span>
+                        <span class="flex h-6 justify-center items-baseline"><p class="font-semibold text-md"><?= $donationProcessingCount ?></p><p class="ml-0.5 text-xs">processing blood pints</p></span>
                         <a href="<?= base_url('hospital/donation/processing') ?>" class="p-3 py-1 bg-black/5 text-sm font-semibold rounded block mt-2 ml-3 w-fit hover:bg-black/10">view</a>    
                     </div>
                     <svg class="w-4 h-4 mx-1 my-9  flex-shrink-0 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -110,6 +106,7 @@
                     </svg>
                     
                 </div>
+                <?php endif; ?>
 
             </div>
 
@@ -118,8 +115,8 @@
                 <div class="max-w-sm shadow-md w-full bg-gradient-to-tr from-purple-300  to-orange-200 rounded-lg dark:bg-gray-800 p-4 md:p-6">
                     <div class="flex justify-between">
                         <div>
-                        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">10.4k (ml)</h5>
-                        <p class="text-base font-normal text-gray-500 dark:text-gray-400">Blood request this week</p>
+                        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"><span class="requesttotal">10.4k</span> (ml)</h5>
+                        <p class="text-base font-normal text-gray-500 dark:text-gray-400">Blood request this <span id="requestname"> week</span></p>
                         </div>
                         <div
                         class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
@@ -134,33 +131,27 @@
                         <div class="flex justify-between items-center pt-5">
                         <!-- Button -->
                         <button
-                            id="dropdownDefaultButton"
-                            data-dropdown-toggle="lastDaysdropdown"
+                            id="requestdropdownbutton"
+                            data-dropdown-toggle="requestdropdown"
                             data-dropdown-placement="bottom"
                             class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
                             type="button">
-                            Last 7 days
+                            <p> Last 7 days</p>
                             <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                             </svg>
                         </button>
                         <!-- Dropdown menu -->
-                        <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <div id="requestdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                                 <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+                                    <button onclick="requestChart(1)" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Last 7 days</button>
                                 </li>
                                 <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+                                    <button onclick="requestChart(2)" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Last 30 days</button>
                                 </li>
                                 <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
-                                </li>
-                                <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
-                                </li>
-                                <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
+                                    <button onclick="requestChart(3)" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">Last 12 months</button>
                                 </li>
                             </ul>
                         </div>
@@ -176,9 +167,10 @@
                     </div>
                 </div>
                 
+                <?php if($requestPendingCount > 0): ?>
                 <div class="h-[88px] w-[24px] hover:w-[184px] transition-all group border-gray-500 self-center flex items-center justify-center bg-amber-300 rounded-r-lg">
                     <div class="hidden w-40 py-3 group-hover:block">
-                        <span class="flex h-6 justify-center items-baseline"><p class="font-semibold text-md">443</p><p class="ml-0.5 text-xs">pending blood requests</p></span>
+                        <span class="flex h-6 justify-center items-baseline"><p class="font-semibold text-md"><?= $requestPendingCount ?></p><p class="ml-0.5 text-xs">pending blood requests</p></span>
                         <a href="<?= base_url('hospital/requests') ?>" class="p-3 py-1 bg-black/5 text-sm font-semibold rounded block mt-2 ml-3 w-fit hover:bg-black/10">view</a>    
                     </div>
                     <svg class="w-4 h-4 mx-1 my-9  flex-shrink-0 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -186,7 +178,7 @@
                     </svg>
                     
                 </div>
-
+                <?php endif; ?>
             </div>
         </div>
         
@@ -346,6 +338,44 @@
         loadChart('area-chart-2', 'rgb(227, 52, 78)', '', 2);
     });
 
+    function collectionChart(num){
+        $('#collectiondropdown').addClass('hidden');
+
+        switch(num){
+            case 1:
+                $('#collectiondropdownbutton p').text('Last 7 days');
+                $('#collectionname').text('week');
+                break;
+            case 2:
+                $('#collectiondropdownbutton p').text('Last 30 days');
+                $('#collectionname').text('month');
+                break;
+            case 3:
+                $('#collectiondropdownbutton p').text('Last 12 months');
+                $('#collectionname').text('year');
+                break;
+        }
+    }
+
+    function requestChart(num){
+        $('#requestdropdown').addClass('hidden');
+
+        switch(num){
+            case 1:
+                $('#requestdropdownbutton p').text('Last 7 days');
+                $('#requestname').text('week');
+                break;
+            case 2:
+                $('#requestdropdownbutton p').text('Last 30 days');
+                $('#requestname').text('month');
+                break;
+            case 3:
+                $('#requestdropdownbutton p').text('Last 12 months');
+                $('#requestname').text('year');
+                break;
+        }
+    }
+
     function loadChart(id, color, gradcolor, strokewidth) {
         let options = {
         chart: {
@@ -419,4 +449,5 @@
         chart.render();
         }
     }
+
 </script>

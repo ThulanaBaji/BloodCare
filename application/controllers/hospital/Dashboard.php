@@ -33,6 +33,19 @@ class Dashboard extends CI_Controller
         foreach ($res as $key => $value)
             $data[$key] = $value;
 
+        $data['donationCount'] = $this->hospital_model->getDonationsCount($this->id);
+        $data['donationProcessingCount'] = $this->hospital_model->getProcessingBloodCount($this->id);
+        $data['requestPendingCount'] = $this->hospital_model->getPendingRequestCount($this->id);
+
+        $data['collectionTotal'] = array(
+            'week' => 3,
+            'month' => 3,
+            'year' => 3
+        );
+
+        $thisyear = date('Y', time());
+        $thisweek = date('W', time());
+
         $this->load->view('hospital/dashboard', $data);
     }
 

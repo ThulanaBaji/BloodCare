@@ -340,6 +340,8 @@
 
     function collectionChart(num){
         $('#collectiondropdown').addClass('hidden');
+        $('#collectionperc').addClass('text-red-500');
+        $('#collectionperc').addClass('text-green-500');
         $('#collectionperc').removeClass('hidden');
 
         const week = <?= $collectionData['week'] ?>;
@@ -370,9 +372,15 @@
                     $('#collectionperc span.perc').text(Math.abs(weekperc));
 
                     if(weekperc < 0) 
+                        {
                         $('#collectionperc svg.arrow').addClass('rotate-180');
+                        $('#collectionperc').addClass('text-red-500');
+                    }
                     else
+                        {
+                        $('#collectionperc').addClass('text-green-500');
                         $('#collectionperc svg.arrow').removeClass('rotate-180');
+                    }
                 }
 
                 loadChart('area-chart', 'rgb(227, 52, 78)', '', 2, weekcat, weekdata);
@@ -388,10 +396,15 @@
                 else {
                     $('#collectionperc span.perc').text(Math.abs(monthperc));
 
-                    if(monthperc < 0) 
+                    if(monthperc < 0) {
                         $('#collectionperc svg.arrow').addClass('rotate-180');
+                        $('#collectionperc').addClass('text-red-500');
+                    }
                     else
+                        {
+                        $('#collectionperc').addClass('text-green-500');
                         $('#collectionperc svg.arrow').removeClass('rotate-180');
+                    }
                 }
 
                 loadChart('area-chart', 'rgb(227, 52, 78)', '', 2, monthcat, monthdata);
@@ -408,9 +421,15 @@
                     $('#collectionperc span.perc').text(Math.abs(yearperc));
 
                     if(yearperc < 0) 
+                        {
                         $('#collectionperc svg.arrow').addClass('rotate-180');
+                        $('#collectionperc').addClass('text-red-500');
+                    }
                     else
+                        {
+                        $('#collectionperc').addClass('text-green-500');
                         $('#collectionperc svg.arrow').removeClass('rotate-180');
+                    }
                 }
 
                 loadChart('area-chart', 'rgb(227, 52, 78)', '', 2, yearcat, yeardata);
@@ -421,6 +440,8 @@
 
     function requestChart(num){
         $('#requestdropdown').addClass('hidden');
+        $('#requestperc').addClass('text-red-500');
+        $('#requestperc').addClass('text-green-500');
         $('#requestperc').removeClass('hidden');
 
         const week = <?= $requestData['week'] ?>;
@@ -451,9 +472,15 @@
                     $('#requestperc span.perc').text(Math.abs(weekperc));
 
                     if(weekperc < 0) 
+                        {
                         $('#requestperc svg.arrow').addClass('rotate-180');
+                        $('#requestperc').addClass('text-red-500');
+                    }
                     else
+                        {
+                        $('#requestperc').addClass('text-green-500');
                         $('#requestperc svg.arrow').removeClass('rotate-180');
+                    }
                 }
 
                 loadChart('area-chart-2', 'rgb(227, 52, 78)', '', 2, weekcat, weekdata);
@@ -470,9 +497,15 @@
                     $('#requestperc span.perc').text(Math.abs(monthperc));
 
                     if(monthperc < 0) 
+                        {
                         $('#requestperc svg.arrow').addClass('rotate-180');
+                        $('#requestperc').addClass('text-red-500');
+                    }
                     else
+                        {
+                        $('#requestperc').addClass('text-green-500');
                         $('#requestperc svg.arrow').removeClass('rotate-180');
+                    }
                 }
 
                 loadChart('area-chart-2', 'rgb(227, 52, 78)', '', 2, monthcat, monthdata);
@@ -489,9 +522,14 @@
                     $('#requestperc span.perc').text(Math.abs(yearperc));
 
                     if(yearperc < 0) 
+                        {
                         $('#requestperc svg.arrow').addClass('rotate-180');
-                    else
+                        $('#requestperc').addClass('text-red-500');
+                    }
+                    else{
+                        $('#requestperc').addClass('text-green-500');
                         $('#requestperc svg.arrow').removeClass('rotate-180');
+                    }
                 }
 
                 loadChart('area-chart-2', 'rgb(227, 52, 78)', '', 2, yearcat, yeardata);

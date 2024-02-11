@@ -71,7 +71,7 @@ class user_model extends CI_Model{
 
         $this->db->query($query_str, array(NULL, $data['regnum'], $data['name'], $data['image'], $data['email'], $data['zipcode'],
                                            $data['street'], $data['city'], $data['district'], $data['province'], 
-                                           $data['contact'], md5($data['password']), $date, $key, $expire_time, 'pending'));
+                                           $data['contact'], md5($data['password']), $date, $key, $expire_time, HOSPITAL_PENDING));
     }
 
     /*
@@ -91,8 +91,8 @@ class user_model extends CI_Model{
         
         $id = $record_exist->row()->id;
         
-        $query_str = 'UPDATE `hospital` SET `expire` = ?, `status` = ?  WHERE `id` = ?';
-        $this->db->query($query_str, array(0, 'verified', $id));
+        $query_str = 'UPDATE `hospital` SET `expire` = ?, `status` = ?, responsed_datetime = ?  WHERE `id` = ?';
+        $this->db->query($query_str, array(0, HOSPITAL_VERIFIED, time()*1000, $id));
 
         return 1;
     }

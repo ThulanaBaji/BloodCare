@@ -133,3 +133,8 @@ defined('REQUEST_PENDING')   or define('REQUEST_PENDING', 'pending');
 defined('REQUEST_CANCELLED') or define('REQUEST_CANCELLED', 'cancelled');
 defined('REQUEST_REJECTED')  or define('REQUEST_REJECTED', 'rejected');
 defined('REQUEST_ACCEPTED')  or define('REQUEST_ACCEPTED', 'accepted');
+
+defined('HOSPITAL_PENDING')   or define('HOSPITAL_PENDING', 'pending');
+defined('HOSPITAL_VERIFIED')  or define('HOSPITAL_VERIFIED', 'verified');
+defined('HOSPITAL_ACCEPTED')  or define('HOSPITAL_ACCEPTED', 'accepted');
+defined('HOSPITAL_REVOKED')   or define('HOSPITAL_REVOKED', 'revoked');

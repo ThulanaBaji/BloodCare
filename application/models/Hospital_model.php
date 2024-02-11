@@ -32,6 +32,39 @@ class hospital_model extends CI_Model {
         return $this->db->query($str, array($id, REQUEST_PENDING))->result_array()[0]['count'];
     }
 
+    public function getAllDonations($id){
+        return array_merge($this->getProcessedDonations($id), $this->getProcessingDonations($id));
+    }
+
+    public function getAppointmentCount($id){
+        $str = 'SELECT COUNT(id) as count FROM appointmentslot WHERE hospital_id = ? AND status = ?';
+        return $this->db->query($str, array($id, APPOINTMENT_DONATED))->result_array()[0]['count'];
+    }
+
+    public function getReservedAppointmentCount($id){
+        $str = 'SELECT COUNT(id) as count FROM appointmentslot WHERE hospital_id = ? AND status = ?';
+        return $this->db->query($str, array($id, APPOINTMENT_RESERVED))->result_array()[0]['count'];
+    }
+
+    public function getOrganizedCampCount($id){
+        $str = 'SELECT COUNT(id) as count FROM bloodcamp WHERE hospital_id = ? AND start_datetime + duration < ?';
+        return $this->db->query($str, array($id, time() * 1000))->result_array()[0]['count'];
+    }
+
+    public function getOngoingCampCount($id){
+        $str = 'SELECT COUNT(id) as count FROM bloodcamp WHERE hospital_id = ? AND start_datetime > ?';
+        return $this->db->query($str, array($id, time() * 1000))->result_array()[0]['count'];
+    }
+
+    public function getDonationAppointmentCount($id){
+        $str = 'SELECT COUNT(id) as count FROM donor_donation WHERE hospital_id = ? AND donation_medium = ?';
+        return $this->db->query($str, array($id, 'Through appointment'))->result_array()[0]['count'];
+    }
+
+    public function getDonationCampCount($id){
+        $str = 'SELECT COUNT(id) as count FROM donor_donation WHERE hospital_id = ? AND donation_medium != ?';
+        return $this->db->query($str, array($id, 'Through appointment'))->result_array()[0]['count'];
+    }
 
     /**
      * ---------------------------------------------- Requests
@@ -52,6 +85,7 @@ class hospital_model extends CI_Model {
             'request' => $data['bloodsjson'],
             'priority' => $data['priority'],
             'request_datetime' => time()*1000,
+            'total' => $data['total'],
             'reference' => $data['reference'],
             'status' => REQUEST_PENDING
         );
@@ -126,13 +160,21 @@ class hospital_model extends CI_Model {
         else{
             $str = 'UPDATE donor_appointment SET status = ? WHERE donor_id = ? AND id = ?';
             $this->db->query($str, array(DONATION_DONATED, $donor_id, $medium_id));
+
+            $str = 'SELECT appointmentslot_id as aid FROM donor_appointment WHERE id = ? AND donor_id = ?';
+            $appslotid = $this->db->query($str, array($medium_id, $donor_id))->result_array()[0]['aid'];
+
+            if(isset($appslotid) && $appslotid != null){
+                $str = 'UPDATE donor_appointment SET status = ? WHERE id = ?';
+                $this->db->query($str, array(APPOINTMENT_DONATED, $appslotid));
+            }
         }
     }
 
     //- - - - processing subsection
 
     public function getProcessingDonations($id){
-        $str = 'SELECT donor_donation.id, reference, donor.membership_id, CONCAT(donor.firstname, " ", donor.lastname) as name, donor.profile, donated_datetime, donation_medium FROM donor_donation
+        $str = 'SELECT donor_donation.id, reference, donor.membership_id, blood_vol, blood_type, donor_donation.status, CONCAT(donor.firstname, " ", donor.lastname) as name, donor.profile, donated_datetime, donation_medium FROM donor_donation
                 INNER JOIN donor on donor.id = donor_donation.donor_id
                 WHERE donor_donation.status = ? AND donor_donation.hospital_id = ?';
         return $this->db->query($str, array(DONATION_PROCESSING, $id))->result_array();

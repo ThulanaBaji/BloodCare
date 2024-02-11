@@ -43,13 +43,13 @@
                 <div class="max-w-sm shadow-md w-full bg-gradient-to-tr from-emerald-300  to-orange-200 rounded-lg dark:bg-gray-800 p-4 md:p-6">
                     <div class="flex justify-between">
                         <div>
-                        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"><span class="collectiontotal">32.4k</span> (ml)</h5>
+                        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"><span id="collectiontotal"></span> (ml)</h5>
                         <p class="text-base font-normal text-gray-500 dark:text-gray-400">Blood collection this <span id="collectionname">week</span></p>
                         </div>
-                        <div
-                        class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                        12%
-                        <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+                        <div id="collectionperc"
+                        class="flex items-center hidden px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
+                        <span class="perc"></span>%
+                        <svg class="w-3 h-3 ms-1 arrow" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
                         </svg>
                         </div>
@@ -115,13 +115,13 @@
                 <div class="max-w-sm shadow-md w-full bg-gradient-to-tr from-purple-300  to-orange-200 rounded-lg dark:bg-gray-800 p-4 md:p-6">
                     <div class="flex justify-between">
                         <div>
-                        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"><span class="requesttotal">10.4k</span> (ml)</h5>
+                        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"><span id="requesttotal"></span> (ml)</h5>
                         <p class="text-base font-normal text-gray-500 dark:text-gray-400">Blood request this <span id="requestname"> week</span></p>
                         </div>
-                        <div
-                        class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                        6.5%
-                        <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+                        <div id="requestperc"
+                        class="flex items-center hidden px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+                        <span class="perc"></span>%
+                        <svg class="w-3 h-3 ms-1 arrow" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
                         </svg>
                         </div>
@@ -188,15 +188,15 @@
                 <div class="flex gap-3 justify-between">
                     <div class="flex flex-col">
                         <span class="flex items-baseline">
-                            <p class="leading-none text-3xl font-bold text-gray-900 pb-2">104</p>
+                            <p class="leading-none text-3xl font-bold text-gray-900 pb-2"><?= $appointmentdetails['total'] ?></p>
                             <p class="text-sm font-semibold text-gray-900 ml-2">Total appointments</p>
                         </span>
                         <span class="flex items-center gap-2 ml-1 mt-2">
-                            <p class="text-sm text-gray-500 font-semibold">5 today</p>
+                            <p class="text-sm text-gray-500 font-semibold"><?= $appointmentdetails['today'] ?> today</p>
                             <svg viewBox="0 0 10 10" class="w-[5px] h-[5px] my-auto fill-gray-300 inline-block flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="5" cy="5" r="5" />
                             </svg>
-                            <p class="text-sm text-gray-500 font-semibold">24 reserved</p>
+                            <p class="text-sm text-gray-500 font-semibold"><?= $appointmentdetails['reserved'] ?> reserved</p>
                         </span>
                     </div>
                     <div class="rounded-full flex items-start justify-center p-3">
@@ -206,7 +206,7 @@
                         
                     </div>
                 </div>
-                <a href="" class="flex group items-center mt-8 p-2 w-56 text-gray-600 text-sm font-semibold bg-black/5 hover:bg-black/10 rounded shadow">
+                <a href="<?= base_url('hospital/donation/todayappointments') ?>" class="flex group items-center mt-8 p-2 w-56 text-gray-600 text-sm font-semibold bg-black/5 hover:bg-black/10 rounded shadow">
                     view today appointments
                     <svg class="w-5 h-5 ml-3 group-hover:translate-x-2 transition-all" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
@@ -218,15 +218,15 @@
                 <div class="flex gap-3 justify-between">
                     <div class="flex flex-col">
                         <span class="flex items-baseline">
-                            <p class="leading-none text-3xl font-bold text-gray-900 pb-2">23</p>
+                            <p class="leading-none text-3xl font-bold text-gray-900 pb-2"><?= $campdetails['total'] ?></p>
                             <p class="text-sm font-semibold text-gray-900 ml-2">Total camps</p>
                         </span>
                         <span class="flex items-center gap-2 ml-1 mt-2">
-                            <p class="text-sm text-gray-500 font-semibold">2 today</p>
+                            <p class="text-sm text-gray-500 font-semibold"><?= $campdetails['today'] ?> today</p>
                             <svg viewBox="0 0 10 10" class="w-[5px] h-[5px] my-auto fill-gray-300 inline-block flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="5" cy="5" r="5" />
                             </svg>
-                            <p class="text-sm text-gray-500 font-semibold">4 ongoing</p>
+                            <p class="text-sm text-gray-500 font-semibold"><?= $campdetails['ongoing'] ?> ongoing</p>
                         </span>
                     </div>
                     <div class="rounded-full flex items-start justify-center p-3">
@@ -267,7 +267,7 @@
                         
                     </div>
                 </div>
-                <a href="" class="flex group items-center mt-8 p-2 w-44 text-gray-600 text-sm font-semibold bg-black/5 hover:bg-black/10 rounded shadow">
+                <a href="<?= base_url('hospital/donation/todaycamps') ?>" class="flex group items-center mt-8 p-2 w-44 text-gray-600 text-sm font-semibold bg-black/5 hover:bg-black/10 rounded shadow">
                     view today camps
                     <svg class="w-5 h-5 ml-3 group-hover:translate-x-2 transition-all" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
@@ -279,15 +279,15 @@
                 <div class="flex gap-3 justify-between">
                     <div class="flex flex-col">
                         <span class="flex items-baseline">
-                            <p class="leading-none text-3xl font-bold text-gray-900 pb-2">289</p>
+                            <p class="leading-none text-3xl font-bold text-gray-900 pb-2"><?=$donationCount ?></p>
                             <p class="text-sm font-semibold text-gray-900 ml-2">Total donations</p>
                         </span>
                         <span class="flex items-center gap-2 ml-1 mt-2">
-                            <p class="text-sm text-gray-500 font-semibold">100 from appointments</p>
+                            <p class="text-sm text-gray-500 font-semibold"><?= $donationdetails['appointment'] ?> from appointments</p>
                             <svg viewBox="0 0 10 10" class="w-[5px] h-[5px] my-auto fill-gray-300 inline-block flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="5" cy="5" r="5" />
                             </svg>
-                            <p class="text-sm text-gray-500 font-semibold">189 from camps</p>
+                            <p class="text-sm text-gray-500 font-semibold"><?= $donationdetails['camp'] ?> from camps</p>
                         </span>
                     </div>
                     <div class="rounded-full flex items-start justify-center p-3">
@@ -306,7 +306,7 @@
                             </svg>
                     </div>
                 </div>
-                <a href="" class="flex group items-center mt-8 p-2 w-40 text-gray-600 text-sm font-semibold bg-black/5 hover:bg-black/10 rounded shadow">
+                <a href="<?= base_url('hospital/donation/processed') ?>" class="flex group items-center mt-8 p-2 w-40 text-gray-600 text-sm font-semibold bg-black/5 hover:bg-black/10 rounded shadow">
                     view donations
                     <svg class="w-5 h-5 ml-3 group-hover:translate-x-2 transition-all" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
@@ -334,49 +334,172 @@
             $('#alert-top-error-text').text(error);
         }
 
-        loadChart('area-chart', 'rgb(227, 52, 78)', '', 2);
-        loadChart('area-chart-2', 'rgb(227, 52, 78)', '', 2);
+        requestChart(1);
+        collectionChart(1);
     });
 
     function collectionChart(num){
         $('#collectiondropdown').addClass('hidden');
+        $('#collectionperc').removeClass('hidden');
+
+        const week = <?= $collectionData['week'] ?>;
+        const weekperc = <?= $collectionData['weekperc'] ?>;
+        const weekcat = <?= $collectionchart['week']['category'] ?>;
+        const weekdata = <?= $collectionchart['week']['data'] ?>;
+
+        const month = <?= $collectionData['month'] ?>;
+        const monthperc = <?= $collectionData['monthperc'] ?>;
+        const monthcat = <?= $collectionchart['month']['category'] ?>;
+        const monthdata = <?= $collectionchart['month']['data'] ?>;
+
+        const year = <?= $collectionData['year'] ?>;
+        const yearperc = <?= $collectionData['yearperc'] ?>;
+        const yearcat = <?= $collectionchart['year']['category'] ?>;
+        const yeardata = <?= $collectionchart['year']['data'] ?>;
 
         switch(num){
             case 1:
                 $('#collectiondropdownbutton p').text('Last 7 days');
                 $('#collectionname').text('week');
+
+                var weekstr = week > 1000 ? week/1000 + 'k' : week;
+                $('#collectiontotal').text(weekstr);
+
+                if(weekperc == 0) $('#collectionperc').addClass('hidden');
+                else {
+                    $('#collectionperc span.perc').text(Math.abs(weekperc));
+
+                    if(weekperc < 0) 
+                        $('#collectionperc svg.arrow').addClass('rotate-180');
+                    else
+                        $('#collectionperc svg.arrow').removeClass('rotate-180');
+                }
+
+                loadChart('area-chart', 'rgb(227, 52, 78)', '', 2, weekcat, weekdata);
                 break;
             case 2:
                 $('#collectiondropdownbutton p').text('Last 30 days');
                 $('#collectionname').text('month');
+                
+                var monthstr = month > 1000 ? month/1000 + 'k' : month;
+                $('#collectiontotal').text(monthstr);
+
+                if(monthperc == 0) $('#collectionperc').addClass('hidden');
+                else {
+                    $('#collectionperc span.perc').text(Math.abs(monthperc));
+
+                    if(monthperc < 0) 
+                        $('#collectionperc svg.arrow').addClass('rotate-180');
+                    else
+                        $('#collectionperc svg.arrow').removeClass('rotate-180');
+                }
+
+                loadChart('area-chart', 'rgb(227, 52, 78)', '', 2, monthcat, monthdata);
                 break;
             case 3:
                 $('#collectiondropdownbutton p').text('Last 12 months');
                 $('#collectionname').text('year');
+                
+                var yearstr = year > 1000 ? year/1000 + 'k' : year;
+                $('#collectiontotal').text(yearstr);
+
+                if(yearperc == 0) $('#collectionperc').addClass('hidden');
+                else {
+                    $('#collectionperc span.perc').text(Math.abs(yearperc));
+
+                    if(yearperc < 0) 
+                        $('#collectionperc svg.arrow').addClass('rotate-180');
+                    else
+                        $('#collectionperc svg.arrow').removeClass('rotate-180');
+                }
+
+                loadChart('area-chart', 'rgb(227, 52, 78)', '', 2, yearcat, yeardata);
+
                 break;
         }
     }
 
     function requestChart(num){
         $('#requestdropdown').addClass('hidden');
+        $('#requestperc').removeClass('hidden');
+
+        const week = <?= $requestData['week'] ?>;
+        const weekperc = <?= $requestData['weekperc'] ?>;
+        const weekcat = <?= $requestchart['week']['category'] ?>;
+        const weekdata = <?= $requestchart['week']['data'] ?>;
+
+        const month = <?= $requestData['month'] ?>;
+        const monthperc = <?= $requestData['monthperc'] ?>;
+        const monthcat = <?= $requestchart['month']['category'] ?>;
+        const monthdata = <?= $requestchart['month']['data'] ?>;
+
+        const year = <?= $requestData['year'] ?>;
+        const yearperc = <?= $requestData['yearperc'] ?>;
+        const yearcat = <?= $requestchart['year']['category'] ?>;
+        const yeardata = <?= $requestchart['year']['data'] ?>;
 
         switch(num){
             case 1:
                 $('#requestdropdownbutton p').text('Last 7 days');
                 $('#requestname').text('week');
+
+                var weekstr = week > 1000 ? week/1000 + 'k' : week;
+                $('#requesttotal').text(weekstr);
+
+                if(weekperc == 0) $('#requestperc').addClass('hidden');
+                else {
+                    $('#requestperc span.perc').text(Math.abs(weekperc));
+
+                    if(weekperc < 0) 
+                        $('#requestperc svg.arrow').addClass('rotate-180');
+                    else
+                        $('#requestperc svg.arrow').removeClass('rotate-180');
+                }
+
+                loadChart('area-chart-2', 'rgb(227, 52, 78)', '', 2, weekcat, weekdata);
                 break;
             case 2:
                 $('#requestdropdownbutton p').text('Last 30 days');
                 $('#requestname').text('month');
+                
+                var monthstr = month > 1000 ? month/1000 + 'k' : month;
+                $('#requesttotal').text(monthstr);
+
+                if(monthperc == 0) $('#requestperc').addClass('hidden');
+                else {
+                    $('#requestperc span.perc').text(Math.abs(monthperc));
+
+                    if(monthperc < 0) 
+                        $('#requestperc svg.arrow').addClass('rotate-180');
+                    else
+                        $('#requestperc svg.arrow').removeClass('rotate-180');
+                }
+
+                loadChart('area-chart-2', 'rgb(227, 52, 78)', '', 2, monthcat, monthdata);
                 break;
             case 3:
                 $('#requestdropdownbutton p').text('Last 12 months');
                 $('#requestname').text('year');
+                
+                var yearstr = year > 1000 ? year/1000 + 'k' : year;
+                $('#requesttotal').text(yearstr);
+
+                if(yearperc == 0) $('#requestperc').addClass('hidden');
+                else {
+                    $('#requestperc span.perc').text(Math.abs(yearperc));
+
+                    if(yearperc < 0) 
+                        $('#requestperc svg.arrow').addClass('rotate-180');
+                    else
+                        $('#requestperc svg.arrow').removeClass('rotate-180');
+                }
+
+                loadChart('area-chart-2', 'rgb(227, 52, 78)', '', 2, yearcat, yeardata);
                 break;
         }
     }
 
-    function loadChart(id, color, gradcolor, strokewidth) {
+    function loadChart(id, color, gradcolor, strokewidth, category, data) {
         let options = {
         chart: {
             height: "50%",
@@ -423,12 +546,12 @@
         series: [
             {
             name: "Blood volume (ml)",
-            data: [6500, 6418, 6456, 6526, 6356, 6456],
+            data: data,
             color: color,
             },
         ],
         xaxis: {
-            categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+            categories: category,
             labels: {
             show: false,
             },
@@ -445,6 +568,7 @@
         }
 
         if (document.getElementById(id) && typeof ApexCharts !== 'undefined') {
+            $('#' + id).children().remove();
         const chart = new ApexCharts(document.getElementById(id), options);
         chart.render();
         }

@@ -46,6 +46,13 @@ class Requests extends CI_Controller
             $data = $_POST;
 
             $data['bloodsjson'] = json_encode($_POST['bloods']);
+
+            $total = 0;
+            foreach($_POST['bloods'] as $btype => $bvol){
+                $total += intval($bvol);
+            }
+            $data['total'] = $total;
+
             $this->hospital_model->makeRequest($data, $this->id);
         }
 

@@ -15,6 +15,20 @@ class admin_model extends CI_Model
     }
 
     /**
+     * ------------------------------------------ Camp shedule
+     */
+
+    public function getCamps(){
+        $str = 'SELECT hospital.regnumber, hospital.name as hname, hospital.city as hcity, bloodcamp.*, (SELECT COUNT(bloodcamp_donor.id) 
+                                    FROM bloodcamp_donor 
+                                    WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status IN ("'.CAMP_JOINED.'")) as "cur_seats"
+                                    FROM bloodcamp
+                INNER JOIN hospital on hospital.id = bloodcamp.hospital_id
+                WHERE start_datetime > ' . time() * 1000;
+        return $this->db->query($str)->result_array();
+    }
+
+    /**
      * ------------------------------------------ Hospital verification
      */
 

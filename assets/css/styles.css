@@ -2290,6 +2290,10 @@ input:checked + .toggle-bg {
   max-width: 20rem;
 }
 
+.max-w-5xl {
+  max-width: 64rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -4581,6 +4585,10 @@ input:checked + .toggle-bg {
 
   .sm\:max-w-xl {
     max-width: 36rem;
+  }
+
+  .sm\:max-w-5xl {
+    max-width: 64rem;
   }
 
   .sm\:translate-x-0 {

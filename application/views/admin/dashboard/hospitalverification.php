@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="flex w-full max-w-sm sm:max-w-4xl justify-between gap-1">
+    <div class="flex w-full max-w-sm sm:max-w-5xl justify-between gap-1">
         <div>
             <select name="" onchange="filterStatus(this)" id="select-sort" class="bg-gray-50 rounded-lg text-sm border-gray-300 outline-none z-10">
                 <option value="all">all hospital</option>
@@ -37,7 +37,7 @@
         
     </div>
 
-    <div class="mt-8 sm:mt-14 flex flex-col max-w-4xl w-full">
+    <div class="mt-8 sm:mt-14 flex flex-col max-w-5xl w-full">
     <?php 
         function time_elapsed_string($datetime, $full = false) {
             $now = new DateTime;
@@ -79,6 +79,9 @@
                             Registration
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Contact
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Address
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -104,6 +107,11 @@
                         <td class="px-6 py-4">
                             <?= $h['regnumber'] ?>
                         </td>
+                        <td class="px-6 py-4">
+                            <div class="flex flex-col">
+                                <p><?= $h['contact'] ?></p>
+                            </div>
+                        </td>
                         <td class="px-6 py-4 w-48">
                             <div class="flex flex-col text-xs">
                                 <p><?= $h['street_address'] ?>,</p>
@@ -120,28 +128,28 @@
                                             <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4a1 1 0 1 0-2 0v4c0 .3.1.5.3.7l3 3a1 1 0 0 0 1.4-1.4L13 11.6V8Z" clip-rule="evenodd"/>
                                         </svg>pending
                                     </div>
-                                    <p class="text-xs mt-2 ml-1"><?= time_elapsed_string(date("Y-m-d H:i:s", strtotime($h['create_time']))) ?></p>
+                                    <p class="text-xs mt-2 "><?= time_elapsed_string(date("Y-m-d H:i:s", strtotime($h['create_time']))) ?></p>
                                 <?php elseif($h['status'] == HOSPITAL_VERIFIED): ?>
                                     <div class="rounded-full px-2 py-1 bg-rose-300 text-xs font-semibold flex text-gray-700">
                                         <svg class="w-4 h-4 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4.7 4.5 9.3-9"/>
                                         </svg>verified
                                     </div>
-                                    <p class="text-xs mt-2 ml-1"><?= time_elapsed_string(date("Y-m-d H:i:s", substr($h['responsed_datetime'], 0, -3))) ?></p>
+                                    <p class="text-xs mt-2"><?= time_elapsed_string(date("Y-m-d H:i:s", substr($h['responsed_datetime'], 0, -3))) ?></p>
                                 <?php elseif($h['status'] == HOSPITAL_ACCEPTED): ?>
                                     <div class="rounded-full px-2 py-1 bg-emerald-300 text-xs font-semibold flex text-gray-700">
                                         <svg class="w-4 h-4 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                             <path fill-rule="evenodd" d="M12 2a3 3 0 0 0-2.1.9l-.9.9a1 1 0 0 1-.7.3H7a3 3 0 0 0-3 3v1.2c0 .3 0 .5-.2.7l-1 .9a3 3 0 0 0 0 4.2l1 .9c.2.2.3.4.3.7V17a3 3 0 0 0 3 3h1.2c.3 0 .5 0 .7.2l.9 1a3 3 0 0 0 4.2 0l.9-1c.2-.2.4-.3.7-.3H17a3 3 0 0 0 3-3v-1.2c0-.3 0-.5.2-.7l1-.9a3 3 0 0 0 0-4.2l-1-.9a1 1 0 0 1-.3-.7V7a3 3 0 0 0-3-3h-1.2a1 1 0 0 1-.7-.2l-.9-1A3 3 0 0 0 12 2Zm3.7 7.7a1 1 0 1 0-1.4-1.4L10 12.6l-1.3-1.3a1 1 0 0 0-1.4 1.4l2 2c.4.4 1 .4 1.4 0l5-5Z" clip-rule="evenodd"/>
                                         </svg>accepted
                                     </div>
-                                    <p class="text-xs mt-2 ml-1"><?= time_elapsed_string(date("Y-m-d H:i:s", substr($h['responsed_datetime'], 0, -3))) ?></p>
+                                    <p class="text-xs mt-2"><?= time_elapsed_string(date("Y-m-d H:i:s", substr($h['responsed_datetime'], 0, -3))) ?></p>
                                 <?php elseif($h['status'] == HOSPITAL_REVOKED): ?>
                                     <div class="rounded-full px-2 py-1 bg-red-400 text-xs font-semibold flex text-gray-700">
                                         <svg class="w-4 h-4 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6m0 12L6 6"/>
                                         </svg>revoked
                                     </div>
-                                    <p class="text-xs mt-2 ml-1"><?= time_elapsed_string(date("Y-m-d H:i:s", substr($h['responsed_datetime'], 0, -3))) ?></p>
+                                    <p class="text-xs mt-2"><?= time_elapsed_string(date("Y-m-d H:i:s", substr($h['responsed_datetime'], 0, -3))) ?></p>
                                 <?php endif; ?>
                             </div>
                         </td>
@@ -219,6 +227,7 @@
     $(document).ready(function(){
         var success = <?= isset($success) ? "'".$success."'" : '""' ?>;
         var error =   <?= isset($error)   ? "'".$error."'"   : '""' ?>;
+        var search =   <?= isset($search)   ? "'".$search."'"   : '""' ?>;
 
         if(success != ''){
             $('.alert-success').fadeIn(200).delay(3000).fadeOut(200);
@@ -227,6 +236,11 @@
         if(error != ''){
             $('.alert-error').fadeIn(200).delay(3000).fadeOut(200);
             $('#alert-top-error-text').text(error);
+        } 
+        
+        if(search != ''){
+            $('#search-input').val(search);
+            filter($('#search-input'));
         } 
         
         $('#revokeModal').on('click', function(e) {

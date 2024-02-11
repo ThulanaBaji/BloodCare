@@ -40,6 +40,9 @@ class Hospitalverification extends CI_Controller {
 			$data ['error'] = $error;
 
         $data['hospitals'] = $this->admin_model->getHospitals();
+        
+        if(isset($_GET['search']) && !empty($_GET['search']))
+            $data['search'] = $_GET['search'];
 
         $this->load->view('admin/dashboard', $data);
     }

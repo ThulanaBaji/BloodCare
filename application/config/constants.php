@@ -100,6 +100,7 @@ defined('CAMP_VACANT')     OR define('CAMP_VACANT', 'vacant');
 defined('CAMP_FILLED')     OR define('CAMP_FILLED', 'filled');
 defined('CAMP_CANCELLED')  OR define('CAMP_CANCELLED', 'cancelled');
 defined('CAMP_JOINED')     OR define('CAMP_JOINED', 'joined');
+defined('CAMP_REVOKED')    OR define('CAMP_REVOKED', 'revoked');
 defined('CAMP_QUIT')       OR define('CAMP_QUIT', 'quit');
 
 defined('MSG_SENT')     OR define('MSG_SENT', 'sent');

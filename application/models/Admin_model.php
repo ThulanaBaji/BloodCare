@@ -28,6 +28,11 @@ class admin_model extends CI_Model
         return $this->db->query($str)->result_array();
     }
 
+    public function revokeCamp($id, $camp_id, $message){
+        $str = 'UPDATE bloodcamp SET status = ?, admin_id = ?, message = ? WHERE id = ?';
+        $this->db->query($str, array(CAMP_REVOKED, $id, $message, $camp_id));
+    }
+
     /**
      * ------------------------------------------ Hospital verification
      */

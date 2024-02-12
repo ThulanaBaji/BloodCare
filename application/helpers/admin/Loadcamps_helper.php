@@ -24,19 +24,22 @@ if (!function_exists('loadCamps')) {
             $duration = $row['duration'];
             $maxseats = $row['max_seats'];
             $message = $row['message'];
+            $status = $row['status'];
 
             $hname = $row['hname'] . ', ' . $row['hcity'];
             $hlink = base_url('admin/hospitalverification/?search='.$row['regnumber']);
 
-            $border = $row['status'] == CAMP_CANCELLED ? 'border-red-400' : '';
-            $label = $row['status'] == CAMP_CANCELLED ?
-                '<div class="flex items-center gap-2 absolute right-0 top-0 px-3 py-1 text-gray-700 text-sm font-semibold bg-red-400 rounded-se-md rounded-es-md">cancelled</div>'
+            $datestart = strtotime('midnight', substr($row['start_datetime'],0 ,-3)).'000';
+
+            $border = ($row['status'] == CAMP_CANCELLED || $row['status'] == CAMP_REVOKED ) ? 'border-red-400' : '';
+            $label = ($row['status'] == CAMP_CANCELLED || $row['status'] == CAMP_REVOKED )  ?
+                '<div class="flex items-center gap-2 absolute right-0 top-0 px-3 py-1 text-gray-700 text-sm font-semibold bg-red-400 rounded-se-md rounded-es-md">'.$row['status'].'</div>'
                 :
                 '<div class="flex items-center gap-2 absolute right-0 top-0 px-3 py-1 text-gray-700 text-sm font-semibold bg-green-400 rounded-se-md rounded-es-md">
                 <svg class="w-3 h-3 inline text-gray-700 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                     <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
                 </svg>'.$count.'</div>';
-            $footer = $row['status'] == CAMP_CANCELLED ?
+            $footer = ($row['status'] == CAMP_CANCELLED || $row['status'] == CAMP_REVOKED ) ?
                 '<span class="mt-3 mb-2 p-3 w-full rounded bg-gray-100 flex flex-col sm:flex-row sm:items-center gap-2">
                     <svg class="flex-shrink-0 w-4 h-4 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" fill="currentColor">
                         <path d="M18 4H16V9C16 10.0609 15.5786 11.0783 14.8284 11.8284C14.0783 12.5786 13.0609 13 12 13H9L6.846 14.615C7.17993 14.8628 7.58418 14.9977 8 15H11.667L15.4 17.8C15.5731 17.9298 15.7836 18 16 18C16.2652 18 16.5196 17.8946 16.7071 17.7071C16.8946 17.5196 17 17.2652 17 17V15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V6C20 5.46957 19.7893 4.96086 19.4142 4.58579C19.0391 4.21071 18.5304 4 18 4Z" fill="currentColor"></path>
@@ -47,15 +50,15 @@ if (!function_exists('loadCamps')) {
                 :
                 '<div class="flex justify-end py-1 pt-3">
                     <div class="flex gap-3">
-                        <button onclick="revoke(this)" class="flex-auto text-md font-semibold p-2 w-16 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded" data-id="'.$id.'">revoke</button>
+                        <button onclick="showModal(this)" data-profile="'.$url.'" data-id="'.$id.'" data-name="'.$name.'" data-hname="'.$hname.'" data-modal="revokeModal" class="flex-auto text-md font-semibold p-2 w-16 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded" data-id="'.$id.'">revoke</button>
                     </div>
                 </div>';
 
             echo <<<BC
 
-            <div class="p-1 pl-4 mb-3 rounded-xl border $border max-w-xl bg-gray-50 relative camp">
+            <div class="p-1 pl-4 mb-3 rounded-xl border $border max-w-xl bg-gray-50 relative camp" data-date="$datestart" data-status="$status">
             <span class="hidden dataset" data-profile="default.svg"
-            data-name="$name" data-organizer="$organizer" 
+            data-name="$name" data-organizer="$organizer"
             data-address="$address" data-city="$city" data-district="$district" data-pin="$pin" 
             data-datetime="$datetime" data-duration="$duration" data-maxseats="$maxseats"></span>
             

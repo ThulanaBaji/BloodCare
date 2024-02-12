@@ -45,12 +45,15 @@ class Campschedule extends CI_Controller {
         $this->load->view('admin/dashboard', $data);
     }
 
-    public function unauthorize(){
+    public function revoke(){
         if(!isset($_POST['id']) || empty($_POST['id'])){
             $this->session->set_flashdata('error', 'bad request');
-            redirect('admin/hospitalverification');
+            redirect('admin/campschedule');
         }
 
-        $this->admin_model->unauthorizeCamp($this->id, $_POST['id'], $_POST['message']);
+        $this->admin_model->revokeCamp($this->id, $_POST['id'], $_POST['message']);
+        
+        $this->session->set_flashdata('success', 'Camp revoked');
+        redirect('admin/campschedule');
     }
 }

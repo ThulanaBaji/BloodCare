@@ -17,7 +17,7 @@
     <div class="flex w-full max-w-sm sm:max-w-5xl justify-between gap-1">
         <div>
             <select name="" onchange="filterStatus(this)" id="select-sort" class="bg-gray-50 rounded-lg text-sm border-gray-300 outline-none z-10">
-                <option value="all">all hospital</option>
+                <option value="all">all hospitals</option>
                 <option value="pending">pending</option>
                 <option value="verified">verified</option>
                 <option value="accepted">accepted</option>

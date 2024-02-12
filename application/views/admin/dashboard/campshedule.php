@@ -186,9 +186,6 @@
             });
         });
 
-        
-        console.log($('#search-date')[0].datepicker);
-
         var success = <?= isset($success) ? "'".$success."'" : '""' ?>;
         var error =   <?= isset($error)   ? "'".$error."'"   : '""' ?>;
 

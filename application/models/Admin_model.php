@@ -15,6 +15,26 @@ class admin_model extends CI_Model
     }
 
     /**
+     * ------------------------------------------ Bloood requests
+     */
+
+    public function getRequests(){
+        $str = 'SELECT hospital_request.*, hospital.name, hospital.regnumber, hospital.city FROM hospital_request
+                INNER JOIN hospital on hospital_request.hospital_id = hospital.id';
+        return $this->db->query($str)->result_array();
+    }
+
+    public function acceptRequest($id, $data){
+        $str = 'UPDATE hospital_request SET status = ?, responsed_datetime = ?, admin_id = ?, message = ? WHERE id = ?';
+        $this->db->query($str, array(REQUEST_ACCEPTED, time()*1000, $id, $data['message'], $data['id']));
+    }
+
+    public function rejectRequest($id, $data){
+        $str = 'UPDATE hospital_request SET status = ?, responsed_datetime = ?, admin_id = ?, message = ? WHERE id = ?';
+        $this->db->query($str, array(REQUEST_REJECTED, time()*1000, $id, $data['message'], $data['id']));
+    }
+
+    /**
      * ------------------------------------------ Camp shedule
      */
 

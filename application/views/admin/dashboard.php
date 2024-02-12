@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         </style>
     </head>
-	<body class="bg-gray-100">
+	<body class="bg-gray-100 h-screen">
         
         <div class="flex justify-between">
             <button onclick="toggleSideBar(this)" id="sidebar-button"
@@ -163,7 +163,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </aside>
 
-        <div class="p-4 lg:ml-64">
+        <div class="p-4 lg:ml-64 lg:h-full h-[calc(100vh-60px)]">
             <?php
                 if(isset($view) && $view != ''){
                     if(isset($data) && $data != ''){

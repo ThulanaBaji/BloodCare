@@ -43,7 +43,7 @@ class Inventory extends CI_Controller
             $data['error'] = $error;
 
         $data['desired'] = $this->admin_model->getLevel();
-        $data['bloods'] = $this->admin_model->getBloods()['bloods'];
+        $data['ibloods'] = $this->admin_model->getBloods()['bloods'];
         $data['total'] = $this->admin_model->getBloods()['total'];
         $data['transactions'] = $this->admin_model->getInventory();
 

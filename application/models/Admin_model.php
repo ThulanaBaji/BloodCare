@@ -45,7 +45,7 @@ class admin_model extends CI_Model
      */
 
     public function getInventory(){
-        return $this->db->select('*')->get('inventory')->result_array();
+        return $this->db->select('*')->order_by('create_time', 'DESC')->get('inventory')->result_array();
     }
 
     public function getBloods(){
@@ -53,7 +53,7 @@ class admin_model extends CI_Model
         $result = $this->db->query($str)->result_array();
 
         if (count($result) == 0)
-            return array('bloods' => '{"op":"0","on":"0","ap":"0","an":"0","bp":"0","bn":"0","abp":"0","abn":"0"}', 'total' => 0);
+            return array('bloods' => json_encode('{"op":"0","on":"0","ap":"0","an":"0","bp":"0","bn":"0","abp":"0","abn":"0"}'), 'total' => 0);
         return $result[0];
     }
 

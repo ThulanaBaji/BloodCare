@@ -175,44 +175,44 @@
                 <div class="flex">
                     <div>
                         <label class="block mb-2 mt-3 text-sm font-medium text-gray-900">A<sub>positive</sub></label>
-                        <input min="0" type="number" name="ap" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input min="0" required type="number" name="ap" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                     <div>
                         <label class="block mb-2 mt-3 text-sm font-medium text-gray-900 ">A<sub>negative</sub></label>
-                        <input min="0" type="number" name="an" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input min="0" required type="number" name="an" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                 </div>
 
                 <div class="flex">
                     <div>
                         <label class="block mb-2 mt-3 text-sm font-medium text-gray-900 ">B<sub>positive</sub></label>
-                        <input min="0" type="number" name="bp" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input min="0" required type="number" name="bp" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                     <div>
                         <label class="block mb-2 mt-3 text-sm font-medium text-gray-900 ">B<sub>negative</sub></label>
-                        <input min="0" type="number" name="bn" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input min="0" required type="number" name="bn" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                 </div>
 
                 <div class="flex">
                     <div>
                         <label class="block mb-2 mt-3 text-sm font-medium text-gray-900 ">AB<sub>positive</sub></label>
-                        <input min="0" type="number" name="abp" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input min="0" required type="number" name="abp" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                     <div>
                         <label class="block mb-2 mt-3 text-sm font-medium text-gray-900 ">AB<sub>negative</sub></label>
-                        <input min="0" type="number" name="abn" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input min="0" required type="number" name="abn" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                 </div>
 
                 <div class="flex">
                     <div>
                         <label class="block mb-2 mt-3 text-sm font-medium text-gray-900 ">O<sub>positive</sub></label>
-                        <input min="0" type="number" name="op" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input min="0" required type="number" name="op" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                     <div>
                         <label class="block mb-2 mt-3 text-sm font-medium text-gray-900 ">O<sub>negative</sub></label>
-                        <input min="0" type="number" name="on" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        <input min="0" required type="number" name="on" class="relative focus:z-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     </div>
                 </div>
             </div>
@@ -359,9 +359,10 @@
 </div>
 
 <script>
-    var bloods = <?= json_encode($bloods) ?>;
-
+    var bloods = <?= ($ibloods) ?>;
     var desiredbloods = <?= $desired ?>;
+console.log(desiredbloods);
+
 
     $(document).ready(function(){
         var success = <?= isset($success) ? "'".$success."'" : '""' ?>;
@@ -425,8 +426,7 @@
 
         Object.keys(bloods).forEach(key => {
             var group = key.slice(0, -1).toUpperCase() + ' group';
-
-            console.log($("#modalbg > div > form > div.grid.gap-4.mb-4.sm\\:grid-cols-2 div div input[name='" + key + "']").val(desiredbloods[key]));
+            $("#modalbg > div > form > div.grid.gap-4.mb-4.sm\\:grid-cols-2 div div input[name='" + key + "']").val(desiredbloods[key]);
 
             var type = key[key.length - 1];
             if(type == 'n') ndata.push({
@@ -460,7 +460,6 @@
 
         $('.tcolumn-chart').each(function(){
             var jsonstr = $(this).data('json').replaceAll('~', '"');
-            console.log(jsonstr);
             jsonstr.replaceAll('~', '"',);
             
             let data = [];
@@ -567,7 +566,6 @@
         };        
 
         $('#bloods-body.' + target + ' tr th input.bloodtype').each(function() {
-            console.log($(this));
             var b = $(this).val();
             bloods = bloods.filter(function(e) { return e !== b });
         });

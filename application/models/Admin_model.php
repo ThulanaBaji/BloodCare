@@ -13,6 +13,33 @@ class admin_model extends CI_Model
         $result = $this->db->query($query_str, $id);
         return $result->row();
     }
+
+    /**
+     * ----------------------------------------- Profile
+     */
+
+    public function updateDetails($strfrac, $id){
+        $str = 'UPDATE hospital SET ' . $strfrac . ' WHERE id='.$id;
+        $this->db->query($str);
+    }
+
+    public function checkOldPassword($pass, $id){
+        $p = md5($pass);
+
+        $str = 'SELECT id FROM admin WHERE id=? AND password=?';
+        return $this->db->query($str, array($id, $p))->num_rows();
+    }
+
+    public function updatePassword($oldpass, $newpass, $id){
+        if($this->checkOldPassword($oldpass, $id) > 0){
+            $p = md5($newpass);
+            $str = 'UPDATE admin SET password = ? WHERE id = ?';
+            $this->db->query($str, array($p, $id));
+            return 1;   
+        } else
+            return -1;
+    }
+
     /**
      * ----------------------------------------- Inventory
      */

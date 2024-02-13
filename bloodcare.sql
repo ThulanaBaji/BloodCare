@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2024 at 06:13 AM
+-- Generation Time: Feb 13, 2024 at 07:21 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -68,7 +68,7 @@ INSERT INTO `appointmentslot` (`id`, `hospital_id`, `datetime`, `duration`, `sta
 (705, 101, 1706322600000, 18000000, 'vacant', 'Alpha Seorge cancelled the appointment'),
 (706, 101, 1706927400000, 18000000, 'vacant', NULL),
 (707, 101, 1707532200000, 18000000, 'vacant', NULL),
-(708, 101, 1708137000000, 18000000, 'reserved', NULL),
+(708, 101, 1708137000000, 18000000, 'donated', NULL),
 (709, 101, 1708741800000, 18000000, 'vacant', NULL),
 (710, 101, 1709346600000, 18000000, 'vacant', NULL),
 (711, 101, 1704526200000, 18000000, 'vacant', NULL),
@@ -117,6 +117,7 @@ CREATE TABLE `bloodcamp` (
   `location_address` varchar(400) NOT NULL,
   `max_seats` int(11) NOT NULL,
   `message` varchar(1000) DEFAULT NULL,
+  `admin_id` int(11) NOT NULL,
   `status` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -124,10 +125,10 @@ CREATE TABLE `bloodcamp` (
 -- Dumping data for table `bloodcamp`
 --
 
-INSERT INTO `bloodcamp` (`id`, `name`, `profile`, `organizer`, `hospital_id`, `start_datetime`, `duration`, `location_pin`, `location_district`, `location_city`, `location_address`, `max_seats`, `message`, `status`) VALUES
-(1, 'Vivekananda blood camp', '1704351491Blood-Donation-Camp.jpg', 'Vivekananda college of Engineering', 101, 1728100200000, 30600000, 'https://maps.app.goo.gl/XdJKfBJg5Dp9A6JS9', 'Puttur', 'Nahru Nagar', 'Sri Rama hall, Vivekananda College, Nahru Nagar, Puttur.', 1000, NULL, 'vacant'),
-(2, 'Vijithayapa 23rd', 'default.svg', 'Vijijthayapa', 101, 1733398620000, 30600000, 'https://maps.app.goo.gl/XdJKfBJg5Dp9A6JS9', 'Colombo', 'Colombo 10', 'Norris Canal Road', 500, '', 'vacant'),
-(3, 'Gold Seas 3rd consecutive', '1707021830453.png', 'Gold sea company', 101, 1707017400000, 36000000, 'https://maps.app.goo.gl/XdJKfBJg5Dp9A6JS9', 'Colombo', 'Papiliyana', 'No 44/4, De Fonseka Rd, Bambalapitiya.', 1000, '', 'vacant');
+INSERT INTO `bloodcamp` (`id`, `name`, `profile`, `organizer`, `hospital_id`, `start_datetime`, `duration`, `location_pin`, `location_district`, `location_city`, `location_address`, `max_seats`, `message`, `admin_id`, `status`) VALUES
+(1, 'Vivekananda blood camp', '1704351491Blood-Donation-Camp.jpg', 'Vivekananda college of Engineering', 101, 1728100200000, 30600000, 'https://maps.app.goo.gl/XdJKfBJg5Dp9A6JS9', 'Puttur', 'Nahru Nagar', 'Sri Rama hall, Vivekananda College, Nahru Nagar, Puttur.', 1000, 'ds', 1, 'revoked'),
+(2, 'Vijithayapa 23rd', 'default.svg', 'Vijijthayapa', 101, 1733398620000, 30600000, 'https://maps.app.goo.gl/XdJKfBJg5Dp9A6JS9', 'Colombo', 'Colombo 10', 'Norris Canal Road', 500, '', 0, 'vacant'),
+(3, 'Gold Seas 3rd consecutive', '1707021830453.png', 'Gold sea company', 101, 1707017400000, 36000000, 'https://maps.app.goo.gl/XdJKfBJg5Dp9A6JS9', 'Colombo', 'Papiliyana', 'No 44/4, De Fonseka Rd, Bambalapitiya.', 1000, '', 0, 'vacant');
 
 -- --------------------------------------------------------
 
@@ -150,7 +151,15 @@ INSERT INTO `bloodcamp_donor` (`bloodcamp_id`, `donor_id`, `id`, `status`) VALUE
 (1, 1000, 1, 'donated'),
 (1, 1005, 2, 'quit'),
 (1, 1002, 3, 'quit'),
-(2, 1005, 4, 'donated');
+(2, 1005, 4, 'donated'),
+(1, 1004, 5, 'joined'),
+(2, 1004, 6, 'joined'),
+(1, 1003, 7, 'joined'),
+(2, 1003, 8, 'joined'),
+(1, 1001, 9, 'joined'),
+(2, 1001, 10, 'joined'),
+(1, 1006, 11, 'joined'),
+(2, 1006, 12, 'joined');
 
 -- --------------------------------------------------------
 
@@ -250,7 +259,7 @@ CREATE TABLE `donor_donation` (
 --
 
 INSERT INTO `donor_donation` (`id`, `reference`, `donor_id`, `donation_medium`, `hospital_id`, `donated_datetime`, `processed_datetime`, `blood_type`, `blood_vol`, `status`, `message`) VALUES
-(3, 'SN4567NJ', 1000, 'vivekanada blood camp', 101, 1707236992000, 1707245516000, 'ap', 500, 'processed', NULL),
+(3, 'SN4567NJ', 1000, 'vivekanada blood camp', 101, 1705564980000, 1705564980000, 'ap', 500, 'processing', NULL),
 (5, 'SN345FGH', 1005, 'Vijithayapa 23rd', 101, 1707238648000, 1707246842000, 'bp', 470, 'rejected', 'Donor blood contains possible disfunctioning red blood cells'),
 (6, 'ADF4567G', 1001, 'Through appointment', 101, 1707391830000, 1707391880000, 'bn', 500, 'processed', NULL);
 
@@ -276,16 +285,19 @@ CREATE TABLE `hospital` (
   `create_time` timestamp NULL DEFAULT current_timestamp(),
   `verification` varchar(32) NOT NULL,
   `expire` int(10) NOT NULL,
-  `status` varchar(45) NOT NULL
+  `status` varchar(45) NOT NULL,
+  `responsed_datetime` bigint(20) NOT NULL,
+  `responsed_admin` int(11) NOT NULL,
+  `message` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `hospital`
 --
 
-INSERT INTO `hospital` (`id`, `regnumber`, `name`, `profile`, `email`, `zipcode`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `create_time`, `verification`, `expire`, `status`) VALUES
-(100, 'LK0010N00005', 'Asiri Hospital', '1701353336asiri.png', 'thulanabaji@gmail.com', 10600, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94114665500', 'd0abeba5dd236379e84d75d21a53294d', '2023-11-29 18:30:00', '939f2202fed2688e08b76372db02b752', 0, 'verified'),
-(101, 'LK0338N00000', 'Durdans Hospital', '1705383402656.jpg', 'thulanactf@gmail.com', 82401, 'Norris Canal Cross Road', 'Mahaunava', 'Colombo', 'Western province', '0112140001', 'b76ad8b2ed9b9c2f67202e16c76f06d2', '2023-11-29 18:30:00', '9f2baa2c76a82e5e975a5497e7d38f1a', 0, 'verified');
+INSERT INTO `hospital` (`id`, `regnumber`, `name`, `profile`, `email`, `zipcode`, `street_address`, `city`, `district`, `province`, `contact`, `password`, `create_time`, `verification`, `expire`, `status`, `responsed_datetime`, `responsed_admin`, `message`) VALUES
+(100, 'LK0010N00005', 'Asiri Hospital', '1701353336asiri.png', 'thulanabaji@gmail.com', 10600, 'Norris Canal Road', 'Colombo 10', 'Colombo', 'Western province', '+94114665500', 'd0abeba5dd236379e84d75d21a53294d', '2023-11-29 18:30:00', '939f2202fed2688e08b76372db02b752', 0, 'accepted', 1707676101000, 1, ''),
+(101, 'LK0338N00000', 'Durdans Hospital', '1705383402656.jpg', 'thulanactf@gmail.com', 82401, 'Norris Canal Cross Road', 'Mahaunava', 'Colombo', 'Western province', '0112140001', 'b76ad8b2ed9b9c2f67202e16c76f06d2', '2023-11-29 18:30:00', 'e8769ec82094a92794e497cca36a3783', 0, 'verified', 1707677229000, 0, '');
 
 -- --------------------------------------------------------
 
@@ -317,9 +329,12 @@ CREATE TABLE `hospital_request` (
   `id` int(11) NOT NULL,
   `hospital_id` int(11) NOT NULL,
   `request` text NOT NULL,
+  `total` int(11) NOT NULL,
   `priority` varchar(30) NOT NULL,
   `request_datetime` bigint(20) NOT NULL,
   `responsed_datetime` bigint(20) DEFAULT NULL,
+  `admin_id` int(11) NOT NULL,
+  `message` text NOT NULL,
   `reference` varchar(30) NOT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -328,10 +343,58 @@ CREATE TABLE `hospital_request` (
 -- Dumping data for table `hospital_request`
 --
 
-INSERT INTO `hospital_request` (`id`, `hospital_id`, `request`, `priority`, `request_datetime`, `responsed_datetime`, `reference`, `status`) VALUES
-(3, 101, '{\"op\":\"200\",\"on\":\"1040\"}', 'normal', 1707361721000, 1707361721000, 'DM8SHWWMVZ', 'accepted'),
-(4, 101, '{\"ap\":\"200\",\"an\":\"1040\"}', 'urgent', 1707361798000, NULL, 'DMBZ3AYO9V', 'pending'),
-(5, 101, '{\"op\":\"1040\",\"on\":\"2080\",\"ap\":\"1040\"}', 'normal', 1707363818000, 1707364070000, 'DMRWZ3NIS0', 'cancelled');
+INSERT INTO `hospital_request` (`id`, `hospital_id`, `request`, `total`, `priority`, `request_datetime`, `responsed_datetime`, `admin_id`, `message`, `reference`, `status`) VALUES
+(3, 101, '{\"op\":\"200\",\"on\":\"1040\"}', 1240, 'normal', 1707361721000, 1707361721000, 1, '', 'DM8SHWWMVZ', 'accepted'),
+(4, 101, '{\"ap\":\"200\",\"an\":\"1040\"}', 1240, 'urgent', 1707361798000, 1707719281000, 1, 'Insufficient blood storage', 'DMBZ3AYO9V', 'pending'),
+(5, 101, '{\"op\":\"1040\",\"on\":\"2080\",\"ap\":\"1040\"}', 4160, 'normal', 1707363818000, 1707364070000, 1, '', 'DMRWZ3NIS0', 'cancelled');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inventory`
+--
+
+CREATE TABLE `inventory` (
+  `id` int(11) NOT NULL,
+  `reference` varchar(30) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `tran_bloods` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`tran_bloods`)),
+  `tran_total` int(11) NOT NULL,
+  `bloods` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`bloods`)),
+  `total` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`id`, `reference`, `type`, `tran_bloods`, `tran_total`, `bloods`, `total`, `admin_id`, `create_time`) VALUES
+(1, 'IVY641NOF', 'inflow', '{\"op\":\"20000\"}', 20000, '{\"op\":20000,\"on\":\"0\",\"ap\":\"0\",\"an\":\"0\",\"bp\":\"0\",\"bn\":\"0\",\"abp\":\"0\",\"abn\":\"0\"}', 20000, 1, '2024-02-13 04:54:26'),
+(2, 'O1DGXCRZ4', 'outflow', '{\"op\":\"10000\"}', 10000, '{\"op\":10000,\"on\":\"0\",\"ap\":\"0\",\"an\":\"0\",\"bp\":\"0\",\"bn\":\"0\",\"abp\":\"0\",\"abn\":\"0\"}', 10000, 1, '2024-02-13 05:02:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inventory_desired`
+--
+
+CREATE TABLE `inventory_desired` (
+  `id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `bloods` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`bloods`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inventory_desired`
+--
+
+INSERT INTO `inventory_desired` (`id`, `admin_id`, `create_time`, `bloods`) VALUES
+(1, 1, '2024-02-13 04:01:05', '{\"ap\":\"3\",\"an\":\"2\",\"bp\":\"5\",\"bn\":\"16\",\"abp\":\"10\",\"abn\":\"13\",\"op\":\"15\",\"on\":\"18\"}'),
+(2, 1, '2024-02-13 04:09:31', '{\"ap\":\"3\",\"an\":\"2\",\"bp\":\"5\",\"bn\":\"3\",\"abp\":\"10\",\"abn\":\"13\",\"op\":\"15\",\"on\":\"18\"}'),
+(3, 1, '2024-02-13 05:38:23', '{\"ap\":\"\",\"an\":\"\",\"bp\":\"\",\"bn\":\"\",\"abp\":\"\",\"abn\":\"\",\"op\":\"10000\",\"on\":\"\"}');
 
 -- --------------------------------------------------------
 
@@ -474,6 +537,18 @@ ALTER TABLE `hospital_request`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `inventory`
+--
+ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inventory_desired`
+--
+ALTER TABLE `inventory_desired`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `notification`
 --
 ALTER TABLE `notification`
@@ -521,7 +596,7 @@ ALTER TABLE `bloodcamp`
 -- AUTO_INCREMENT for table `bloodcamp_donor`
 --
 ALTER TABLE `bloodcamp_donor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `donor`
@@ -564,6 +639,18 @@ ALTER TABLE `hospital_configure`
 --
 ALTER TABLE `hospital_request`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `inventory_desired`
+--
+ALTER TABLE `inventory_desired`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `notification`

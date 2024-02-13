@@ -13,6 +13,74 @@ class admin_model extends CI_Model
         $result = $this->db->query($query_str, $id);
         return $result->row();
     }
+    /**
+     * ----------------------------------------- Inventory
+     */
+
+    public function getInventory(){
+        return $this->db->select('*')->get('inventory')->result_array();
+    }
+
+    public function getBloods(){
+        $str = 'SELECT bloods, total FROM inventory ORDER BY id DESC LIMIT 1';
+        $result = $this->db->query($str)->result_array();
+
+        if (count($result) == 0)
+            return array('bloods' => '{"op":"0","on":"0","ap":"0","an":"0","bp":"0","bn":"0","abp":"0","abn":"0"}', 'total' => 0);
+        return $result[0];
+    }
+
+    public function addBlood($id, $data){
+        $qd = array(
+            'id' => null,
+            'admin_id' => $id,
+            'reference' => $data['reference'],
+            'tran_bloods' => $data['tranbloodjson'],
+            'tran_total' => $data['trantotal'],
+            'bloods' => $data['bloodjson'],
+            'total' => $data['total'],
+            'type' => INVENTORY_INFLOW,
+            'create_time' => null
+        );
+
+        $this->db->insert('inventory', $qd);
+    }
+
+    public function releaseBlood($id, $data){
+        $qd = array(
+            'id' => null,
+            'admin_id' => $id,
+            'reference' => $data['reference'],
+            'tran_bloods' => $data['tranbloodjson'],
+            'tran_total' => $data['trantotal'],
+            'bloods' => $data['bloodjson'],
+            'total' => $data['total'],
+            'type' => INVENTORY_OUTFLOW,
+            'create_time' => null
+        );
+
+        $this->db->insert('inventory', $qd);
+    }
+
+    public function getLevel(){
+        $str = 'SELECT bloods FROM inventory_desired ORDER BY id DESC LIMIT 1';
+        $result = $this->db->query($str)->result_array();
+
+        if (count($result) == 0)
+            return '';
+        return $result[0]['bloods'];
+    }
+
+    public function adjustLevel($id, $json){
+        $qd = array(
+            'id' => null,
+            'admin_id' => $id,
+            'bloods' => $json,
+            'create_time' => null
+        );
+
+        $this->db->insert('inventory_desired', $qd); 
+    }
 
     /**
      * ------------------------------------------ Bloood requests

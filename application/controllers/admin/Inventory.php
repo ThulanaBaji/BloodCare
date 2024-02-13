@@ -42,6 +42,94 @@ class Inventory extends CI_Controller
         if ($error != '')
             $data['error'] = $error;
 
+        $data['desired'] = $this->admin_model->getLevel();
+        $data['bloods'] = $this->admin_model->getBloods()['bloods'];
+        $data['total'] = $this->admin_model->getBloods()['total'];
+        $data['transactions'] = $this->admin_model->getInventory();
+
         $this->load->view('admin/dashboard', $data);
+    }
+
+    public function adjust(){
+        if(!isset($_POST['token']) || $_POST['token'] != 'adjust'){
+            $this->session->set_flashdata('error', 'bad request');
+            redirect('admin/inventory');
+        }
+
+        $data = $_POST;
+        $data = array_slice($data, 1);
+        
+        $this->admin_model->adjustLevel($this->id, json_encode($data));
+        
+        $this->session->set_flashdata('success', 'Blood levels were updated');
+        redirect('admin/inventory');
+    }
+
+    public function bloodinflow(){
+        if(!isset($_POST['reference']) || empty($_POST['reference']) || !isset($_POST['bloods']) || empty($_POST['bloods'])){
+            $this->session->set_flashdata('error', 'bad request');
+            redirect('admin/inventory');
+        }
+
+        $data = $_POST;
+
+        $curdetails = $this->admin_model->getBloods();
+        $bloods = json_decode($curdetails['bloods']);
+        $trantotal = 0;
+
+
+        foreach ($data['bloods'] as $btype => $vol) {
+            $bloods->$btype += $vol;
+            $trantotal += $vol;
+        }
+
+        $data['trantotal'] = $trantotal;
+        $data['total'] = $trantotal + $curdetails['total'];
+        $data['tranbloodjson'] = json_encode($data['bloods']);
+        $data['bloodjson'] = json_encode($bloods);
+
+        $this->admin_model->addBlood($this->id, $data);
+
+        $this->session->set_flashdata('success', 'Blood volumes keyed in');
+        redirect('admin/inventory');
+    }
+
+    public function bloodoutflow(){
+        if(!isset($_POST['reference']) || empty($_POST['reference']) || !isset($_POST['bloods']) || empty($_POST['bloods'])){
+            $this->session->set_flashdata('error', 'bad request');
+            redirect('admin/inventory');
+        }
+
+        $data = $_POST;
+
+        $curdetails = $this->admin_model->getBloods();
+        $bloods = json_decode($curdetails['bloods']);
+        $trantotal = 0;
+
+        foreach ($data['bloods'] as $btype => $vol) {
+
+            if($bloods->$btype < $vol){
+                $this->session->set_flashdata('error', 'insufficient blood volume in inventory');
+                redirect('admin/inventory');
+            }
+
+            $bloods->$btype -= $vol;
+            $trantotal += $vol;
+        }
+
+        $data['trantotal'] = $trantotal;
+        $data['total'] =  $curdetails['total'] - $trantotal;
+        $data['tranbloodjson'] = json_encode($data['bloods']);
+        $data['bloodjson'] = json_encode($bloods);
+
+        $this->admin_model->releaseBlood($this->id, $data);
+
+        
+        $this->session->set_flashdata('success', 'Released blood volumes keyed in');
+        redirect('admin/inventory');
+    }
+
+    public function test(){
+        print_r();
     }
 }

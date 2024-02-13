@@ -2274,6 +2274,10 @@ input:checked + .toggle-bg {
   max-width: 20rem;
 }
 
+.max-w-lg {
+  max-width: 32rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -3080,10 +3084,6 @@ input:checked + .toggle-bg {
   background-color: rgb(252 233 106 / var(--tw-bg-opacity));
 }
 
-.bg-opacity-30 {
-  --tw-bg-opacity: 0.3;
-}
-
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -3538,10 +3538,6 @@ input:checked + .toggle-bg {
   padding-top: 2rem;
 }
 
-.pe-3 {
-  padding-inline-end: 0.75rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -3777,10 +3773,6 @@ input:checked + .toggle-bg {
   text-decoration-line: underline;
 }
 
-.line-through {
-  text-decoration-line: line-through;
-}
-
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -3792,10 +3784,6 @@ input:checked + .toggle-bg {
 
 .opacity-100 {
   opacity: 1;
-}
-
-.opacity-40 {
-  opacity: 0.4;
 }
 
 .shadow {
@@ -4846,12 +4834,12 @@ input:checked + .toggle-bg {
     position: fixed;
   }
 
-  .xl\:top-10 {
-    top: 2.5rem;
-  }
-
   .xl\:right-10 {
     right: 2.5rem;
+  }
+
+  .xl\:top-10 {
+    top: 2.5rem;
   }
 
   .xl\:mt-0 {

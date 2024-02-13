@@ -139,3 +139,6 @@ defined('HOSPITAL_PENDING')   or define('HOSPITAL_PENDING', 'pending');
 defined('HOSPITAL_VERIFIED')  or define('HOSPITAL_VERIFIED', 'verified');
 defined('HOSPITAL_ACCEPTED')  or define('HOSPITAL_ACCEPTED', 'accepted');
 defined('HOSPITAL_REVOKED')   or define('HOSPITAL_REVOKED', 'revoked');
+
+defined('INVENTORY_INFLOW')   or define('INVENTORY_INFLOW', 'inflow');
+defined('INVENTORY_OUTFLOW')  or define('INVENTORY_OUTFLOW', 'outflow');

@@ -45,7 +45,10 @@ class admin_model extends CI_Model
      */
 
     public function getInventory(){
-        return $this->db->select('*')->order_by('create_time', 'DESC')->get('inventory')->result_array();
+        $str = 'SELECT inventory.*, admin.name, admin.email FROM inventory
+                INNER JOIN admin on inventory.admin_id = admin.id
+                ORDER BY create_time DESC';
+        return $this->db->query($str)->result_array();
     }
 
     public function getBloods(){
@@ -114,8 +117,9 @@ class admin_model extends CI_Model
      */
 
     public function getRequests(){
-        $str = 'SELECT hospital_request.*, hospital.name, hospital.regnumber, hospital.city FROM hospital_request
-                INNER JOIN hospital on hospital_request.hospital_id = hospital.id';
+        $str = 'SELECT hospital_request.*, hospital.name, hospital.regnumber, hospital.city, admin.name as aname, admin.email as aemail FROM hospital_request
+                INNER JOIN hospital on hospital_request.hospital_id = hospital.id
+                INNER JOIN admin on hospital_request.admin_id = admin.id';
         return $this->db->query($str)->result_array();
     }
 

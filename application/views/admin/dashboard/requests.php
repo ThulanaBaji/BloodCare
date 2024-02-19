@@ -139,6 +139,7 @@
                                 <p class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500 pt-3">Requested by <a class="text-gray-500 p-1 underline rounded" href="<?= base_url('admin/hospitalverification/?search='.$req['regnumber']) ?>"><?= $req['name'].', '.$req['city'] ?></a></p>
                                 <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Requested on <?= date("F jS\, Y", substr($req['request_datetime'], 0, -3)) ?></time>
                                 <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"><?= $req['status'].' on '.date("F jS\, Y", substr($req['responsed_datetime'], 0, -3)) ?></time>
+                                <?php if($req['status'] == REQUEST_REJECTED): ?> <p class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500 pt-3">Rejected by <a class="text-gray-500 p-1 underline rounded" href="<?= 'mailto:'.$req['aemail'] ?>"><?= $req['aname'] ?></a></p> <?php endif; ?>
                             </div>
                             <button class="h-[94px] w-[94px] group hover:bg-black/5 rounded-lg flex items-center self-start justify-center button-dropdown" data-target="chart-wrapper-<?= $counter ?>">
                                 <svg class="w-5 h-5 text-gray-500 transition-all" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
@@ -206,6 +207,7 @@
                                 <p class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500 pt-3">Requested by <a class="text-gray-500 p-1 underline rounded" href="<?= base_url('admin/hospitalverification/?search='.$req['regnumber']) ?>"><?= $req['name'].', '.$req['city'] ?></a></p>
                                 <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Requested on <?= date("F jS\, Y", substr($req['request_datetime'], 0, -3)) ?></time>
                                 <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Accepted on <?= date("F jS\, Y", substr($req['responsed_datetime'], 0, -3)) ?></time>
+                                <p class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500 pt-3">Accepted by <a class="text-gray-500 p-1 underline rounded" href="<?= 'mailto:'.$req['aemail'] ?>"><?= $req['aname'] ?></a></p>
                             </div>
                             <button class="h-[94px] w-[94px] group hover:bg-black/5 rounded-lg flex items-center self-start justify-center button-dropdown" data-target="chart-wrapper-<?= $counter ?>">
                                 <svg class="w-5 h-5 text-gray-500 transition-all" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">

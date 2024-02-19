@@ -91,7 +91,7 @@
                                     <p class="reference text-md font-bold text-gray-600"><?= $t['reference'] ?></p>
                                     <p class="priority-level text-sm font-bold text-red-950 rounded p-1 px-2 bg-red-200"><?= $t['type'] ?></p>
                                 </span>
-                                <p class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500 pt-3">Keyed by <a class="text-gray-500 p-1 underline rounded" href="mailto:<?= $email ?>"><?= $name ?></a></p>
+                                <p class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500 pt-3">Keyed by <a class="text-gray-500 p-1 underline rounded" href="mailto:<?= $t['email'] ?>"><?= $t['name'] ?></a></p>
                                 <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Occurred on <?= date("F j\, Y", strtotime($t['create_time'])) ?></time>
                             
                             </div>
@@ -578,7 +578,7 @@ console.log(desiredbloods);
         });
 
         selectElem += '</select>';
-        var row = $('<tr><td>'+ selectElem +'</td><td><input onkeypress="key(this)" id="new-bloodvol" type="text" class="border bg-white rounded mt-3 p-2 w-24"></td><td><button onclick="confirmItem(this)" data-target="' + target + '" class="inline-flex items-center p-2 text-sm font-medium text-center hover:text-green-800 hover:bg-gray-100 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button"><svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4.7 4.5 9.3-9"/></svg></button></td></tr>'); //create row
+        var row = $('<tr><td>'+ selectElem +'</td><td><input onkeypress="key(this)" id="new-bloodvol" type="num" class="border bg-white rounded mt-3 p-2 w-24"></td><td><button onclick="confirmItem(this)" data-target="' + target + '" class="inline-flex items-center p-2 text-sm font-medium text-center hover:text-green-800 hover:bg-gray-100 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button"><svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 12 4.7 4.5 9.3-9"/></svg></button></td></tr>'); //create row
 
         $('#bloods-body.' + target).append(row);
         $(e).attr('disabled', 'disabled');

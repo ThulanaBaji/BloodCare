@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <link rel="stylesheet" href="<?php echo base_url().'assets/css/styles.css';?>">
 		<script src="<?php echo base_url().'assets/js/jquery-3.7.0.js' ?>"></script>
         
-		<title>Hospital | Dashboard</title>
+		<title>Hospital | <?= strrpos($view, '/') != null ? ucfirst( substr($view, strrpos($view, '/') + 1)) : ucfirst($view) ?></title>
 
         <style>
             .active-nav-item {

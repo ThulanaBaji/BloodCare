@@ -24,7 +24,7 @@ if (!function_exists('loadAppointments'))
                     $byDates[$date] = array($row);
                     echo 
                     <<<BC
-                    <div class="p-5 pl-8 mb-4 border border-gray-100 rounded-lg">
+                    <div class="p-5 pl-8 mb-4 border bg-gray-50 rounded-lg">
                             <time class="text-md font-semibold text-gray-600 uppercase">$date</time>
                               <ol class="mt-6 relative border-s border-gray-200">
 BC;
@@ -34,7 +34,7 @@ BC;
                     echo
                     <<<BC
                         </ol></div>
-                        <div class="p-5 pl-8 mb-4 border border-gray-100 rounded-lg">
+                        <div class="p-5 pl-8 mb-4 border bg-gray-50 rounded-lg">
                             <time class="text-md font-semibold text-gray-600 uppercase">$date</time>
                               <ol class="mt-6 relative border-s border-gray-200">
 BC;

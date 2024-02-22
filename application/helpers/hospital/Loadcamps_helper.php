@@ -24,6 +24,7 @@ if (!function_exists('loadCamps')) {
             $duration = $row['duration'];
             $maxseats = $row['max_seats'];
             $message = $row['message'];
+            $profile = $row['profile'];
 
             $border = ($row['status'] == CAMP_CANCELLED || $row['status'] == CAMP_REVOKED ) ? 'border-red-400' : '';
             $label = ($row['status'] == CAMP_CANCELLED || $row['status'] == CAMP_REVOKED )  ?
@@ -52,7 +53,7 @@ if (!function_exists('loadCamps')) {
             echo <<<BC
 
             <div class="p-1 pl-4 mb-3 rounded-xl border $border max-w-xl bg-gray-50 relative camp">
-            <span class="hidden dataset" data-profile="default.svg"
+            <span class="hidden dataset" data-profile="$profile"
             data-name="$name" data-organizer="$organizer" 
             data-address="$address" data-city="$city" data-district="$district" data-pin="$pin" 
             data-datetime="$datetime" data-duration="$duration" data-maxseats="$maxseats"></span>

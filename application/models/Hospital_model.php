@@ -349,9 +349,9 @@ class hospital_model extends CI_Model {
                         (`appointmentslot` 
                         INNER JOIN donor_appointment ON donor_appointment.appointmentslot_id = appointmentslot.id) 
                         INNER JOIN donor ON donor.id = donor_appointment.donor_id ) 
-                       WHERE appointmentslot.hospital_id = ? AND appointmentslot.datetime >= ? AND appointmentslot.datetime <= ? AND appointmentslot.status != ? AND donor_appointment.status != ?
+                       WHERE appointmentslot.hospital_id = ? AND appointmentslot.datetime >= ? AND appointmentslot.datetime <= ? AND appointmentslot.status != ? AND appointmentslot.status != ? AND donor_appointment.status != ?
                        ORDER BY starttime;';
-        $result = $this->db->query($query_str, array($id, $from, $to, APPOINTMENT_VACANT, DONATION_DONATED));
+        $result = $this->db->query($query_str, array($id, $from, $to, APPOINTMENT_VACANT, APPOINTMENT_REJECTED, DONATION_DONATED));
 
         return $result->result_array();
     }

@@ -418,7 +418,8 @@
         hours = hours < 10 ? hours == 0 ? '00' : '0' + hours : hours;
         minutes = minutes < 10 ? minutes == 0 ? '00' : '0' + minutes : minutes;
 
-        $('img#profilepreview.edit').attr('src', '<?= base_url() ?>uploads/camp/profileimages/' + arr.profile);
+        $('#edit-profilepreview').attr('src', '<?= base_url() ?>uploads/camp/profileimages/' + arr.profile);
+        console.log(arr.profile);
         $('#edit-name').val(arr.name);
         $('#edit-organizer').val(arr.organizer);
         $('#edit-pin').val(arr.pin);

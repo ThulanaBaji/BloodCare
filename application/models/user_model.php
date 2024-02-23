@@ -116,11 +116,10 @@ class user_model extends CI_Model{
      *  1: user exist, returns array(...)
     */
     public function authenticate($data){
-        $query_str = "SELECT id, 'admin' as role FROM admin WHERE email = ? AND password = ?
-                      UNION SELECT id, 'donor' as role FROM donor WHERE email = ? AND password = ?
+        $query_str = "SELECT id, 'donor' as role FROM donor WHERE email = ? AND password = ?
                       UNION SELECT id, 'hospital' as role FROM hospital WHERE email = ? AND password = ?";
         $p = md5($data['password']);
-        $result = $this->db->query($query_str, array($data['email'], $p, $data['email'], $p, $data['email'], $p));
+        $result = $this->db->query($query_str, array($data['email'], $p, $data['email'], $p));
         $query_row = $result->row();
 
         if($result->num_rows() != 0){
@@ -148,4 +147,20 @@ class user_model extends CI_Model{
         $query_row->code = 0;
         return $query_row;
     }
+
+   public function authenticate_admin($data){
+      $query_str = "SELECT id, 'admin' as role FROM admin WHERE email = ? AND password = ?";
+      $p = md5($data['password']);
+      $result = $this->db->query($query_str, array($data['email'], $p));
+      $query_row = $result->row();
+      
+      if($result->num_rows() != 0){
+            $query_row->code = 1;
+            return $query_row;
+        }
+
+        $query_row = new stdClass();
+        $query_row->code = 0;
+        return $query_row;
+   }
 }

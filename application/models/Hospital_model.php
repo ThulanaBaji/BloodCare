@@ -12,6 +12,10 @@ class hospital_model extends CI_Model {
         return $result->row();
     }
 
+    public function getWaitingData($id){
+      return $this->db->select('*')->where('id', $id)->get('hospital')->row_array();
+    }
+
     /**
      * ---------------------------------------------- Dashboard
      */

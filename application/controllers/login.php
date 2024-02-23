@@ -56,6 +56,9 @@ class Login extends CI_Controller {
 							'role' => $result->role
 						);
 
+                  if ($result->role == 'hospital')
+                     $userinfo['status'] = 'accepted';
+
 						$this->session->set_userdata('user', $userinfo);
 						redirect($result->role.'/dashboard');
 						return;
@@ -63,7 +66,8 @@ class Login extends CI_Controller {
 					case -1:
 						$userinfo = array(
 							'id'=> $result->id,
-							'role' => $result->role
+							'role' => $result->role,
+       'status' => 'not accepted'
 						);
 						
 						$this->session->set_userdata('user', $userinfo);
@@ -94,15 +98,10 @@ class Login extends CI_Controller {
 
 		if (isset($_POST['email'])) {
 			if ($this->form_validation->run() == TRUE) {
-				$result = $this->user_model->authenticate($_POST);
+				$result = $this->user_model->authenticate_admin($_POST);
 
 				if($result->code == 0){
 					$data = array('error' => 'Check your email or password again');
-				}
-
-				else if($result->role != 'admin'){
-					$this->session->set_flashdata('error', 'Please use this login page');
-					redirect('login');
 				}
 
 				else if($result->code == 1){

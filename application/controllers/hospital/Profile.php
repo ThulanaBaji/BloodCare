@@ -3,6 +3,7 @@
 class Profile extends CI_Controller
 {
     private $id;
+   private $status;
     private $role = 'hospital';
 
     public function __construct()
@@ -20,6 +21,7 @@ class Profile extends CI_Controller
             show_404();
 
         $this->id = $this->session->userdata('user')['id'];
+        $this->status = $this->session->userdata('user')['status'];
 
         $this->load->database();
         $this->load->model('hospital_model');
@@ -40,6 +42,13 @@ class Profile extends CI_Controller
 			$data['success'] = $success;
 		if($error != '')
 			$data ['error'] = $error;
+
+         if($this->status == 'not accepted'){
+            $data['active'] = '2';
+
+            $this->load->view('hospital/waitingdashboard', $data);
+            return;
+         }
 
         $this->load->view('hospital/dashboard', $data);
     }

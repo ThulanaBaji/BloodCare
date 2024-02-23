@@ -3,6 +3,7 @@
 class Dashboard extends CI_Controller 
 {
     private $id;
+    private $status;
     private $role = 'hospital';
 
     public function __construct(){
@@ -19,6 +20,7 @@ class Dashboard extends CI_Controller
             show_404();
 
         $this->id = $this->session->userdata('user')['id'];
+        $this->status = $this->session->userdata('user')['status'];
 
 		$this->load->database();
 		$this->load->model('hospital_model');
@@ -27,6 +29,18 @@ class Dashboard extends CI_Controller
     public function index(){
         
         $data['active'] = '1';
+
+        if($this->status == 'not accepted'){
+            $data['view'] = 'hospital/dashboard/waiting';
+            $res = $this->hospital_model->getInfo($this->id);
+            foreach ($res as $key => $value)
+               $data[$key] = $value;
+
+         $data['h'] = $this->hospital_model->getWaitingData($this->id);
+            $this->load->view('hospital/waitingdashboard', $data);
+            return;
+         }
+
         $data['view'] = 'hospital/dashboard/dashboard';
 
         $res = $this->hospital_model->getInfo($this->id);

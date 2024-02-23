@@ -1,8 +1,11 @@
 <div class="sm:p-3 pt-6 md:p-6 flex flex-col h-full relative items-center">
    
    <div class="w-full max-w-sm sm:max-w-3xl">
-      <div class="w-full text-center py-8 pb-8 font-bold">
+      <div class="w-full text-center pt-8 font-bold">
       Your application is currently being reviewed.
+      </div>
+      <div class="w-full text-center text-sm pt-2 pb-8 ">
+      It will take 3 working days maximum. Please contact <a href="mailto:bloodcarelk@gmail.com" class="underline">BloodCare</a> if your account was not reviewed.
       </div>
    <div class="relative w-full pt-8 overflow-x-auto sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

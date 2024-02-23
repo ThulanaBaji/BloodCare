@@ -16,6 +16,10 @@ class hospital_model extends CI_Model {
       return $this->db->select('*')->where('id', $id)->get('hospital')->row_array();
     }
 
+    public function getRevokedData($id){
+      return $this->db->select('responsed_datetime, message')->where('id', $id)->get('hospital')->row_array();
+    }
+
     /**
      * ---------------------------------------------- Dashboard
      */

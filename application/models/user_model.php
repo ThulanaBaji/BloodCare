@@ -14,7 +14,7 @@ class user_model extends CI_Model{
     }
 
     /* check if a hospital already exists
-     *
+     * -4: revoked
      * -3: not verified, verification link expired
      * -2: not verified, verification link persists
      * -1: not accepted
@@ -40,6 +40,8 @@ class user_model extends CI_Model{
                 return -1;
             elseif($status == 'accepted')
                 return 1;
+            elseif($status == 'revoked')
+                return -4;
         }
         return 0;
     }
@@ -116,8 +118,8 @@ class user_model extends CI_Model{
      *  1: user exist, returns array(...)
     */
     public function authenticate($data){
-        $query_str = "SELECT id, 'donor' as role FROM donor WHERE email = ? AND password = ?
-                      UNION SELECT id, 'hospital' as role FROM hospital WHERE email = ? AND password = ?";
+        $query_str = "SELECT id, 'donor' as role, '' as message FROM donor WHERE email = ? AND password = ?
+                      UNION SELECT id, 'hospital' as role, message FROM hospital WHERE email = ? AND password = ?";
         $p = md5($data['password']);
         $result = $this->db->query($query_str, array($data['email'], $p, $data['email'], $p));
         $query_row = $result->row();
@@ -126,16 +128,6 @@ class user_model extends CI_Model{
             if($query_row->role == 'hospital'){
                 $resultHos = $this->getHospitalState($data['email']); //not return 0
                 $query_row->code = $resultHos;
-
-                if($resultHos == 1){
-                    $query_row->accepted = true;
-                    return $query_row;
-                }
-                elseif($resultHos == -1){
-                    $query_row->accepted = false;
-                    return $query_row;
-                }
-
                 return $query_row;
             }
 

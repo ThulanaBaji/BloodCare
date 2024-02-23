@@ -14,7 +14,7 @@ class Notifications extends CI_Controller {
             redirect('login');
         }
 
-        if($this->session->userdata('user')['role'] != $this->role  || $this->session->userdata('user')['status'] == 'not accepted')
+        if($this->session->userdata('user')['role'] != $this->role  || $this->session->userdata('user')['status'] != 'accepted')
             show_404();
 
         $this->id = $this->session->userdata('user')['id'];

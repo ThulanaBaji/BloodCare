@@ -73,6 +73,17 @@ class Login extends CI_Controller {
 						$this->session->set_userdata('user', $userinfo);
 						redirect($result->role.'/dashboard');
 						return;
+               
+               case -4:
+						$userinfo = array(
+							'id'=> $result->id,
+							'role' => $result->role,
+       'status' => 'revoked'
+						);
+						
+						$this->session->set_userdata('user', $userinfo);
+						redirect($result->role.'/dashboard');
+						return;
 				}
         	}
 		}

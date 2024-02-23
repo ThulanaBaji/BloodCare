@@ -41,6 +41,17 @@ class Dashboard extends CI_Controller
             return;
          }
 
+         if($this->status == 'revoked'){
+            $data['view'] = 'hospital/dashboard/revoked';
+            $res = $this->hospital_model->getInfo($this->id);
+            foreach ($res as $key => $value)
+               $data[$key] = $value;
+
+            $data['revoke'] = $this->hospital_model->getRevokedData($this->id);
+            $this->load->view('hospital/waitingdashboard', $data);
+            return;
+         }
+
         $data['view'] = 'hospital/dashboard/dashboard';
 
         $res = $this->hospital_model->getInfo($this->id);

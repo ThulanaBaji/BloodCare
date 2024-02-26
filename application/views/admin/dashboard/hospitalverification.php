@@ -37,7 +37,7 @@
         
     </div>
 
-    <div class="mt-8 sm:mt-14 flex flex-col max-w-5xl w-full">
+    <div class="mt-8 sm:mt-14 flex flex-col max-w-6xl w-full">
     <?php 
         function time_elapsed_string($datetime, $full = false) {
             $now = new DateTime;
@@ -73,22 +73,25 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Name
+                           Name
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Registration
+                           Registration
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Contact
+                           Contact
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Address
+                           Address
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Status
+                           Status
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Action
+                           Documents
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                           Action
                         </th>
                     </tr>
                 </thead>
@@ -153,13 +156,20 @@
                                 <?php endif; ?>
                             </div>
                         </td>
+                        <td class="px-6 py-4">
+                           <?php if($h['status'] != HOSPITAL_PENDING): ?>
+                              <a href="<?= base_url('uploads/hospital/documents/'.$h['reg_cert']) ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Registration certificate</a>
+                              <a href="<?= base_url('uploads/hospital/documents/'.$h['reg_board']) ?>" class="my-2 block font-medium text-blue-600 dark:text-blue-500 hover:underline">Registration board</a>
+                              <a href="<?= base_url('uploads/hospital/documents/'.$h['part_agreement']) ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Partnership agreement</a>
+                           <?php endif; ?>
+                        </td>
                         <td class="px-6 py-4 w-40">
                             <?php switch($h['status']){
                                 case HOSPITAL_PENDING: ?>
                                     <a href="<?= base_url('admin/hospitalverification/sendVerification/'.$h['email']) ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Send verification</a>
                                 <?php break; case HOSPITAL_VERIFIED: ?>
                                     <button onclick="accepthospital(this)" data-id="<?= $h['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Accept</button>
-                                    <button onclick="showModal(this)" data-modal="revokeModal" data-profile="<?= $h['profile'] ?>" data-name="<?= $h['name'] ?>" data-regnumber="<?= $h['regnumber'] ?>" data-id="<?= $h['id'] ?>" class="font-medium ml-3 text-blue-600 dark:text-blue-500 hover:underline">Revoke</button>
+                                    <br><button onclick="showModal(this)" data-modal="revokeModal" data-profile="<?= $h['profile'] ?>" data-name="<?= $h['name'] ?>" data-regnumber="<?= $h['regnumber'] ?>" data-id="<?= $h['id'] ?>" class="font-medium ml-3 text-blue-600 dark:text-blue-500 hover:underline">Revoke</button>
                                 <?php break; case HOSPITAL_ACCEPTED: ?>
                                     <button onclick="showModal(this)" data-modal="revokeModal" data-profile="<?= $h['profile'] ?>" data-name="<?= $h['name'] ?>" data-regnumber="<?= $h['regnumber'] ?>" data-id="<?= $h['id'] ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Revoke</button>
                                 <?php break; case HOSPITAL_REVOKED: ?>

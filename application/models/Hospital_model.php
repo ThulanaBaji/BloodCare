@@ -267,13 +267,14 @@ class hospital_model extends CI_Model {
 
     //ongoing, cancelled-filled-vacant
     public function getCamps($id){
-        $str = 'SELECT bloodcamp.*, hospital.name as "hname", hospital.city as "hcity",
+      $str = 'SELECT bloodcamp.*, hospital.name as "hname", hospital.city as "hcity",
                        (SELECT COUNT(bloodcamp_donor.id) 
                        FROM bloodcamp_donor 
-                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status IN ("'.CAMP_JOINED.'", "'.DONATION_DONATED.'")) as "cur_seats" 
+                       WHERE bloodcamp_donor.bloodcamp_id = bloodcamp.id AND bloodcamp_donor.status IN ("' . CAMP_JOINED . '", "' . DONATION_DONATED . '")) as "cur_seats" 
                 FROM `bloodcamp` 
                 INNER JOIN hospital on bloodcamp.hospital_id = hospital.id
-                WHERE hospital_id = '.$id.' AND start_datetime + duration > '.time()*1000;
+                WHERE hospital_id = ' . $id . ' AND start_datetime + duration > ' . time() * 1000;
+      $str .= ' ORDER BY bloodcamp.start_datetime';
         $result = $this->db->query($str);
 
         return $result->result_array();

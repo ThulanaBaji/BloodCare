@@ -133,6 +133,72 @@ class Register extends CI_Controller {
 				redirect('register/hospital');
 			}
 		}
+
+      if(!empty($_FILES['part_agreement']['name'])){
+         $arr = explode('.', $_FILES['part_agreement']['name']);
+         $filename = time().strval(rand(100,999)).'.'.$arr[count($arr) - 1];
+
+         $config['upload_path'] = 'uploads/hospital/documents/';
+         $config['allowed_types'] = 'pdf';
+         $config['file_name'] = $filename;
+
+         $this->load->library('upload', $config);
+         
+         if(!$this->upload->do_upload('part_agreement')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata('error', $error['error']);
+            redirect('register/hospital');
+         }
+
+         $data['part_agreement'] = $filename; 
+      }else{
+         $this->session->set_flashdata('error', 'upload the partnership agreement');
+         redirect('register/hospital');
+      }
+
+      if(!empty($_FILES['reg_cert']['name'])){
+         $arr = explode('.', $_FILES['reg_cert']['name']);
+         $filename = time().strval(rand(100,999)).'.'.$arr[count($arr) - 1];
+
+         $config['upload_path'] = 'uploads/hospital/documents/';
+         $config['allowed_types'] = 'pdf';
+         $config['file_name'] = $filename;
+
+         $this->load->library('upload', $config);
+         
+         if(!$this->upload->do_upload('reg_cert')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata('error', $error['error']);
+            redirect('register/hospital');
+         }
+
+         $data['reg_cert'] = $filename; 
+      }else{
+         $this->session->set_flashdata('error', 'upload the registration certificate');
+         redirect('register/hospital');
+      }
+
+      if(!empty($_FILES['reg_board']['name'])){
+         $arr = explode('.', $_FILES['reg_board']['name']);
+         $filename = time().strval(rand(100,999)).'.'.$arr[count($arr) - 1];
+
+         $config['upload_path'] = 'uploads/hospital/documents/';
+         $config['allowed_types'] = 'pdf';
+         $config['file_name'] = $filename;
+
+         $this->load->library('upload', $config);
+         
+         if(!$this->upload->do_upload('reg_board')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata('error', $error['error']);
+            redirect('register/hospital');
+         }
+
+         $data['reg_board'] = $filename; 
+      }else{
+         $this->session->set_flashdata('error', 'upload the registration board');
+         redirect('register/hospital');
+      }
 			
 		$result = $this->user_model->getHospitalState($_POST['email']);
 

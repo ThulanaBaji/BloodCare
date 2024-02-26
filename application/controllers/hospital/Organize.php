@@ -30,6 +30,7 @@ class Organize extends CI_Controller
     {
         $data['active'] = '3';
         $data['view'] = 'hospital/dashboard/organize';
+        $data['success'] = 'Camp added successfully';
 
         $res = $this->hospital_model->getInfo($this->id);
         foreach ($res as $key => $value)
@@ -95,6 +96,12 @@ class Organize extends CI_Controller
         $datetime = strtotime($_POST['date']) * 1000;
         $datetime += strtotime($_POST['time']) * 1000;
         $datetime -= strtotime('today') * 1000;
+
+        if($datetime <=time()*1000){
+         $this->session->set_flashdata('error', 'Camp date cannot be a past date');
+         redirect('hospital/organize');
+        }
+
         $data['datetime'] = $datetime;
 
         $duration_arr = preg_split("/[,:\. ]/", $_POST['duration']);

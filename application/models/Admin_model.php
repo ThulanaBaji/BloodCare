@@ -157,7 +157,9 @@ class admin_model extends CI_Model
      */
 
     public function getHospitals(){
-        return $this->db->select('*')->get('hospital')->result_array();
+      $str = 'SELECT hospital.*, hospital_documents.* FROM hospital
+                 INNER JOIN hospital_documents on hospital_documents.hospital_id = hospital.id';
+        return $this->db->query($str)->result_array();
     }
 
     public function changeHospitalStatus($id, $hospital_id, $status, $message = null){

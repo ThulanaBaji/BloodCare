@@ -100,6 +100,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="text-gray-500">Credentials</div>
                         </a>
                     </li>
+
+                    <span class="h-[2px] bg-gray-400 flex-1 mt-5" step="3"></span>
+
+                    <li class="text-center" step="4">
+                        <a class="mx-2">
+                            <span class="inline-block w-[40px] h-[40px] rounded-[50%] bg-gray-400 text-white mr-0 leading-7 relative">
+                                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">4</span>
+                            </span>
+                            <div class="text-gray-500">Documents</div>
+                        </a>
+                    </li>
                 </ul>
                 
                 <div id="alerts" class="absolute top-[100px] md:top-[160px] left-1/2 -translate-x-1/2">
@@ -238,6 +249,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="mt-3 mb-5">
                             <button class="btn-navigate-form-step
                                        rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9" type="button" step_number="2">Prev</button>
+                            <button class="btn-navigate-form-step
+                                       rounded bg-red-950 text-white py-2 px-3 mt-9 ml-3 mb-5" type="button" step_number="4">Next</button>
+                        </div>
+                    </section>
+
+                    <section id="step-4" class="hidden form-step">
+                        <div class="grid grid-cols-1 mx-8">
+                            <div class="mt-3 text-sm">
+                                
+                              <label class="text-md text-gray-600 p-2" for="file_input">Upload <b>Registration Certificate</b> issued by Private Health Services Regulatory Council</label>
+                              <input accept=".pdf" required class="mt-2 block max-w-xs w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="file_input" name="reg_cert" type="file">
+
+                           </div>
+                            <div class="mt-3 text-sm">
+                            
+                              <label class="text-md text-gray-600 p-2" for="file_input_2">Upload <b>Registration Board</b> issued by Private Health Services Regulatory Council</label>
+                              <input accept=".pdf" required class="mt-2 mb-3 max-w-xs block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="file_input_2" name="reg_board" type="file">
+
+                            </div>
+
+                            <div class="mt-3 text-sm">
+                              <div class="m-2 p-3 border-blue-500 bg-blue-200 text-blue-500 text-sm max-w-sm rounded">
+                                 Download the <a href="<?= base_url('termsandconditions/Partnership Agreement Terms and Conditions 24 Feb.pdf') ?>" class="underline text-sm">partnership agreement</a>. Take a copy and sign it. Upload the scanned pdf below.
+                              </div>
+                            
+                              <label class="text-md text-gray-600 p-2" for="file_input_3">Upload Partnership agreement</label>
+                              <input accept=".pdf" required class="mt-2 mb-3 max-w-xs block w-full text-sm text-gray-600 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="file_input_3" name="part_agreement" type="file">
+
+                            </div>
+                            <div class="mt-3 text-sm flex gap-2">
+                            
+                              <input type="checkbox" name="terms" id="terms_check" required>
+                              <label class="text-md text-gray-600 p-2" for="terms_check">I have read and agreed to the <a href="<?= base_url('termsandconditions/Terms and conditions 24 Feb.pdf') ?>" class="underline">Terms and Conditions</a></label>
+                              
+                            </div>
+                        </div>
+
+                        <div class="g-recaptcha mx-8 mt-3" data-sitekey="<?php echo SITE_KEY;?>"></div>
+
+                        <div class="mt-3 mb-5">
+                            <button class="btn-navigate-form-step
+                                       rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9" type="button" step_number="3">Prev</button>
                             <button class="rounded bg-red-950 text-white py-2 px-3 ml-3 mt-9 " type="submit" id="registerButton">Register</button>
                         </div>
                     </section>

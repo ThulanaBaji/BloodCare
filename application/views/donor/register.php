@@ -253,9 +253,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     class="max-w-xs mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     value="<?php echo set_value('cpassword'); ?>">
                             </div>
+
+                            <div class="mt-3 text-sm">
+                              <input type="checkbox" name="terms" id="terms_check" required>
+                              <label class="text-md text-gray-600 p-2" for="terms_check">I have read and agreed to the <a href="<?= base_url('termsandconditions/Terms and conditions 24 Feb.pdf') ?>" class="underline">Terms and Conditions</a></label>
+                            </div>
                         </div>
 
-                        <div class="g-recaptcha" data-sitekey="<?php echo SITE_KEY;?>"></div>
+                        <div class="g-recaptcha mx-8 mt-3" data-sitekey="<?php echo SITE_KEY;?>"></div>
                         <div class="mt-3 mb-5">
                             <button class="btn-navigate-form-step
                                        rounded bg-red-950 text-white py-2 px-3 ml-8 mt-9" type="button" step_number="3">Prev</button>

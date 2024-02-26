@@ -74,6 +74,19 @@ class user_model extends CI_Model{
         $this->db->query($query_str, array(NULL, $data['regnum'], $data['name'], $data['image'], $data['email'], $data['zipcode'],
                                            $data['street'], $data['city'], $data['district'], $data['province'], 
                                            $data['contact'], md5($data['password']), $date, $key, $expire_time, HOSPITAL_PENDING));
+
+        $str = 'SELECT id FROM hospital ORDER BY id DESC LIMIT 1';
+        $id = $this->db->query($str)->result_array()[0]['id'];
+
+        $qd = array(
+            'id' => null,
+            'hospital_id' => $id,
+            'reg_cert' => $data['reg_cert'],
+            'reg_board' => $data['reg_board'],
+            'part_agreement' => $data['part_agreement']
+        );
+
+        $this->db->insert('hospital_documents', $qd);
     }
 
     /*

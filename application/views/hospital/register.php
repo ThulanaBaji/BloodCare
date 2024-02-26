@@ -270,18 +270,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
 
                             <div class="mt-3 text-sm">
-                              <div class="m-2 p-3 border-blue-500 bg-blue-200 text-blue-500 text-sm max-w-sm rounded">
+                              <div class="my-2 p-3 border-blue-500 border bg-blue-200 text-blue-700 text-sm max-w-md rounded">
                                  Download the <a href="<?= base_url('termsandconditions/Partnership Agreement Terms and Conditions 24 Feb.pdf') ?>" class="underline text-sm">partnership agreement</a>. Take a copy and sign it. Upload the scanned pdf below.
                               </div>
                             
-                              <label class="text-md text-gray-600 p-2" for="file_input_3">Upload Partnership agreement</label>
+                              <label class="text-md text-gray-600 p-2" for="file_input_3">Upload <b>Partnership agreement</b></label>
                               <input accept=".pdf" required class="mt-2 mb-3 max-w-xs block w-full text-sm text-gray-600 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="file_input_3" name="part_agreement" type="file">
 
                             </div>
                             <div class="mt-3 text-sm flex gap-2">
                             
                               <input type="checkbox" name="terms" id="terms_check" required>
-                              <label class="text-md text-gray-600 p-2" for="terms_check">I have read and agreed to the <a href="<?= base_url('termsandconditions/Terms and conditions 24 Feb.pdf') ?>" class="underline">Terms and Conditions</a></label>
+                              <label class="text-md text-gray-600" for="terms_check">I have read and agreed to the <a href="<?= base_url('termsandconditions/Terms and conditions 24 Feb.pdf') ?>" class="underline">Terms and Conditions</a></label>
                               
                             </div>
                         </div>
